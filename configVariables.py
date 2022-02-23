@@ -1,0 +1,5 @@
+db = ""
+db_history = ""
+db_light = ""
+db_image = ""
+light_database = ""
