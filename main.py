@@ -122,10 +122,19 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.database_manage.getPatientById(txt, self.dataModel)
 
         if len(self.dataModel.get_form_patient_name()) == 0:
-            self.patientWindowForm.nameLineEdit.setText("")
+            self.nameLineEdit.ex.text_box.setText("")
+            self.nameLineEdit.ex.currentTextBox.setText("")
+            self.ageLineEdit.ex.text_box.setText("")
+            self.ageLineEdit.ex.currentTextBox.setText("")
+            self.sexLineEdit.ex.text_box.setText("")
+            self.sexLineEdit.ex.currentTextBox.setText("")
         else:
             self.nameLineEdit.ex.text_box.setText(self.dataModel.get_form_patient_name())
             self.nameLineEdit.ex.currentTextBox.setText(self.dataModel.get_form_patient_name())
+            self.ageLineEdit.ex.text_box.setText(self.dataModel.get_patient_age())
+            self.ageLineEdit.ex.currentTextBox.setText(self.dataModel.get_patient_age())
+            self.sexLineEdit.ex.text_box.setText(self.dataModel.get_patient_sex())
+            self.sexLineEdit.ex.currentTextBox.setText(self.dataModel.get_patient_sex())
             print("89798 " + self.dataModel.get_form_patient_name())
             self.patientWindowForm.nameLineEdit.setText(self.dataModel.get_form_patient_name())
         # cQLineEdit(self.patientWindowForm.nameLineEdit, "89798", self.dataModel, "nameLineEdit")
@@ -222,6 +231,17 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
     # self.patientForm.exec_()
     def closePatientForm(self):
         self.patientWindow.clearFocus()
+        self.nameLineEdit.ex.text_box.clear()
+        self.nameLineEdit.ex.currentTextBox.clear()
+        self.ageLineEdit.ex.text_box.clear()
+        self.ageLineEdit.ex.currentTextBox.clear()
+        self.sexLineEdit.ex.text_box.clear()
+        self.sexLineEdit.ex.currentTextBox.clear()
+        self.patientWindowForm.patientIdLineEdit.clear()
+        self.ui.patientNameLineEdit.clear()
+        self.ui.patientIdLineEdit.clear()
+        self.showFullScreen()
+        # self.ui.patientIdLineEdit.mouseDoubleClickEvent()
         self.patientWindow.close()
         # self.ui.patientIdLineEdit.setCursor(True)
 

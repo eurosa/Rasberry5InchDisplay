@@ -6,6 +6,8 @@ from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 
 class DataBaseManagement:
     def __init__(self):
+        self.patientSex = None
+        self.patientAge = None
         self.patientName = None
 
     def init(self, filename, server):
@@ -73,12 +75,16 @@ class DataBaseManagement:
     def getPatientById(self, text, model):
         query = QSqlQuery()
         self.patientName = ""
-        print("SELECT * FROM patient_master where patient_id=" + "'" + str(text) + "'")
+        self.patientAge = ""
+        self.patientSex = ""
         query.exec_("SELECT * FROM patient_master where patient_id=" + "'" + str(text) + "'")
         while query.next():
             self.patientName = query.value('patient_name')
+            self.patientAge = query.value('patient_age')
+            self.patientSex = query.value('patient_sex')
         model.set_form_patient_name(self.patientName)
-
+        model.set_patient_age(self.patientAge)
+        model.set_patient_sex(self.patientSex)
 
     def updateSkinTempValue(self, model):
         _skin_temp = model.get_skin_temp()
