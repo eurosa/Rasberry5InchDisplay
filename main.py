@@ -68,8 +68,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.patientWindowForm.cancelToolButton.clicked.connect(self.closePatientForm)
 
         self.ui.setPointBtn.clicked.connect(self.setPointDialogBox)
-        self.setPointDialog = setPointDialog.Ui_Dialog()
-        self.setDialog = QtWidgets.QDialog()
+        self.setPointDialog = setPointDialog.Ui_setPointForm()
+        self.setDialog = QMainWindow()
         self.setPointDialog.setupUi(self.setDialog)
 
         self.setPointDialog.okBtn.clicked.connect(self.updateSetPointData)
@@ -247,11 +247,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
     def setPointDialogBox(self):
         self.getGeneralData()
-        if self.ui.setPointBtn.isChecked():
-            self.setDialog.showFullScreen()
-        else:
-            self.setDialog.hide()
-        self.setDialog.exec_()
+        self.setDialog.showFullScreen()
 
     def getGeneralData(self):
         self.database_manage.queryGeneralSettingsData(self.dataModel)

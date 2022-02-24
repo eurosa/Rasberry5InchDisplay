@@ -11,131 +11,18 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(430, 300)
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        Dialog.setFont(font)
-        Dialog.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        Dialog.setLayoutDirection(QtCore.Qt.LeftToRight)
-        Dialog.setStyleSheet("QDialog{background-color:blue ;}")
-        self.tempDownToolBtn2 = QtWidgets.QToolButton(Dialog)
-        self.tempDownToolBtn2.setGeometry(QtCore.QRect(130, 120, 72, 72))
-        self.tempDownToolBtn2.setMinimumSize(QtCore.QSize(72, 72))
-        self.tempDownToolBtn2.setMaximumSize(QtCore.QSize(72, 72))
-        self.tempDownToolBtn2.setStyleSheet("QToolButton{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QToolButton:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icon/minus_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.tempDownToolBtn2.setIcon(icon)
-        self.tempDownToolBtn2.setIconSize(QtCore.QSize(42, 42))
-        self.tempDownToolBtn2.setObjectName("tempDownToolBtn2")
-        self.tempUpToolBtn2 = QtWidgets.QToolButton(Dialog)
-        self.tempUpToolBtn2.setGeometry(QtCore.QRect(340, 120, 72, 72))
-        self.tempUpToolBtn2.setMinimumSize(QtCore.QSize(72, 72))
-        self.tempUpToolBtn2.setMaximumSize(QtCore.QSize(72, 72))
-        self.tempUpToolBtn2.setStyleSheet("QToolButton{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QToolButton:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("icon/plus-sign-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.tempUpToolBtn2.setIcon(icon1)
-        self.tempUpToolBtn2.setIconSize(QtCore.QSize(42, 42))
-        self.tempUpToolBtn2.setObjectName("tempUpToolBtn2")
-        self.tempDownToolBtn1 = QtWidgets.QToolButton(Dialog)
-        self.tempDownToolBtn1.setGeometry(QtCore.QRect(130, 20, 72, 72))
-        self.tempDownToolBtn1.setMinimumSize(QtCore.QSize(72, 72))
-        self.tempDownToolBtn1.setMaximumSize(QtCore.QSize(72, 72))
-        self.tempDownToolBtn1.setStyleSheet("QToolButton{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QToolButton:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.tempDownToolBtn1.setIcon(icon)
-        self.tempDownToolBtn1.setIconSize(QtCore.QSize(42, 42))
-        self.tempDownToolBtn1.setObjectName("tempDownToolBtn1")
-        self.tempUpToolBtn1 = QtWidgets.QToolButton(Dialog)
-        self.tempUpToolBtn1.setGeometry(QtCore.QRect(340, 20, 72, 72))
-        self.tempUpToolBtn1.setMinimumSize(QtCore.QSize(72, 72))
-        self.tempUpToolBtn1.setMaximumSize(QtCore.QSize(72, 72))
-        self.tempUpToolBtn1.setStyleSheet("QToolButton{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
-"    color:#FFFFFF ;\n"
-"}\n"
-"QToolButton:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.tempUpToolBtn1.setIcon(icon1)
-        self.tempUpToolBtn1.setIconSize(QtCore.QSize(42, 40))
-        self.tempUpToolBtn1.setObjectName("tempUpToolBtn1")
-        self.tempLabel1 = QtWidgets.QLabel(Dialog)
-        self.tempLabel1.setGeometry(QtCore.QRect(210, 40, 120, 40))
-        self.tempLabel1.setMinimumSize(QtCore.QSize(120, 40))
-        self.tempLabel1.setMaximumSize(QtCore.QSize(120, 40))
-        font = QtGui.QFont()
-        font.setPointSize(24)
-        font.setBold(True)
-        font.setWeight(75)
-        self.tempLabel1.setFont(font)
-        self.tempLabel1.setStyleSheet("QLabel{\n"
-"  \n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.tempLabel1.setAlignment(QtCore.Qt.AlignCenter)
-        self.tempLabel1.setObjectName("tempLabel1")
-        self.tempLabel2 = QtWidgets.QLabel(Dialog)
-        self.tempLabel2.setGeometry(QtCore.QRect(210, 140, 120, 40))
+class Ui_setPointForm(object):
+    def setupUi(self, setPointForm):
+        setPointForm.setObjectName("setPointForm")
+        setPointForm.resize(800, 480)
+        setPointForm.setMinimumSize(QtCore.QSize(800, 480))
+        setPointForm.setMaximumSize(QtCore.QSize(800, 480))
+        setPointForm.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        setPointForm.setStyleSheet("QMainWindow{background-color:blue ;}")
+        self.centralwidget = QtWidgets.QWidget(setPointForm)
+        self.centralwidget.setObjectName("centralwidget")
+        self.tempLabel2 = QtWidgets.QLabel(self.centralwidget)
+        self.tempLabel2.setGeometry(QtCore.QRect(340, 220, 120, 40))
         self.tempLabel2.setMinimumSize(QtCore.QSize(120, 40))
         self.tempLabel2.setMaximumSize(QtCore.QSize(120, 40))
         font = QtGui.QFont()
@@ -153,8 +40,8 @@ class Ui_Dialog(object):
 "}")
         self.tempLabel2.setAlignment(QtCore.Qt.AlignCenter)
         self.tempLabel2.setObjectName("tempLabel2")
-        self.okBtn = QtWidgets.QPushButton(Dialog)
-        self.okBtn.setGeometry(QtCore.QRect(180, 226, 100, 40))
+        self.okBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.okBtn.setGeometry(QtCore.QRect(310, 306, 100, 40))
         self.okBtn.setMinimumSize(QtCore.QSize(100, 40))
         self.okBtn.setMaximumSize(QtCore.QSize(100, 40))
         font = QtGui.QFont()
@@ -163,34 +50,8 @@ class Ui_Dialog(object):
         font.setWeight(75)
         self.okBtn.setFont(font)
         self.okBtn.setObjectName("okBtn")
-        self.cancelBtn = QtWidgets.QPushButton(Dialog)
-        self.cancelBtn.setGeometry(QtCore.QRect(290, 226, 100, 40))
-        self.cancelBtn.setMinimumSize(QtCore.QSize(100, 40))
-        self.cancelBtn.setMaximumSize(QtCore.QSize(100, 40))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        self.cancelBtn.setFont(font)
-        self.cancelBtn.setObjectName("cancelBtn")
-        self.skinTextLabel = QtWidgets.QLabel(Dialog)
-        self.skinTextLabel.setGeometry(QtCore.QRect(30, 50, 91, 19))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.skinTextLabel.setFont(font)
-        self.skinTextLabel.setStyleSheet("QLabel{\n"
-"  \n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.skinTextLabel.setObjectName("skinTextLabel")
-        self.airTextLabel = QtWidgets.QLabel(Dialog)
-        self.airTextLabel.setGeometry(QtCore.QRect(30, 160, 81, 19))
+        self.airTextLabel = QtWidgets.QLabel(self.centralwidget)
+        self.airTextLabel.setGeometry(QtCore.QRect(160, 240, 81, 19))
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setBold(True)
@@ -205,30 +66,192 @@ class Ui_Dialog(object):
 "    border-style: inset;\n"
 "}")
         self.airTextLabel.setObjectName("airTextLabel")
+        self.tempUpToolBtn1 = QtWidgets.QToolButton(self.centralwidget)
+        self.tempUpToolBtn1.setGeometry(QtCore.QRect(470, 100, 72, 72))
+        self.tempUpToolBtn1.setMinimumSize(QtCore.QSize(72, 72))
+        self.tempUpToolBtn1.setMaximumSize(QtCore.QSize(72, 72))
+        self.tempUpToolBtn1.setStyleSheet("QToolButton{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00A36C ;\n"
+"    color:#FFFFFF ;\n"
+"}\n"
+"QToolButton:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("icon/plus-sign-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.tempUpToolBtn1.setIcon(icon)
+        self.tempUpToolBtn1.setIconSize(QtCore.QSize(42, 40))
+        self.tempUpToolBtn1.setObjectName("tempUpToolBtn1")
+        self.skinTextLabel = QtWidgets.QLabel(self.centralwidget)
+        self.skinTextLabel.setGeometry(QtCore.QRect(160, 130, 91, 19))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.skinTextLabel.setFont(font)
+        self.skinTextLabel.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.skinTextLabel.setObjectName("skinTextLabel")
+        self.tempDownToolBtn1 = QtWidgets.QToolButton(self.centralwidget)
+        self.tempDownToolBtn1.setGeometry(QtCore.QRect(260, 100, 72, 72))
+        self.tempDownToolBtn1.setMinimumSize(QtCore.QSize(72, 72))
+        self.tempDownToolBtn1.setMaximumSize(QtCore.QSize(72, 72))
+        self.tempDownToolBtn1.setStyleSheet("QToolButton{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00A36C ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QToolButton:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("icon/minus_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.tempDownToolBtn1.setIcon(icon1)
+        self.tempDownToolBtn1.setIconSize(QtCore.QSize(42, 42))
+        self.tempDownToolBtn1.setObjectName("tempDownToolBtn1")
+        self.cancelBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.cancelBtn.setGeometry(QtCore.QRect(420, 306, 100, 40))
+        self.cancelBtn.setMinimumSize(QtCore.QSize(100, 40))
+        self.cancelBtn.setMaximumSize(QtCore.QSize(100, 40))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.cancelBtn.setFont(font)
+        self.cancelBtn.setObjectName("cancelBtn")
+        self.tempUpToolBtn2 = QtWidgets.QToolButton(self.centralwidget)
+        self.tempUpToolBtn2.setGeometry(QtCore.QRect(470, 200, 72, 72))
+        self.tempUpToolBtn2.setMinimumSize(QtCore.QSize(72, 72))
+        self.tempUpToolBtn2.setMaximumSize(QtCore.QSize(72, 72))
+        self.tempUpToolBtn2.setStyleSheet("QToolButton{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00A36C ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QToolButton:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.tempUpToolBtn2.setIcon(icon)
+        self.tempUpToolBtn2.setIconSize(QtCore.QSize(42, 42))
+        self.tempUpToolBtn2.setObjectName("tempUpToolBtn2")
+        self.tempDownToolBtn2 = QtWidgets.QToolButton(self.centralwidget)
+        self.tempDownToolBtn2.setGeometry(QtCore.QRect(260, 200, 72, 72))
+        self.tempDownToolBtn2.setMinimumSize(QtCore.QSize(72, 72))
+        self.tempDownToolBtn2.setMaximumSize(QtCore.QSize(72, 72))
+        self.tempDownToolBtn2.setStyleSheet("QToolButton{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00A36C ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QToolButton:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.tempDownToolBtn2.setIcon(icon1)
+        self.tempDownToolBtn2.setIconSize(QtCore.QSize(42, 42))
+        self.tempDownToolBtn2.setObjectName("tempDownToolBtn2")
+        self.tempLabel1 = QtWidgets.QLabel(self.centralwidget)
+        self.tempLabel1.setGeometry(QtCore.QRect(340, 120, 120, 40))
+        self.tempLabel1.setMinimumSize(QtCore.QSize(120, 40))
+        self.tempLabel1.setMaximumSize(QtCore.QSize(120, 40))
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        font.setBold(True)
+        font.setWeight(75)
+        self.tempLabel1.setFont(font)
+        self.tempLabel1.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.tempLabel1.setAlignment(QtCore.Qt.AlignCenter)
+        self.tempLabel1.setObjectName("tempLabel1")
+        self.skinTextLabel_2 = QtWidgets.QLabel(self.centralwidget)
+        self.skinTextLabel_2.setGeometry(QtCore.QRect(350, 40, 131, 31))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.skinTextLabel_2.setFont(font)
+        self.skinTextLabel_2.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.skinTextLabel_2.setObjectName("skinTextLabel_2")
+        setPointForm.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(setPointForm)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 24))
+        self.menubar.setObjectName("menubar")
+        setPointForm.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(setPointForm)
+        self.statusbar.setObjectName("statusbar")
+        setPointForm.setStatusBar(self.statusbar)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(setPointForm)
+        QtCore.QMetaObject.connectSlotsByName(setPointForm)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, setPointForm):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Set Point"))
-        self.tempDownToolBtn2.setText(_translate("Dialog", "..."))
-        self.tempUpToolBtn2.setText(_translate("Dialog", "..."))
-        self.tempDownToolBtn1.setText(_translate("Dialog", "..."))
-        self.tempUpToolBtn1.setText(_translate("Dialog", "..."))
-        self.tempLabel1.setText(_translate("Dialog", "32"))
-        self.tempLabel2.setText(_translate("Dialog", "30"))
-        self.okBtn.setText(_translate("Dialog", "Ok"))
-        self.cancelBtn.setText(_translate("Dialog", "Cancel"))
-        self.skinTextLabel.setText(_translate("Dialog", "Skin Temp:"))
-        self.airTextLabel.setText(_translate("Dialog", "Air Temp"))
+        setPointForm.setWindowTitle(_translate("setPointForm", "Set Point"))
+        self.tempLabel2.setText(_translate("setPointForm", "30"))
+        self.okBtn.setText(_translate("setPointForm", "Ok"))
+        self.airTextLabel.setText(_translate("setPointForm", "Air Temp"))
+        self.tempUpToolBtn1.setText(_translate("setPointForm", "..."))
+        self.skinTextLabel.setText(_translate("setPointForm", "Skin Temp:"))
+        self.tempDownToolBtn1.setText(_translate("setPointForm", "..."))
+        self.cancelBtn.setText(_translate("setPointForm", "Cancel"))
+        self.tempUpToolBtn2.setText(_translate("setPointForm", "..."))
+        self.tempDownToolBtn2.setText(_translate("setPointForm", "..."))
+        self.tempLabel1.setText(_translate("setPointForm", "32"))
+        self.skinTextLabel_2.setText(_translate("setPointForm", "Set Point"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    setPointForm = QtWidgets.QMainWindow()
+    ui = Ui_setPointForm()
+    ui.setupUi(setPointForm)
+    setPointForm.show()
     sys.exit(app.exec_())
