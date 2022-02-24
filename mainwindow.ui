@@ -236,7 +236,7 @@ QToolButton:pressed {
     color:#FFFFFF;
 }
 QToolButton:pressed {
-    background-color: gray;
+    background-color: gray;;
     border-style: inset;
 }</string>
     </property>

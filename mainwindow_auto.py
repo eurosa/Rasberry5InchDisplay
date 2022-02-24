@@ -116,7 +116,7 @@ class Ui_MainWindow(object):
 "    color:#FFFFFF;\n"
 "}\n"
 "QToolButton:pressed {\n"
-"    background-color: gray;\n"
+"    background-color: gray;;\n"
 "    border-style: inset;\n"
 "}")
         self.setPointBtn.setIconSize(QtCore.QSize(42, 42))
