@@ -17,6 +17,7 @@ class Ui_patientFormWindow(object):
         patientFormWindow.resize(800, 480)
         patientFormWindow.setMinimumSize(QtCore.QSize(800, 480))
         patientFormWindow.setMaximumSize(QtCore.QSize(800, 480))
+        patientFormWindow.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         patientFormWindow.setStyleSheet("QMainWindow{background-color:blue ;}")
         self.centralwidget = QtWidgets.QWidget(patientFormWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -59,7 +60,7 @@ class Ui_patientFormWindow(object):
 "    color:#FFFFFF;\n"
 "}\n"
 "QToolButton:pressed { \n"
-"    alternate-background-color: rgb(75, 61, 61);\n"
+"    background-color:#535353;\n"
 "    border-style: inset;\n"
 "}")
         self.saveToolButton.setObjectName("saveToolButton")
@@ -79,7 +80,7 @@ class Ui_patientFormWindow(object):
 "    color:#FFFFFF;\n"
 "}\n"
 "QToolButton:pressed {\n"
-"    background-color: gray;\n"
+"    background-color: #535353;\n"
 "    border-style: inset;\n"
 "}")
         self.cancelToolButton.setObjectName("cancelToolButton")

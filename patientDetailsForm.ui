@@ -22,6 +22,9 @@
     <height>480</height>
    </size>
   </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
   <property name="windowTitle">
    <string>Patient Details Form</string>
   </property>
@@ -104,7 +107,7 @@ QLabel:pressed {
     color:#FFFFFF;
 }
 QToolButton:pressed { 
-	alternate-background-color: rgb(75, 61, 61);
+	background-color:#535353;
     border-style: inset;
 }</string>
     </property>
@@ -146,7 +149,7 @@ QToolButton:pressed {
     color:#FFFFFF;
 }
 QToolButton:pressed {
-    background-color: gray;
+    background-color: #535353;
     border-style: inset;
 }</string>
     </property>
