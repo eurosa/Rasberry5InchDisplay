@@ -16,12 +16,15 @@ import sys
 from Database import database
 from Database.dataModel import DataModel
 from PyQt5.QtSql import QSqlQueryModel
+
+from serialDataTXRX import SerialWrapper
 from virtual_keyboard import *
 # This gets the Qt stuff
 import PyQt5
 import mainwindow_auto
 import setPointDialog
 import patientDetailsForm
+from repeatedTimer import RepeatedTimer
 import self as self
 from PyQt5.QtCore import QTime, QTimer, Qt, QPoint, QAbstractListModel, pyqtSignal, QSize, QUrl, pyqtSlot, QEvent, QDate
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaPlaylist, QMediaContent
@@ -106,6 +109,10 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.nameLineEdit = cQLineEdit(self.patientWindowForm.nameLineEdit, "", self.dataModel, "nameLineEdit")
         self.ageLineEdit = cQLineEdit(self.patientWindowForm.ageLineEdit, "", self.dataModel, "ageLineEdit")
         self.sexLineEdit = cQLineEdit(self.patientWindowForm.sexLineEdit, "", self.dataModel, "sexLineEdit")
+
+        self.serialWrapper = SerialWrapper('/dev/ttyUSB0', self)
+        print("starting... Repeater Timer to send data in terminal")
+        self.rt = RepeatedTimer(2, self.serialWrapper.sendDataToSerialPort)  # it auto-starts, no need of rt.start()
 
     # cQLineEdit(self.patientWindowForm.patientIdLineEdit, "", self.dataModel, "patientIdLineEdit")
     def delete_previous_in_patientForm(self, text):
