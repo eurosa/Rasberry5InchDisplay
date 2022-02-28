@@ -32,26 +32,14 @@
    <string notr="true">QMainWindow{background-color:blue ;}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QToolButton" name="tempDownToolBtn2_10">
+   <widget class="QToolButton" name="heaterLabelMode">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>40</y>
-      <width>72</width>
-      <height>61</height>
+      <x>690</x>
+      <y>60</y>
+      <width>101</width>
+      <height>41</height>
      </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>72</width>
-      <height>61</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>74</width>
-      <height>61</height>
-     </size>
     </property>
     <property name="styleSheet">
      <string notr="true">QToolButton{
@@ -65,10 +53,7 @@
     background-color: #00A36C ;
     color:#FFFFFF;
 }
-QToolButton:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
+ </string>
     </property>
     <property name="text">
      <string/>
@@ -80,7 +65,7 @@ QToolButton:pressed {
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="tempDownToolBtn2_6">
+   <widget class="QToolButton" name="timerButton">
     <property name="geometry">
      <rect>
       <x>720</x>
@@ -798,7 +783,7 @@ QLabel:pressed {
    <widget class="QLabel" name="setTitleLabel4_2">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>550</x>
       <y>10</y>
       <width>101</width>
       <height>20</height>
@@ -837,10 +822,10 @@ QLabel:pressed {
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="tempLabel4_2">
+   <widget class="QLabel" name="heaterLabelShow">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>560</x>
       <y>60</y>
       <width>81</width>
       <height>40</height>
@@ -1140,7 +1125,7 @@ QLabel:pressed {
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="tempLabel4_3">
+   <widget class="QLabel" name="timerShowLabel">
     <property name="geometry">
      <rect>
       <x>610</x>
@@ -1249,7 +1234,7 @@ QLabel:pressed {
      <item row="0" column="0">
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="probeLabel">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -1268,7 +1253,7 @@ QLabel:pressed {
 }</string>
          </property>
          <property name="text">
-          <string>Heater Fail</string>
+          <string>Probe Fail</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1276,7 +1261,7 @@ QLabel:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_17">
+        <widget class="QLabel" name="probeIconLabel">
          <property name="minimumSize">
           <size>
            <width>30</width>
@@ -1332,7 +1317,7 @@ QLabel:pressed {
      <item row="0" column="2">
       <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
-        <widget class="QLabel" name="label_16">
+        <widget class="QLabel" name="tempHighLabel">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -1351,7 +1336,7 @@ QLabel:pressed {
 }</string>
          </property>
          <property name="text">
-          <string>Heater Fail</string>
+          <string>Temp High</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1359,7 +1344,7 @@ QLabel:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_20">
+        <widget class="QLabel" name="tempHighIconLabel">
          <property name="minimumSize">
           <size>
            <width>30</width>
@@ -1415,7 +1400,7 @@ QLabel:pressed {
      <item row="0" column="4">
       <layout class="QVBoxLayout" name="verticalLayout_9">
        <item>
-        <widget class="QLabel" name="label_15">
+        <widget class="QLabel" name="tempLowLabel">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -1434,7 +1419,7 @@ QLabel:pressed {
 }</string>
          </property>
          <property name="text">
-          <string>Heater Fail</string>
+          <string>Temp Low</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1442,7 +1427,7 @@ QLabel:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_21">
+        <widget class="QLabel" name="tempLowIconLabel">
          <property name="minimumSize">
           <size>
            <width>30</width>
@@ -1498,7 +1483,7 @@ QLabel:pressed {
      <item row="0" column="6">
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QLabel" name="label_6">
+        <widget class="QLabel" name="heaterLabelFail">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -1517,7 +1502,7 @@ QLabel:pressed {
 }</string>
          </property>
          <property name="text">
-          <string>System Fail</string>
+          <string>Heater Fail</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1525,7 +1510,7 @@ QLabel:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_14">
+        <widget class="QLabel" name="heaterIconLabel">
          <property name="minimumSize">
           <size>
            <width>40</width>
@@ -1581,7 +1566,7 @@ QLabel:pressed {
      <item row="0" column="8">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="label_5">
+        <widget class="QLabel" name="powerLabelFail">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -1608,7 +1593,7 @@ QLabel:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_13">
+        <widget class="QLabel" name="powerIconLabel">
          <property name="minimumSize">
           <size>
            <width>40</width>
@@ -1664,7 +1649,7 @@ QLabel:pressed {
      <item row="0" column="10">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="systemLabelFail">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -1686,7 +1671,7 @@ QLabel:pressed {
 }</string>
          </property>
          <property name="text">
-          <string>Probe Fail</string>
+          <string>System Fail</string>
          </property>
          <property name="scaledContents">
           <bool>false</bool>
@@ -1697,7 +1682,7 @@ QLabel:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_12">
+        <widget class="QLabel" name="systemIconLabel">
          <property name="minimumSize">
           <size>
            <width>40</width>
@@ -1848,8 +1833,8 @@ QLabel:pressed {
   <tabstop>tempDownToolBtn2_5</tabstop>
   <tabstop>tempDownToolBtn2_4</tabstop>
   <tabstop>tempDownToolBtn2_9</tabstop>
-  <tabstop>tempDownToolBtn2_6</tabstop>
-  <tabstop>tempDownToolBtn2_10</tabstop>
+  <tabstop>timerButton</tabstop>
+  <tabstop>heaterLabelMode</tabstop>
   <tabstop>logoToolBtn</tabstop>
   <tabstop>patientNameLineEdit</tabstop>
  </tabstops>
