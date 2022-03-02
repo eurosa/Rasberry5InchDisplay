@@ -92,8 +92,17 @@ class SerialWrapper:
             # air_pressure_data_read = int(hex(air_pressure_data_read_hex), 16)
 
             # ++++++++++++++++++++ Temp , Humidity, Pressure UI update +++++++++++++++++++
-            self.ui.ui.tempLabel3.setText(str(tempValue / 10))
-            self.ui.ui.tempLabel4.setText(str(airValue / 10))
+            tempValue = tempValue / 10
+            airValue = airValue / 10
+
+            if configVariables.unitFlag:
+                pass
+            else:
+                tempValue = (9 / 5 * tempValue) + 32  # Farhenheit °F
+                airValue = (9 / 5 * airValue) + 32  # Farhenheit °F
+            print("Air Temp:" + str(airValue) + " Skin temp: " + str(tempValue))
+            self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue)))
+            self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue)))
             #  self.ui.ui.timerShowLabel.setText(str(timer8))
             self.ui.ui.heaterLabelShow.setText(str(heaterValue))
             self.ui.ui.setLabelSkinTemp.setText(str(setTempValue))
@@ -139,7 +148,7 @@ class SerialWrapper:
             print(str(highTMP))
             print(str(lowTMP))
             print(str(systemF))
-            print("Mute value: "+str(configVariables.mute15))
+            print("Mute value: " + str(configVariables.mute15))
             print(str(probeF))
             print(str(CF))
             print("Binary String1: " + f'{self.s[18]:08b}')  # "{0:b}".format(configVariables.hex_string[4])
@@ -252,10 +261,7 @@ class SerialWrapper:
 
             self.ui.ui.heaterLabelMode.setText(str(configVariables.heatModeString))
 
-
             # time.sleep(0.5)
-
-
 
     def decimalToBinary(self, n):
         return bin(n).replace("0b", "")

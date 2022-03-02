@@ -116,11 +116,11 @@ class Ui_MainWindow(object):
 "}")
         self.setPointBtn.setIconSize(QtCore.QSize(42, 42))
         self.setPointBtn.setObjectName("setPointBtn")
-        self.tempDownToolBtn2_4 = QtWidgets.QToolButton(self.centralwidget)
-        self.tempDownToolBtn2_4.setGeometry(QtCore.QRect(630, 250, 72, 61))
-        self.tempDownToolBtn2_4.setMinimumSize(QtCore.QSize(72, 61))
-        self.tempDownToolBtn2_4.setMaximumSize(QtCore.QSize(72, 61))
-        self.tempDownToolBtn2_4.setStyleSheet("QToolButton{\n"
+        self.unitChangeToolButton = QtWidgets.QToolButton(self.centralwidget)
+        self.unitChangeToolButton.setGeometry(QtCore.QRect(630, 250, 72, 61))
+        self.unitChangeToolButton.setMinimumSize(QtCore.QSize(72, 61))
+        self.unitChangeToolButton.setMaximumSize(QtCore.QSize(72, 61))
+        self.unitChangeToolButton.setStyleSheet("QToolButton{\n"
 "    border-style: outset;\n"
 "    border-width: 1px;\n"
 "    border-radius: 10px;\n"
@@ -135,8 +135,8 @@ class Ui_MainWindow(object):
 "    background-color: gray;\n"
 "    border-style: inset;\n"
 "}")
-        self.tempDownToolBtn2_4.setIconSize(QtCore.QSize(42, 42))
-        self.tempDownToolBtn2_4.setObjectName("tempDownToolBtn2_4")
+        self.unitChangeToolButton.setIconSize(QtCore.QSize(42, 42))
+        self.unitChangeToolButton.setObjectName("unitChangeToolButton")
         self.tempDownToolBtn2_9 = QtWidgets.QToolButton(self.centralwidget)
         self.tempDownToolBtn2_9.setGeometry(QtCore.QRect(720, 250, 72, 61))
         self.tempDownToolBtn2_9.setMinimumSize(QtCore.QSize(72, 61))
@@ -860,8 +860,8 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.patientIdLineEdit, self.patientDetailsToolButton)
         MainWindow.setTabOrder(self.patientDetailsToolButton, self.setPointBtn)
         MainWindow.setTabOrder(self.setPointBtn, self.muteToolButton)
-        MainWindow.setTabOrder(self.muteToolButton, self.tempDownToolBtn2_4)
-        MainWindow.setTabOrder(self.tempDownToolBtn2_4, self.tempDownToolBtn2_9)
+        MainWindow.setTabOrder(self.muteToolButton, self.unitChangeToolButton)
+        MainWindow.setTabOrder(self.unitChangeToolButton, self.tempDownToolBtn2_9)
         MainWindow.setTabOrder(self.tempDownToolBtn2_9, self.timerButton)
         MainWindow.setTabOrder(self.timerButton, self.heaterLabelMode)
         MainWindow.setTabOrder(self.heaterLabelMode, self.logoToolBtn)
@@ -874,7 +874,7 @@ class Ui_MainWindow(object):
 "ON"))
         self.muteToolButton.setText(_translate("MainWindow", "MUTE"))
         self.setPointBtn.setText(_translate("MainWindow", "SET"))
-        self.tempDownToolBtn2_4.setText(_translate("MainWindow", "°C/°F"))
+        self.unitChangeToolButton.setText(_translate("MainWindow", "°C/°F"))
         self.tempDownToolBtn2_9.setText(_translate("MainWindow", "Start \n"
 "System"))
         self.tempLabel4.setText(_translate("MainWindow", "36.6"))

@@ -13,3 +13,4 @@ mute15 = 0
 heatMode14 = 0
 setTempLow = 0
 setTempHigh = 0
+unitFlag = True

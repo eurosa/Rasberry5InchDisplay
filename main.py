@@ -71,7 +71,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.ui.patientDetailsToolButton.clicked.connect(self.patientDetailsDialogOpen)
         self.ui.patientIdLineEdit.textChanged.connect(self.start_typing_timer)
         self.ui.patientIdLineEdit.textChanged.connect(self.delete_previous)
-
+        self.ui.unitChangeToolButton.clicked.connect(self.changeUnit)
         self.ui.muteToolButton.clicked.connect(self.muteControl)
 
         self.patientWindow = QMainWindow()
@@ -124,6 +124,19 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.rt = RepeatedTimer(2, self.serialWrapper.sendDataToSerialPort)  # it auto-starts, no need of rt.start()
 
         self.chronosObject3 = timerCounter.TimerCounter(self.ui)
+        # self.changeUnit()
+        self.ui.unitChangeToolButton.setText("°C")  # °C/°F
+        configVariables.unitFlag = True
+
+    def changeUnit(self):
+        if configVariables.unitFlag:
+            self.ui.unitChangeToolButton.setText("°F")  # °C/°F
+            configVariables.unitFlag = False
+        else:
+            self.ui.unitChangeToolButton.setText("°C")  # °C/°F
+            configVariables.unitFlag = True
+
+        # T(°C) = (T(°F) - 32) × 5 / 9
 
     def muteControl(self):
         configVariables.checkSendReceive = False
@@ -178,7 +191,6 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             except Exception as e:
                 print("--- abnormal read and write from port serialDataTXRX---：", e)
                 print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
-
             # time.sleep(0.5)  # Sleep for 3 seconds
             self.ser1.close()
         except Exception as e:
@@ -186,7 +198,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         configVariables.checkSendReceive = True
 
     def decimalToHex(self, value):
-        print("Temperature Value: "+str(value))
+        print("Temperature Value: " + str(value))
         hexValue = int(hex(value), 16)
         firstPart = hexValue >> 8
         secondPart = hexValue & 0xFF
@@ -194,7 +206,9 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         skinTemp1 = int(hex(firstPart), 16)
         skinTemp2 = int(hex(secondPart), 16)
         tempValue = (skinTemp1 << 8) | skinTemp2
-        print("Temperature value original: " + str(tempValue)+" First Part: "+str(firstPart)+" Second Part: "+str(secondPart))
+        print(
+            "Temperature value original: " + str(tempValue) + " First Part: " + str(firstPart) + " Second Part: " + str(
+                secondPart))
 
     def hexToAscii(self, data):
         output = StringBuilder()
@@ -275,7 +289,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.database_manage.updateAirTempValue(self.dataModel)
         self.ui.setLabelSkinTemp.setNum(self.dataModel.get_skin_temp())
         self.ui.setLabelAirTemp.setNum(self.dataModel.get_air_temp())
-        self.decimalToHex(int(self.dataModel.get_skin_temp()*10))
+        self.decimalToHex(int(self.dataModel.get_skin_temp() * 10))
         self.setDialog.close()
 
     def closeSetPointDialog(self):
