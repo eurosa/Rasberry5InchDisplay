@@ -11,12 +11,19 @@ import signal
 import subprocess
 import threading
 import time
+import serial
+from past.builtins import unicode
+from past.types import long
+
+import configVariables
+import timerCounter
 from MessageBox import AutoCloseMessageBox
 import sys
 from Database import database
 from Database.dataModel import DataModel
 from PyQt5.QtSql import QSqlQueryModel
 
+from StringBuilder import StringBuilder
 from serialDataTXRX import SerialWrapper
 from virtual_keyboard import *
 # This gets the Qt stuff
@@ -64,6 +71,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.ui.patientDetailsToolButton.clicked.connect(self.patientDetailsDialogOpen)
         self.ui.patientIdLineEdit.textChanged.connect(self.start_typing_timer)
         self.ui.patientIdLineEdit.textChanged.connect(self.delete_previous)
+
+        self.ui.muteToolButton.clicked.connect(self.muteControl)
 
         self.patientWindow = QMainWindow()
         self.patientWindowForm = patientDetailsForm.Ui_patientFormWindow()
@@ -114,14 +123,94 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         print("starting... Repeater Timer to send data in terminal")
         self.rt = RepeatedTimer(2, self.serialWrapper.sendDataToSerialPort)  # it auto-starts, no need of rt.start()
 
+        self.chronosObject3 = timerCounter.TimerCounter(self.ui)
+
+    def muteControl(self):
+        configVariables.checkSendReceive = False
+        sert = str(configVariables.heatMode14)
+        res = ''.join(r'\u{:04X}'.format(ord(chr)) for chr in sert)
+        print(chr(configVariables.hex_string[13]))
+        # printing result
+        print("The unicode converted String : " + str(res) + " " + str(configVariables.heatMode14))
+
+        if configVariables.mute15:
+            # timerOnValue ="\u0000"
+            muteValue = chr(0)  # "\u0000"   # self.hexToAscii("0")
+        else:
+            # timerOnValue ="\u0001"
+            muteValue = chr(1)  # "\u0001"  # self.hexToAscii("1")
+        # data = str.encode("$I0W" +str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
+        # configVariables.heatMode14) + str(muteValue) + str( configVariables.hex_string[16]) + str(
+        # configVariables.hex_string[17]) + ";")
+        # data = str.encode("$I0W" + "\u0001" + "\u0079" + "\u0001" + muteValue + "0" + "0" + ";")
+        data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
+            configVariables.hex_string[14]) + muteValue + chr(configVariables.hex_string[16]) + chr(
+            configVariables.hex_string[17]) + ";")
+        # stringData = "$I0W" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
+        # configVariables.hex_string[14]) + str(configVariables.hex_string[15]) + str(configVariables.hex_string[16])
+        # + str(timerOnValue) + ";"
+        print(data)
+        # self.hexToAscii("1")
+        try:
+            self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+            try:
+                self.ser1.write(serial.to_bytes(data))
+            except Exception as e:
+                print("--- abnormal read and write from port serialDataTXRX---：", e)
+                print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+
+            # time.sleep(0.5)  # Sleep for 3 seconds
+            self.ser1.close()
+        except Exception as e:
+            print(e)
+        configVariables.checkSendReceive = True
+
+    def setPoint(self, firstPart, secondPart):
+        configVariables.checkSendReceive = False
+        data = str.encode("$I0W" + chr(firstPart) + chr(secondPart) + chr(
+            configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + chr(
+            configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + ";")
+        print(data)
+        try:
+            self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+            try:
+                self.ser1.write(serial.to_bytes(data))
+            except Exception as e:
+                print("--- abnormal read and write from port serialDataTXRX---：", e)
+                print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+
+            # time.sleep(0.5)  # Sleep for 3 seconds
+            self.ser1.close()
+        except Exception as e:
+            print(e)
+        configVariables.checkSendReceive = True
+
+    def decimalToHex(self, value):
+        print("Temperature Value: "+str(value))
+        hexValue = int(hex(value), 16)
+        firstPart = hexValue >> 8
+        secondPart = hexValue & 0xFF
+        self.setPoint(firstPart, secondPart)
+        skinTemp1 = int(hex(firstPart), 16)
+        skinTemp2 = int(hex(secondPart), 16)
+        tempValue = (skinTemp1 << 8) | skinTemp2
+        print("Temperature value original: " + str(tempValue)+" First Part: "+str(firstPart)+" Second Part: "+str(secondPart))
+
+    def hexToAscii(self, data):
+        output = StringBuilder()
+        for i in range(0, len(data), 1):
+            str1 = data[i]
+            output.Append(chr(int(str1, 16)))
+        return str(output)
+
     # cQLineEdit(self.patientWindowForm.patientIdLineEdit, "", self.dataModel, "patientIdLineEdit")
     def delete_previous_in_patientForm(self, text):
         try:
             if self.startNew_form:
                 self.patientWindowForm.patientIdLineEdit.setText(text[-1])
                 self.startNew_form = 0
-        except:
-            return
+        except Exception as e:
+            print(e)
 
     def make_changes_patient_form(self):
         txt = self.patientWindowForm.patientIdLineEdit.text()
@@ -142,7 +231,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             self.ageLineEdit.ex.currentTextBox.setText(self.dataModel.get_patient_age())
             self.sexLineEdit.ex.text_box.setText(self.dataModel.get_patient_sex())
             self.sexLineEdit.ex.currentTextBox.setText(self.dataModel.get_patient_sex())
-            print("89798 " + self.dataModel.get_form_patient_name())
+            print("8979" + self.dataModel.get_form_patient_name())
             self.patientWindowForm.nameLineEdit.setText(self.dataModel.get_form_patient_name())
         # cQLineEdit(self.patientWindowForm.nameLineEdit, "89798", self.dataModel, "nameLineEdit")
         self.startNew_form = 1
@@ -186,6 +275,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.database_manage.updateAirTempValue(self.dataModel)
         self.ui.setLabelSkinTemp.setNum(self.dataModel.get_skin_temp())
         self.ui.setLabelAirTemp.setNum(self.dataModel.get_air_temp())
+        self.decimalToHex(int(self.dataModel.get_skin_temp()*10))
         self.setDialog.close()
 
     def closeSetPointDialog(self):

@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 " ")
@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QToolButton:pressed {\n"
@@ -74,11 +74,11 @@ class Ui_MainWindow(object):
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
-        self.tempDownToolBtn2_5 = QtWidgets.QToolButton(self.centralwidget)
-        self.tempDownToolBtn2_5.setGeometry(QtCore.QRect(540, 250, 72, 61))
-        self.tempDownToolBtn2_5.setMinimumSize(QtCore.QSize(72, 61))
-        self.tempDownToolBtn2_5.setMaximumSize(QtCore.QSize(72, 61))
-        self.tempDownToolBtn2_5.setStyleSheet("QToolButton{\n"
+        self.muteToolButton = QtWidgets.QToolButton(self.centralwidget)
+        self.muteToolButton.setGeometry(QtCore.QRect(540, 250, 72, 61))
+        self.muteToolButton.setMinimumSize(QtCore.QSize(72, 61))
+        self.muteToolButton.setMaximumSize(QtCore.QSize(72, 61))
+        self.muteToolButton.setStyleSheet("QToolButton{\n"
 "    border-style: outset;\n"
 "    border-width: 1px;\n"
 "    border-radius: 10px;\n"
@@ -86,15 +86,15 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QToolButton:pressed {\n"
 "    background-color: gray;\n"
 "    border-style: inset;\n"
 "}")
-        self.tempDownToolBtn2_5.setIconSize(QtCore.QSize(42, 42))
-        self.tempDownToolBtn2_5.setObjectName("tempDownToolBtn2_5")
+        self.muteToolButton.setIconSize(QtCore.QSize(42, 42))
+        self.muteToolButton.setObjectName("muteToolButton")
         self.setPointBtn = QtWidgets.QToolButton(self.centralwidget)
         self.setPointBtn.setGeometry(QtCore.QRect(440, 250, 72, 61))
         self.setPointBtn.setMinimumSize(QtCore.QSize(72, 61))
@@ -107,7 +107,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QToolButton:pressed {\n"
@@ -128,7 +128,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QToolButton:pressed {\n"
@@ -148,7 +148,7 @@ class Ui_MainWindow(object):
 "    border-color: beige;\n"
 "    font: bold 14px;\n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QToolButton:pressed {\n"
@@ -395,7 +395,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QToolButton:pressed {\n"
@@ -566,7 +566,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QLabel:pressed {\n"
@@ -610,7 +610,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QLabel:pressed {\n"
@@ -654,7 +654,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QLabel:pressed {\n"
@@ -698,7 +698,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QLabel:pressed {\n"
@@ -742,7 +742,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QLabel:pressed {\n"
@@ -788,7 +788,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QLabel:pressed {\n"
@@ -834,7 +834,7 @@ class Ui_MainWindow(object):
 "    font: bold 14px;\n"
 " \n"
 "    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
+"    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
 "QLabel:pressed {\n"
@@ -859,8 +859,8 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.patientIdLineEdit, self.patientDetailsToolButton)
         MainWindow.setTabOrder(self.patientDetailsToolButton, self.setPointBtn)
-        MainWindow.setTabOrder(self.setPointBtn, self.tempDownToolBtn2_5)
-        MainWindow.setTabOrder(self.tempDownToolBtn2_5, self.tempDownToolBtn2_4)
+        MainWindow.setTabOrder(self.setPointBtn, self.muteToolButton)
+        MainWindow.setTabOrder(self.muteToolButton, self.tempDownToolBtn2_4)
         MainWindow.setTabOrder(self.tempDownToolBtn2_4, self.tempDownToolBtn2_9)
         MainWindow.setTabOrder(self.tempDownToolBtn2_9, self.timerButton)
         MainWindow.setTabOrder(self.timerButton, self.heaterLabelMode)
@@ -872,7 +872,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.timerButton.setText(_translate("MainWindow", "TIMER \n"
 "ON"))
-        self.tempDownToolBtn2_5.setText(_translate("MainWindow", "MUTE"))
+        self.muteToolButton.setText(_translate("MainWindow", "MUTE"))
         self.setPointBtn.setText(_translate("MainWindow", "SET"))
         self.tempDownToolBtn2_4.setText(_translate("MainWindow", "°C/°F"))
         self.tempDownToolBtn2_9.setText(_translate("MainWindow", "Start \n"
