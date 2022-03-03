@@ -150,7 +150,7 @@ class SerialWrapper:
             tempValue = tempValue / 10
             airValue = airValue / 10
 
-            if bit0:
+            '''if bit0:
                 tempValue = 5 / 9 * (tempValue - 32)  # Celcius °C
                 airValue = 5 / 9 * (airValue - 32)  # Celcius °C
 
@@ -159,6 +159,7 @@ class SerialWrapper:
             else:
                 tempValue = (9 / 5 * tempValue) + 32  # Farhenheit °F
                 airValue = (9 / 5 * airValue) + 32  # Farhenheit °F
+            '''
             print("Air Temp:" + str(airValue) + " Skin temp: " + str(tempValue))
             self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue)))
             self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue)))
@@ -174,7 +175,7 @@ class SerialWrapper:
 
             configVariables.mute15 = int(hex(configVariables.hex_string[15]), 16)
 
-            unitValue16 = int(hex(configVariables.hex_string[16]), 16)
+            configVariables.unitValue = int(hex(configVariables.hex_string[16]), 16)
 
             timerON = int(hex(configVariables.hex_string[17]), 16)
 

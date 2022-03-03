@@ -72,7 +72,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.ui.patientDetailsToolButton.clicked.connect(self.patientDetailsDialogOpen)
         self.ui.patientIdLineEdit.textChanged.connect(self.start_typing_timer)
         self.ui.patientIdLineEdit.textChanged.connect(self.delete_previous)
-        self.ui.unitChangeToolButton.clicked.connect(self.changeUnit)
+        self.ui.unitChangeToolButton.clicked.connect(self.unitConverter)
         self.ui.muteToolButton.clicked.connect(self.muteControl)
         self.ui.heaterLabelMode.clicked.connect(self.servManControl)
 
@@ -127,7 +127,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
         self.chronosObject3 = timerCounter.TimerCounter(self.ui)
         # self.changeUnit()
-        self.ui.unitChangeToolButton.setText("°C")  # °C/°F
+        # self.ui.unitChangeToolButton.setText("°C")  # °C/°F
         configVariables.unitFlag = True
         # ****************************************************** Multithreading ********************************
         self.threadpool = QThreadPool()
@@ -177,6 +177,42 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             self.servoManual(chr(1))
             configVariables.servManFlag = True
 
+    def unitConverter(self):
+        configVariables.checkSendReceive = False
+
+        if configVariables.unitValue:
+            # timerOnValue ="\u0000"
+            unitChangeValue = chr(0)  # "\u0000"   # self.hexToAscii("0")
+        else:
+            # timerOnValue ="\u0001"
+            unitChangeValue = chr(1)  # "\u0001"  # self.hexToAscii("1")
+        # data = str.encode("$I0W" +str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
+        # configVariables.heatMode14) + str(muteValue) + str( configVariables.hex_string[16]) + str(
+        # configVariables.hex_string[17]) + ";")
+        # data = str.encode("$I0W" + "\u0001" + "\u0079" + "\u0001" + muteValue + "0" + "0" + ";")
+        data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
+            configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + unitChangeValue + chr(
+            configVariables.hex_string[17]) + ";")
+        # stringData = "$I0W" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
+        # configVariables.hex_string[14]) + str(configVariables.hex_string[15]) + str(configVariables.hex_string[16])
+        # + str(timerOnValue) + ";"
+        print(data)
+        # self.hexToAscii("1")
+        try:
+            self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+            try:
+                self.ser1.write(serial.to_bytes(data))
+
+            except Exception as e:
+                print("--- abnormal read and write from port serialDataTXRX---：", e)
+                print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+
+            # time.sleep(0.5)  # Sleep for 3 seconds
+            self.ser1.close()
+        except Exception as e:
+            print(e)
+        configVariables.checkSendReceive = True
+
     def changeUnit(self):
         if configVariables.unitFlag:
             self.ui.unitChangeToolButton.setText("°F")  # °C/°F
@@ -189,8 +225,10 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
     def servoManual(self, servalue):
         configVariables.checkSendReceive = False
-        data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + servalue + chr(configVariables.hex_string[15]) + chr(configVariables.hex_string[16]) + chr(
-            configVariables.hex_string[17]) + ";")
+        data = str.encode(
+            "$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + servalue + chr(
+                configVariables.hex_string[15]) + chr(configVariables.hex_string[16]) + chr(
+                configVariables.hex_string[17]) + ";")
         # stringData = "$I0W" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
         # configVariables.hex_string[14]) + str(configVariables.hex_string[15]) + str(configVariables.hex_string[16])
         # + str(timerOnValue) + ";"

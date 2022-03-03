@@ -15,3 +15,4 @@ setTempLow = 0
 setTempHigh = 0
 unitFlag = True
 servManFlag = True
+unitValue = 0

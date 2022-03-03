@@ -35,8 +35,8 @@
    <widget class="QToolButton" name="heaterLabelMode">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>60</y>
+      <x>510</x>
+      <y>170</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -71,23 +71,11 @@
    <widget class="QToolButton" name="timerButton">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>140</y>
-      <width>72</width>
-      <height>61</height>
+      <x>671</x>
+      <y>170</y>
+      <width>101</width>
+      <height>41</height>
      </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>72</width>
-      <height>61</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>72</width>
-      <height>61</height>
-     </size>
     </property>
     <property name="styleSheet">
      <string notr="true">QToolButton{
@@ -101,7 +89,7 @@
     background-color: #00FF00 ;
     color:#FFFFFF;
 }
-QToolButton:pressed {
+ QToolButton:pressed {
     background-color: gray;
     border-style: inset;
 }</string>
@@ -145,7 +133,7 @@ QToolButton:pressed {
     <property name="geometry">
      <rect>
       <x>540</x>
-      <y>250</y>
+      <y>270</y>
       <width>72</width>
       <height>61</height>
      </rect>
@@ -193,7 +181,7 @@ QToolButton:pressed {
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>250</y>
+      <y>270</y>
       <width>72</width>
       <height>61</height>
      </rect>
@@ -241,7 +229,7 @@ QToolButton:pressed {
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>250</y>
+      <y>270</y>
       <width>72</width>
       <height>61</height>
      </rect>
@@ -289,7 +277,7 @@ QToolButton:pressed {
     <property name="geometry">
      <rect>
       <x>720</x>
-      <y>250</y>
+      <y>270</y>
       <width>72</width>
       <height>61</height>
      </rect>
@@ -370,8 +358,8 @@ System</string>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>50</y>
+      <x>20</x>
+      <y>150</y>
       <width>60</width>
       <height>60</height>
      </rect>
@@ -392,7 +380,7 @@ System</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../.designer/backup/icon/thermometer_60_60.png</pixmap>
+     <pixmap>icon/thermometer_60_60.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -401,10 +389,10 @@ System</string>
    <widget class="QLabel" name="tempLabel4">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>40</y>
+      <x>100</x>
+      <y>150</y>
       <width>171</width>
-      <height>81</height>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
@@ -435,8 +423,8 @@ QLabel:pressed {
    <widget class="QLabel" name="setLabelAirTemp">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>140</y>
+      <x>350</x>
+      <y>170</y>
       <width>91</width>
       <height>40</height>
      </rect>
@@ -468,8 +456,8 @@ QLabel:pressed {
    <widget class="QLabel" name="setTitleLabel4">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>10</y>
+      <x>160</x>
+      <y>130</y>
       <width>51</width>
       <height>20</height>
      </rect>
@@ -507,17 +495,11 @@ QLabel:pressed {
    <widget class="QLabel" name="setTitleLabel2">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>150</y>
-      <width>160</width>
+      <x>360</x>
+      <y>130</y>
+      <width>61</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>160</width>
-      <height>20</height>
-     </size>
     </property>
     <property name="maximumSize">
      <size>
@@ -553,7 +535,7 @@ QLabel:pressed {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>50</y>
+      <y>40</y>
       <width>60</width>
       <height>60</height>
      </rect>
@@ -574,7 +556,7 @@ QLabel:pressed {
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../.designer/backup/icon/thermometer_60_60.png</pixmap>
+     <pixmap>icon/thermometer_60_60.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -583,23 +565,11 @@ QLabel:pressed {
    <widget class="QLabel" name="setTitleLabel1">
     <property name="geometry">
      <rect>
-      <x>-30</x>
-      <y>150</y>
-      <width>160</width>
+      <x>350</x>
+      <y>20</y>
+      <width>81</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>160</width>
-      <height>20</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>160</width>
-      <height>20</height>
-     </size>
     </property>
     <property name="font">
      <font>
@@ -628,7 +598,7 @@ QLabel:pressed {
    <widget class="QLabel" name="setTitleLabel3">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>150</x>
       <y>10</y>
       <width>61</width>
       <height>20</height>
@@ -670,7 +640,7 @@ QLabel:pressed {
       <x>90</x>
       <y>40</y>
       <width>181</width>
-      <height>81</height>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
@@ -701,17 +671,11 @@ QLabel:pressed {
    <widget class="QLabel" name="setLabelSkinTemp">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>140</y>
-      <width>160</width>
+      <x>340</x>
+      <y>60</y>
+      <width>101</width>
       <height>40</height>
      </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>160</width>
-      <height>40</height>
-     </size>
     </property>
     <property name="maximumSize">
      <size>
@@ -746,8 +710,8 @@ QLabel:pressed {
    <widget class="QLabel" name="setTitleLabel2_2">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>10</y>
+      <x>510</x>
+      <y>140</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -785,8 +749,8 @@ QLabel:pressed {
    <widget class="QLabel" name="setTitleLabel4_2">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>10</y>
+      <x>500</x>
+      <y>20</y>
       <width>101</width>
       <height>20</height>
      </rect>
@@ -827,7 +791,7 @@ QLabel:pressed {
    <widget class="QLabel" name="heaterLabelShow">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>500</x>
       <y>60</y>
       <width>81</width>
       <height>40</height>
@@ -857,7 +821,7 @@ QLabel:pressed {
 }</string>
     </property>
     <property name="text">
-     <string>36.6</string>
+     <string>100</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -867,7 +831,7 @@ QLabel:pressed {
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>250</y>
+      <y>270</y>
       <width>72</width>
       <height>61</height>
      </rect>
@@ -916,7 +880,7 @@ Details</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>270</y>
+      <y>290</y>
       <width>100</width>
       <height>40</height>
      </rect>
@@ -961,7 +925,7 @@ QLabel:pressed {
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>280</y>
+      <y>300</y>
       <width>150</width>
       <height>31</height>
      </rect>
@@ -983,7 +947,7 @@ QLabel:pressed {
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>240</y>
+      <y>260</y>
       <width>150</width>
       <height>31</height>
      </rect>
@@ -999,7 +963,7 @@ QLabel:pressed {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>230</y>
+      <y>250</y>
       <width>131</width>
       <height>40</height>
      </rect>
@@ -1082,27 +1046,15 @@ QLabel:pressed {
    <widget class="QLabel" name="timerShowLabel">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>140</y>
-      <width>100</width>
-      <height>40</height>
+      <x>650</x>
+      <y>70</y>
+      <width>131</width>
+      <height>71</height>
      </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>100</width>
-      <height>40</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>100</width>
-      <height>40</height>
-     </size>
     </property>
     <property name="font">
      <font>
-      <pointsize>24</pointsize>
+      <pointsize>36</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -1130,8 +1082,8 @@ QLabel:pressed {
    <widget class="QLabel" name="label_11">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>150</y>
+      <x>670</x>
+      <y>20</y>
       <width>100</width>
       <height>20</height>
      </rect>
@@ -1770,17 +1722,17 @@ QLabel:pressed {
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>706</x>
       <y>400</y>
-      <width>67</width>
-      <height>61</height>
+      <width>81</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>icon/medical-logo-plus.png</pixmap>
+     <pixmap>../../Pictures/SST.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -1789,8 +1741,8 @@ QLabel:pressed {
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>70</y>
+      <x>590</x>
+      <y>60</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -1805,8 +1757,57 @@ QLabel:pressed {
     <property name="text">
      <string>%</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>60</y>
+      <width>41</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>°C</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>170</y>
+      <width>41</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>°C</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
