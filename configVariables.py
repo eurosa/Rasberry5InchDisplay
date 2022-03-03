@@ -14,3 +14,4 @@ heatMode14 = 0
 setTempLow = 0
 setTempHigh = 0
 unitFlag = True
+servManFlag = True

@@ -24,6 +24,7 @@ from Database.dataModel import DataModel
 from PyQt5.QtSql import QSqlQueryModel
 
 from StringBuilder import StringBuilder
+from WorkerThread import Worker
 from serialDataTXRX import SerialWrapper
 from virtual_keyboard import *
 # This gets the Qt stuff
@@ -73,6 +74,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.ui.patientIdLineEdit.textChanged.connect(self.delete_previous)
         self.ui.unitChangeToolButton.clicked.connect(self.changeUnit)
         self.ui.muteToolButton.clicked.connect(self.muteControl)
+        self.ui.heaterLabelMode.clicked.connect(self.servManControl)
 
         self.patientWindow = QMainWindow()
         self.patientWindowForm = patientDetailsForm.Ui_patientFormWindow()
@@ -127,6 +129,53 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         # self.changeUnit()
         self.ui.unitChangeToolButton.setText("°C")  # °C/°F
         configVariables.unitFlag = True
+        # ****************************************************** Multithreading ********************************
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+        self.timer = QTimer()
+        self.timer.setInterval(1000)
+        self.timer.timeout.connect(self.recurring_timer)
+        self.timer.start()
+        self.counter = 0
+
+    def progress_fn(self, n):
+        print("%d%% done" % n)
+
+    def execute_this_fn(self, progress_callback):
+        '''for n in range(0, 5):
+            time.sleep(1)
+            progress_callback.emit(n * 100 / 4)'''
+
+        return "Done."
+
+    def print_output(self, s):
+        print(s)
+
+    def thread_complete(self):
+        print("THREAD COMPLETE!")
+
+    def oh_no(self):
+        # Pass the function to execute
+        worker = Worker(self.execute_this_fn)  # Any other args, kwargs are passed to the run function
+        worker.signals.result.connect(self.print_output)
+        worker.signals.finished.connect(self.thread_complete)
+        worker.signals.progress.connect(self.progress_fn)
+        # Execute
+        self.threadpool.start(worker)
+
+    def recurring_timer(self):
+        self.serialWrapper.receiveData()
+        # self.counter += 1
+        # self.ui.setLabelAirTemp.setText("%d" % self.counter)
+
+    # ****************************************************** Multithreading ********************************
+    def servManControl(self):
+        if configVariables.servManFlag:
+            self.servoManual(chr(0))  # "\u0000"   # self.hexToAscii("0"))
+            configVariables.servManFlag = False
+        else:
+            self.servoManual(chr(1))
+            configVariables.servManFlag = True
 
     def changeUnit(self):
         if configVariables.unitFlag:
@@ -137,6 +186,29 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             configVariables.unitFlag = True
 
         # T(°C) = (T(°F) - 32) × 5 / 9
+
+    def servoManual(self, servalue):
+        configVariables.checkSendReceive = False
+        data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + servalue + chr(configVariables.hex_string[15]) + chr(configVariables.hex_string[16]) + chr(
+            configVariables.hex_string[17]) + ";")
+        # stringData = "$I0W" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
+        # configVariables.hex_string[14]) + str(configVariables.hex_string[15]) + str(configVariables.hex_string[16])
+        # + str(timerOnValue) + ";"
+        print(data)
+        # self.hexToAscii("1")
+        try:
+            self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+            try:
+                self.ser1.write(serial.to_bytes(data))
+            except Exception as e:
+                print("--- abnormal read and write from port serialDataTXRX---：", e)
+                print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+
+            # time.sleep(0.5)  # Sleep for 3 seconds
+            self.ser1.close()
+        except Exception as e:
+            print(e)
+        configVariables.checkSendReceive = True
 
     def muteControl(self):
         configVariables.checkSendReceive = False

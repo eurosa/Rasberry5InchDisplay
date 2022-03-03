@@ -53,7 +53,10 @@
     background-color: #00FF00 ;
     color:#FFFFFF;
 }
- </string>
+ QToolButton:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
     </property>
     <property name="text">
      <string/>
@@ -104,8 +107,7 @@ QToolButton:pressed {
 }</string>
     </property>
     <property name="text">
-     <string>TIMER 
-ON</string>
+     <string>Start</string>
     </property>
     <property name="iconSize">
      <size>
@@ -1032,54 +1034,6 @@ QLabel:pressed {
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QToolButton" name="logoToolBtn">
-    <property name="geometry">
-     <rect>
-      <x>717</x>
-      <y>400</y>
-      <width>72</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>72</width>
-      <height>61</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>72</width>
-      <height>72</height>
-     </size>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QToolButton#logoToolBtn{
-    border-style: outset;
-    border-width: 1px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
- 
-    padding: 6px;
-    background-color: #00A36C ;
-    color:#FFFFFF;
-}
-QToolButton#logoToolBtn:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-    </property>
-    <property name="text">
-     <string>Logo</string>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>42</width>
-      <height>42</height>
-     </size>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
@@ -1813,6 +1767,48 @@ QLabel:pressed {
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>400</y>
+      <width>67</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>icon/medical-logo-plus.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>70</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>%</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
@@ -1835,7 +1831,6 @@ QLabel:pressed {
   <tabstop>tempDownToolBtn2_9</tabstop>
   <tabstop>timerButton</tabstop>
   <tabstop>heaterLabelMode</tabstop>
-  <tabstop>logoToolBtn</tabstop>
   <tabstop>patientNameLineEdit</tabstop>
  </tabstops>
  <resources/>

@@ -34,7 +34,10 @@ class Ui_MainWindow(object):
 "    background-color: #00FF00 ;\n"
 "    color:#FFFFFF;\n"
 "}\n"
-" ")
+" QToolButton:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
         self.heaterLabelMode.setText("")
         self.heaterLabelMode.setIconSize(QtCore.QSize(42, 42))
         self.heaterLabelMode.setObjectName("heaterLabelMode")
@@ -450,27 +453,6 @@ class Ui_MainWindow(object):
 "}")
         self.setTitleLabel2_3.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.setTitleLabel2_3.setObjectName("setTitleLabel2_3")
-        self.logoToolBtn = QtWidgets.QToolButton(self.centralwidget)
-        self.logoToolBtn.setGeometry(QtCore.QRect(717, 400, 72, 61))
-        self.logoToolBtn.setMinimumSize(QtCore.QSize(72, 61))
-        self.logoToolBtn.setMaximumSize(QtCore.QSize(72, 72))
-        self.logoToolBtn.setStyleSheet("QToolButton#logoToolBtn{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00A36C ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QToolButton#logoToolBtn:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.logoToolBtn.setIconSize(QtCore.QSize(42, 42))
-        self.logoToolBtn.setObjectName("logoToolBtn")
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(300, 380, 100, 20))
         self.label_7.setMinimumSize(QtCore.QSize(100, 20))
@@ -846,6 +828,21 @@ class Ui_MainWindow(object):
         self.label_19.setObjectName("label_19")
         self.verticalLayout_7.addWidget(self.label_19)
         self.gridLayout.addLayout(self.verticalLayout_7, 0, 12, 1, 1)
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(720, 400, 67, 61))
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap("icon/medical-logo-plus.png"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(640, 70, 31, 31))
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setObjectName("label_2")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -864,14 +861,12 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.unitChangeToolButton, self.tempDownToolBtn2_9)
         MainWindow.setTabOrder(self.tempDownToolBtn2_9, self.timerButton)
         MainWindow.setTabOrder(self.timerButton, self.heaterLabelMode)
-        MainWindow.setTabOrder(self.heaterLabelMode, self.logoToolBtn)
-        MainWindow.setTabOrder(self.logoToolBtn, self.patientNameLineEdit)
+        MainWindow.setTabOrder(self.heaterLabelMode, self.patientNameLineEdit)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.timerButton.setText(_translate("MainWindow", "TIMER \n"
-"ON"))
+        self.timerButton.setText(_translate("MainWindow", "Start"))
         self.muteToolButton.setText(_translate("MainWindow", "MUTE"))
         self.setPointBtn.setText(_translate("MainWindow", "SET"))
         self.unitChangeToolButton.setText(_translate("MainWindow", "°C/°F"))
@@ -892,7 +887,6 @@ class Ui_MainWindow(object):
 "Details"))
         self.setTitleLabel2_4.setText(_translate("MainWindow", "Patient ID:"))
         self.setTitleLabel2_3.setText(_translate("MainWindow", "Patient Name:"))
-        self.logoToolBtn.setText(_translate("MainWindow", "Logo"))
         self.label_7.setText(_translate("MainWindow", "Alarms"))
         self.timerShowLabel.setText(_translate("MainWindow", "00"))
         self.label_11.setText(_translate("MainWindow", "TIMER"))
@@ -903,6 +897,7 @@ class Ui_MainWindow(object):
         self.powerLabelFail.setText(_translate("MainWindow", "Power Fail"))
         self.systemLabelFail.setText(_translate("MainWindow", "System Fail"))
         self.label_18.setText(_translate("MainWindow", "Probe Fail"))
+        self.label_2.setText(_translate("MainWindow", "%"))
 
 
 if __name__ == "__main__":

@@ -32,49 +32,48 @@ class SerialWrapper:
                 self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
                 try:
                     self.ser1.write(serial.to_bytes(self.my_str_as_bytes))
-                    self.s = self.ser1.read(21)
+                    configVariables.hex_string = self.ser1.read(21)
                 except Exception as e:
                     print("--- abnormal read and write from port serialDataTXRX---：", e)
                     print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
-                self.receiveData()
+                # self.receiveData()
                 time.sleep(0.5)  # Sleep for 3 seconds
                 self.ser1.close()
             except Exception as e:
                 print(e)
 
     def receiveData(self):
-        configVariables.hex_string = self.s
 
-        if self.s:
-            print(str(self.s[0]) + " " +
-                  str(self.s[1]) + " " +
-                  str(self.s[2]) + " " +
-                  str(self.s[3]) + " " +
-                  str(self.s[4]) + " " +
-                  str(self.s[5]) + " " +
-                  str(self.s[6]) + " " +
-                  str(self.s[7]) + " " +
-                  str(self.s[8]) + " " +
-                  str(self.s[9]) + " " +
-                  str(self.s[10]) + " " +
-                  str(self.s[11]) + " " +
-                  str(self.s[12]) + " " +
-                  str(self.s[13]) + " " +
-                  str(self.s[14]) + " " +
-                  str(self.s[15]) + " " +
-                  str(self.s[16]) + " " +
-                  str(self.s[17]) + " " +
-                  str(self.s[18]) + " " +
-                  str(self.s[19]) + " " +
-                  str(self.s[20]))
+        if configVariables.hex_string:
+            print(str(configVariables.hex_string[0]) + " " +
+                  str(configVariables.hex_string[1]) + " " +
+                  str(configVariables.hex_string[2]) + " " +
+                  str(configVariables.hex_string[3]) + " " +
+                  str(configVariables.hex_string[4]) + " " +
+                  str(configVariables.hex_string[5]) + " " +
+                  str(configVariables.hex_string[6]) + " " +
+                  str(configVariables.hex_string[7]) + " " +
+                  str(configVariables.hex_string[8]) + " " +
+                  str(configVariables.hex_string[9]) + " " +
+                  str(configVariables.hex_string[10]) + " " +
+                  str(configVariables.hex_string[11]) + " " +
+                  str(configVariables.hex_string[12]) + " " +
+                  str(configVariables.hex_string[13]) + " " +
+                  str(configVariables.hex_string[14]) + " " +
+                  str(configVariables.hex_string[15]) + " " +
+                  str(configVariables.hex_string[16]) + " " +
+                  str(configVariables.hex_string[17]) + " " +
+                  str(configVariables.hex_string[18]) + " " +
+                  str(configVariables.hex_string[19]) + " " +
+                  str(configVariables.hex_string[20]))
 
-        if self.s:
-            skinTemp1 = int(hex(self.s[4]), 16)
-            skinTemp2 = int(hex(self.s[5]), 16)
+        if configVariables.hex_string:
+            skinTemp1 = int(hex(configVariables.hex_string[4]), 16)
+            skinTemp2 = int(hex(configVariables.hex_string[5]), 16)
             tempValue = (skinTemp1 << 8) | skinTemp2
 
-            airTemp1 = int(hex(self.s[6]), 16)
-            airTemp2 = int(hex(self.s[7]), 16)
+            airTemp1 = int(hex(configVariables.hex_string[6]), 16)
+            airTemp2 = int(hex(configVariables.hex_string[7]), 16)
             airValue = (airTemp1 << 8) | airTemp2
 
             # skinTemp = self.joinHex(self.s[4], self.s[5])
@@ -83,59 +82,9 @@ class SerialWrapper:
             # shifts decimal place left
             # skinTempValue = int(hex(skinTemp), 16) / 10
             # airTempValue = int(hex(airTemp), 16) / 10
-            setSkinTemp = self.joinHex(self.s[12], self.s[13])
-            timer8 = int(hex(self.s[8]), 16)
-            heaterValue = int(hex(self.s[9]), 16)
-            setTempValue = int(hex(setSkinTemp), 16) / 10
-            # shifts decimal place left
-            # hum_data_read = int(hex(hum_data_read_hex), 16) / 10
-            # air_pressure_data_read = int(hex(air_pressure_data_read_hex), 16)
 
-            # ++++++++++++++++++++ Temp , Humidity, Pressure UI update +++++++++++++++++++
-            tempValue = tempValue / 10
-            airValue = airValue / 10
-
-            if configVariables.unitFlag:
-                pass
-            else:
-                tempValue = (9 / 5 * tempValue) + 32  # Farhenheit °F
-                airValue = (9 / 5 * airValue) + 32  # Farhenheit °F
-            print("Air Temp:" + str(airValue) + " Skin temp: " + str(tempValue))
-            self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue)))
-            self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue)))
-            #  self.ui.ui.timerShowLabel.setText(str(timer8))
-            self.ui.ui.heaterLabelShow.setText(str(heaterValue))
-            self.ui.ui.setLabelSkinTemp.setText(str(setTempValue))
-            # self.ui.ui.humidityShow.setText(str(hum_data_read))
-            # self.ui.ui.differentialPressureShow.setText(str(air_pressure_data_read))
-
-            configVariables.heatMode14 = int(hex(self.s[14]), 16)
-            configVariables.setTempLow = int(hex(self.s[12]), 16)
-            configVariables.setTempHigh = int(hex(self.s[13]), 16)
-
-            configVariables.mute15 = int(hex(self.s[15]), 16)
-
-            unitValue16 = int(hex(self.s[16]), 16)
-
-            timerON = int(hex(self.s[17]), 16)
-
-            if configVariables.heatMode14 == 0:
-                configVariables.heatModeString = "SERVO"
-            elif configVariables.heatMode14 == 1:
-                configVariables.heatModeString = "MANUAL"
-            elif configVariables.heatMode14 == 2:
-                configVariables.heatModeString = "ACCIDENTAL"
-            elif configVariables.heatMode14 == 3:
-                configVariables.heatModeString = "PREHEAT"
-            binLowSkinTemp = bin(int(format(self.s[4])))  # int result = (first << 4) | second;
-            binHighSkinTemp = bin(int(format(self.s[5])))  # int result = (first << 4) | second;
-
-            result = int(f'0b{self.s[4]:08b}', 2) << 4 | int(f'0b{self.s[5]:08b}', 2)
-            # "{0:b}".format(configVariables.hex_string[4])#   print("Binary String1: " + f'0b{self.s[18]:08b}')
-
-            print(result)  # "{0:b}".format(configVariables.hex_string[4])
-
-            bin1 = f'{self.s[18]:08b}'  # format(self.s[18], '08b')  # "{0:b}".format(self.s[19])  # bin(self.s[18])
+            bin1 = f'{configVariables.hex_string[18]:08b}'  # format(self.s[18], '08b')  # "{0:b}".format(self.s[19])
+            # bin(self.s[18])
 
             highTMP = bin1[6]
             lowTMP = bin1[5]
@@ -144,15 +93,17 @@ class SerialWrapper:
             probeF = bin1[1]
             CF = bin1[0]
 
-            bin2 = f'0b{self.s[19]:08b}'
+            bin2 = f'0b{configVariables.hex_string[19]:08b}'
             print(str(highTMP))
             print(str(lowTMP))
             print(str(systemF))
             print("Mute value: " + str(configVariables.mute15))
             print(str(probeF))
             print(str(CF))
-            print("Binary String1: " + f'{self.s[18]:08b}')  # "{0:b}".format(configVariables.hex_string[4])
-            print("Binary String2: " + f'0b{self.s[19]:08b}')  # "{0:b}".format(configVariables.hex_string[4])
+            print(
+                "Binary String1: " + f'0b{configVariables.hex_string[18]:08b}')  # "{0:b}".format(configVariables.hex_string[4])
+            print(
+                "Binary String2: " + f'0b{configVariables.hex_string[19]:08b}')  # "{0:b}".format(configVariables.hex_string[4])
             # bin2 = format(self.s[19], '08b')
             SET = bin2[0]
             htrON = bin2[1]
@@ -186,6 +137,63 @@ class SerialWrapper:
             bit1 = bool(int(bin1, 2) & int(x1, 2))  # probeF = bin1[1]
             bit0 = bool(int(bin1, 2) & int(x0, 2))  # CF = bin1[0]
             bit8 = bool(int(bin2, 2) & int(x2, 2))  # htrFAIL = bin2[2]
+
+            setSkinTemp = self.joinHex(configVariables.hex_string[12], configVariables.hex_string[13])
+            timer8 = int(hex(configVariables.hex_string[8]), 16)
+            heaterValue = int(hex(configVariables.hex_string[9]), 16)
+            setTempValue = int(hex(setSkinTemp), 16) / 10
+            # shifts decimal place left
+            # hum_data_read = int(hex(hum_data_read_hex), 16) / 10
+            # air_pressure_data_read = int(hex(air_pressure_data_read_hex), 16)
+
+            # ++++++++++++++++++++ Temp , Humidity, Pressure UI update +++++++++++++++++++
+            tempValue = tempValue / 10
+            airValue = airValue / 10
+
+            if bit0:
+                tempValue = 5 / 9 * (tempValue - 32)  # Celcius °C
+                airValue = 5 / 9 * (airValue - 32)  # Celcius °C
+
+            if configVariables.unitFlag:
+                pass
+            else:
+                tempValue = (9 / 5 * tempValue) + 32  # Farhenheit °F
+                airValue = (9 / 5 * airValue) + 32  # Farhenheit °F
+            print("Air Temp:" + str(airValue) + " Skin temp: " + str(tempValue))
+            self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue)))
+            self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue)))
+            #  self.ui.ui.timerShowLabel.setText(str(timer8))
+            self.ui.ui.heaterLabelShow.setText(str(heaterValue))
+            self.ui.ui.setLabelSkinTemp.setText(str(setTempValue))
+            # self.ui.ui.humidityShow.setText(str(hum_data_read))
+            # self.ui.ui.differentialPressureShow.setText(str(air_pressure_data_read))
+
+            configVariables.heatMode14 = int(hex(configVariables.hex_string[14]), 16)
+            configVariables.setTempLow = int(hex(configVariables.hex_string[12]), 16)
+            configVariables.setTempHigh = int(hex(configVariables.hex_string[13]), 16)
+
+            configVariables.mute15 = int(hex(configVariables.hex_string[15]), 16)
+
+            unitValue16 = int(hex(configVariables.hex_string[16]), 16)
+
+            timerON = int(hex(configVariables.hex_string[17]), 16)
+
+            if configVariables.heatMode14 == 0:
+                configVariables.heatModeString = "SERVO"
+            elif configVariables.heatMode14 == 1:
+                configVariables.heatModeString = "MANUAL"
+            elif configVariables.heatMode14 == 2:
+                configVariables.heatModeString = "ACCIDENTAL"
+            elif configVariables.heatMode14 == 3:
+                configVariables.heatModeString = "PREHEAT"
+            binLowSkinTemp = bin(int(format(configVariables.hex_string[4])))  # int result = (first << 4) | second;
+            binHighSkinTemp = bin(int(format(configVariables.hex_string[5])))  # int result = (first << 4) | second;
+
+            result = int(f'0b{configVariables.hex_string[4]:08b}', 2) << 4 | int(
+                f'0b{configVariables.hex_string[5]:08b}', 2)
+            # "{0:b}".format(configVariables.hex_string[4])#   print("Binary String1: " + f'0b{self.s[18]:08b}')
+
+            print(result)  # "{0:b}".format(configVariables.hex_string[4])
 
             if bit1:
                 self.ui.ui.probeIconLabel.setStyleSheet(
@@ -251,7 +259,7 @@ class SerialWrapper:
                                                          "border-width: 2px; background-color:#00FF00; "
                                                          "border-color:beige}")
 
-            print(self.append_hex(self.s[4], self.s[5]))
+            print(self.append_hex(configVariables.hex_string[4], configVariables.hex_string[5]))
             if bit0:
                 pass
                 # unitFarhenheit()
