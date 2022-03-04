@@ -71,6 +71,7 @@ class DataBaseManagement:
             model.set_skin_temp(query.value('skin_set_temp'))
             model.set_air_temp(query.value('air_set_temp'))
             model.set_mute_flag(query.value('mute_flag'))
+            model.set_heater_output(query.value('heater_output'))
 
     def getPatientById(self, text, model):
         query = QSqlQuery()
@@ -90,6 +91,11 @@ class DataBaseManagement:
         _skin_temp = model.get_skin_temp()
         query = QSqlQuery()
         query.exec_("UPDATE general_setting SET skin_set_temp ='" + str(_skin_temp) + "' WHERE id= 1")
+
+    def updateHeaterOutput(self, model):
+        _heater_output = model.get_heater_output()
+        query = QSqlQuery()
+        query.exec_("UPDATE general_setting SET heater_output ='" + str(_heater_output) + "' WHERE id= 1")
 
     def updateAirTempValue(self, model):
         _air_temp = model.get_air_temp()
@@ -116,7 +122,8 @@ class DataBaseManagement:
     def db_create(self):
         query = QSqlQuery()
         query.exec_("create table general_setting(id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    "skin_set_temp varchar(100), air_set_temp varchar(100), mute_flag varchar(20))")
+                    "skin_set_temp varchar(100), air_set_temp varchar(100), mute_flag varchar(20), heater_output "
+                    "varchar(20))")
 
         query.exec_("create table patient_master(id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     "patient_name varchar(200), patient_age varchar(100), "
@@ -127,12 +134,13 @@ class DataBaseManagement:
                     "air_temp varchar(80),UNIQUE (patient_skin_temp, air_temp) ON CONFLICT IGNORE)")
 
         query.prepare("INSERT INTO general_setting (skin_set_temp, air_set_temp, "
-                      "mute_flag) "
+                      "mute_flag, heater_output) "
                       "VALUES (:skin_set_temp, :air_set_temp,"
-                      " :mute_flag)")
+                      " :mute_flag, :heater_output)")
         query.bindValue(":skin_set_temp", 36)
         query.bindValue(":air_set_temp", 30)
         query.bindValue(":mute_flag", False)
+        query.bindValue(":heater_output", 100)
 
         if not query.exec():
             qDebug() << "Error inserting data into table:\n" << query.lastError()

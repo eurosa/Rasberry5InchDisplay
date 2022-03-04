@@ -21,21 +21,21 @@ class Ui_servoManualSetPointForm(object):
         servoManualSetPointForm.setStyleSheet("QMainWindow{background-color:blue ;}")
         self.centralwidget = QtWidgets.QWidget(servoManualSetPointForm)
         self.centralwidget.setObjectName("centralwidget")
-        self.okBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.okBtn.setGeometry(QtCore.QRect(310, 306, 100, 40))
-        self.okBtn.setMinimumSize(QtCore.QSize(100, 40))
-        self.okBtn.setMaximumSize(QtCore.QSize(100, 40))
+        self.okHeaterBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.okHeaterBtn.setGeometry(QtCore.QRect(310, 306, 100, 40))
+        self.okHeaterBtn.setMinimumSize(QtCore.QSize(100, 40))
+        self.okHeaterBtn.setMaximumSize(QtCore.QSize(100, 40))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setBold(True)
         font.setWeight(75)
-        self.okBtn.setFont(font)
-        self.okBtn.setObjectName("okBtn")
-        self.tempUpToolBtn1 = QtWidgets.QToolButton(self.centralwidget)
-        self.tempUpToolBtn1.setGeometry(QtCore.QRect(490, 130, 72, 72))
-        self.tempUpToolBtn1.setMinimumSize(QtCore.QSize(72, 72))
-        self.tempUpToolBtn1.setMaximumSize(QtCore.QSize(72, 72))
-        self.tempUpToolBtn1.setStyleSheet("QToolButton{\n"
+        self.okHeaterBtn.setFont(font)
+        self.okHeaterBtn.setObjectName("okHeaterBtn")
+        self.heaterUpToolBtn = QtWidgets.QToolButton(self.centralwidget)
+        self.heaterUpToolBtn.setGeometry(QtCore.QRect(490, 130, 72, 72))
+        self.heaterUpToolBtn.setMinimumSize(QtCore.QSize(72, 72))
+        self.heaterUpToolBtn.setMaximumSize(QtCore.QSize(72, 72))
+        self.heaterUpToolBtn.setStyleSheet("QToolButton{\n"
 "    border-style: outset;\n"
 "    border-width: 1px;\n"
 "    border-radius: 10px;\n"
@@ -52,14 +52,14 @@ class Ui_servoManualSetPointForm(object):
 "}")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("icon/plus-sign-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.tempUpToolBtn1.setIcon(icon)
-        self.tempUpToolBtn1.setIconSize(QtCore.QSize(42, 40))
-        self.tempUpToolBtn1.setObjectName("tempUpToolBtn1")
-        self.tempDownToolBtn1 = QtWidgets.QToolButton(self.centralwidget)
-        self.tempDownToolBtn1.setGeometry(QtCore.QRect(280, 130, 72, 72))
-        self.tempDownToolBtn1.setMinimumSize(QtCore.QSize(72, 72))
-        self.tempDownToolBtn1.setMaximumSize(QtCore.QSize(72, 72))
-        self.tempDownToolBtn1.setStyleSheet("QToolButton{\n"
+        self.heaterUpToolBtn.setIcon(icon)
+        self.heaterUpToolBtn.setIconSize(QtCore.QSize(42, 40))
+        self.heaterUpToolBtn.setObjectName("heaterUpToolBtn")
+        self.heaterDownToolBtn = QtWidgets.QToolButton(self.centralwidget)
+        self.heaterDownToolBtn.setGeometry(QtCore.QRect(280, 130, 72, 72))
+        self.heaterDownToolBtn.setMinimumSize(QtCore.QSize(72, 72))
+        self.heaterDownToolBtn.setMaximumSize(QtCore.QSize(72, 72))
+        self.heaterDownToolBtn.setStyleSheet("QToolButton{\n"
 "    border-style: outset;\n"
 "    border-width: 1px;\n"
 "    border-radius: 10px;\n"
@@ -76,29 +76,29 @@ class Ui_servoManualSetPointForm(object):
 "}")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icon/minus_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.tempDownToolBtn1.setIcon(icon1)
-        self.tempDownToolBtn1.setIconSize(QtCore.QSize(42, 42))
-        self.tempDownToolBtn1.setObjectName("tempDownToolBtn1")
-        self.cancelBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.cancelBtn.setGeometry(QtCore.QRect(420, 306, 100, 40))
-        self.cancelBtn.setMinimumSize(QtCore.QSize(100, 40))
-        self.cancelBtn.setMaximumSize(QtCore.QSize(100, 40))
+        self.heaterDownToolBtn.setIcon(icon1)
+        self.heaterDownToolBtn.setIconSize(QtCore.QSize(42, 42))
+        self.heaterDownToolBtn.setObjectName("heaterDownToolBtn")
+        self.cancelHeaterBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.cancelHeaterBtn.setGeometry(QtCore.QRect(420, 306, 100, 40))
+        self.cancelHeaterBtn.setMinimumSize(QtCore.QSize(100, 40))
+        self.cancelHeaterBtn.setMaximumSize(QtCore.QSize(100, 40))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setBold(True)
         font.setWeight(75)
-        self.cancelBtn.setFont(font)
-        self.cancelBtn.setObjectName("cancelBtn")
-        self.tempLabel1 = QtWidgets.QLabel(self.centralwidget)
-        self.tempLabel1.setGeometry(QtCore.QRect(360, 150, 120, 40))
-        self.tempLabel1.setMinimumSize(QtCore.QSize(120, 40))
-        self.tempLabel1.setMaximumSize(QtCore.QSize(120, 40))
+        self.cancelHeaterBtn.setFont(font)
+        self.cancelHeaterBtn.setObjectName("cancelHeaterBtn")
+        self.heaterOutput = QtWidgets.QLabel(self.centralwidget)
+        self.heaterOutput.setGeometry(QtCore.QRect(360, 150, 120, 40))
+        self.heaterOutput.setMinimumSize(QtCore.QSize(120, 40))
+        self.heaterOutput.setMaximumSize(QtCore.QSize(120, 40))
         font = QtGui.QFont()
         font.setPointSize(36)
         font.setBold(True)
         font.setWeight(75)
-        self.tempLabel1.setFont(font)
-        self.tempLabel1.setStyleSheet("QLabel{\n"
+        self.heaterOutput.setFont(font)
+        self.heaterOutput.setStyleSheet("QLabel{\n"
 "  \n"
 "    color:#FFFFFF;\n"
 "}\n"
@@ -106,8 +106,8 @@ class Ui_servoManualSetPointForm(object):
 "    background-color: gray;\n"
 "    border-style: inset;\n"
 "}")
-        self.tempLabel1.setAlignment(QtCore.Qt.AlignCenter)
-        self.tempLabel1.setObjectName("tempLabel1")
+        self.heaterOutput.setAlignment(QtCore.Qt.AlignCenter)
+        self.heaterOutput.setObjectName("heaterOutput")
         self.skinTextLabel_2 = QtWidgets.QLabel(self.centralwidget)
         self.skinTextLabel_2.setGeometry(QtCore.QRect(310, 40, 231, 31))
         font = QtGui.QFont()
@@ -139,11 +139,11 @@ class Ui_servoManualSetPointForm(object):
     def retranslateUi(self, servoManualSetPointForm):
         _translate = QtCore.QCoreApplication.translate
         servoManualSetPointForm.setWindowTitle(_translate("servoManualSetPointForm", "Set Point"))
-        self.okBtn.setText(_translate("servoManualSetPointForm", "Ok"))
-        self.tempUpToolBtn1.setText(_translate("servoManualSetPointForm", "..."))
-        self.tempDownToolBtn1.setText(_translate("servoManualSetPointForm", "..."))
-        self.cancelBtn.setText(_translate("servoManualSetPointForm", "Cancel"))
-        self.tempLabel1.setText(_translate("servoManualSetPointForm", "100"))
+        self.okHeaterBtn.setText(_translate("servoManualSetPointForm", "Ok"))
+        self.heaterUpToolBtn.setText(_translate("servoManualSetPointForm", "..."))
+        self.heaterDownToolBtn.setText(_translate("servoManualSetPointForm", "..."))
+        self.cancelHeaterBtn.setText(_translate("servoManualSetPointForm", "Cancel"))
+        self.heaterOutput.setText(_translate("servoManualSetPointForm", "100"))
         self.skinTextLabel_2.setText(_translate("servoManualSetPointForm", "Set Heater Output"))
 
 

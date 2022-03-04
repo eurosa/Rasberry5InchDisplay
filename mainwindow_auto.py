@@ -42,7 +42,7 @@ class Ui_MainWindow(object):
         self.heaterLabelMode.setIconSize(QtCore.QSize(42, 42))
         self.heaterLabelMode.setObjectName("heaterLabelMode")
         self.timerButton = QtWidgets.QToolButton(self.centralwidget)
-        self.timerButton.setGeometry(QtCore.QRect(671, 170, 101, 41))
+        self.timerButton.setGeometry(QtCore.QRect(680, 160, 72, 61))
         self.timerButton.setStyleSheet("QToolButton{\n"
 "    border-style: outset;\n"
 "    border-width: 1px;\n"
@@ -58,6 +58,9 @@ class Ui_MainWindow(object):
 "    background-color: gray;\n"
 "    border-style: inset;\n"
 "}")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("icon/play_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.timerButton.setIcon(icon)
         self.timerButton.setIconSize(QtCore.QSize(42, 42))
         self.timerButton.setObjectName("timerButton")
         self.line = QtWidgets.QFrame(self.centralwidget)
@@ -94,6 +97,9 @@ class Ui_MainWindow(object):
 "    background-color: gray;\n"
 "    border-style: inset;\n"
 "}")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.muteToolButton.setIcon(icon1)
         self.muteToolButton.setIconSize(QtCore.QSize(42, 42))
         self.muteToolButton.setObjectName("muteToolButton")
         self.setPointBtn = QtWidgets.QToolButton(self.centralwidget)
@@ -115,18 +121,27 @@ class Ui_MainWindow(object):
 "    background-color: gray;;\n"
 "    border-style: inset;\n"
 "}")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("icon/settings_white_color.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setPointBtn.setIcon(icon2)
         self.setPointBtn.setIconSize(QtCore.QSize(42, 42))
         self.setPointBtn.setObjectName("setPointBtn")
         self.unitChangeToolButton = QtWidgets.QToolButton(self.centralwidget)
         self.unitChangeToolButton.setGeometry(QtCore.QRect(630, 270, 72, 61))
         self.unitChangeToolButton.setMinimumSize(QtCore.QSize(72, 61))
         self.unitChangeToolButton.setMaximumSize(QtCore.QSize(72, 61))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.unitChangeToolButton.setFont(font)
         self.unitChangeToolButton.setStyleSheet("QToolButton{\n"
 "    border-style: outset;\n"
 "    border-width: 1px;\n"
 "    border-radius: 10px;\n"
 "    border-color: beige;\n"
-"    font: bold 14px;\n"
+"    font: bold 24px;\n"
 " \n"
 "    padding: 6px;\n"
 "    background-color: #00FF00 ;\n"

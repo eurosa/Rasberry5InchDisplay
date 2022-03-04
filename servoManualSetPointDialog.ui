@@ -32,7 +32,7 @@
    <string notr="true">QMainWindow{background-color:blue ;}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="okBtn">
+   <widget class="QPushButton" name="okHeaterBtn">
     <property name="geometry">
      <rect>
       <x>310</x>
@@ -64,7 +64,7 @@
      <string>Ok</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="tempUpToolBtn1">
+   <widget class="QToolButton" name="heaterUpToolBtn">
     <property name="geometry">
      <rect>
       <x>490</x>
@@ -116,7 +116,7 @@ QToolButton:pressed {
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="tempDownToolBtn1">
+   <widget class="QToolButton" name="heaterDownToolBtn">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -168,7 +168,7 @@ QToolButton:pressed {
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="cancelBtn">
+   <widget class="QPushButton" name="cancelHeaterBtn">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -200,7 +200,7 @@ QToolButton:pressed {
      <string>Cancel</string>
     </property>
    </widget>
-   <widget class="QLabel" name="tempLabel1">
+   <widget class="QLabel" name="heaterOutput">
     <property name="geometry">
      <rect>
       <x>360</x>

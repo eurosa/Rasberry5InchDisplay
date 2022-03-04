@@ -16,3 +16,4 @@ setTempHigh = 0
 unitFlag = True
 servManFlag = True
 unitValue = 0
+receiveFlag = False

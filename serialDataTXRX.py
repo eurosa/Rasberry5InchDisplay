@@ -6,6 +6,7 @@ import time
 from multiprocessing.pool import ThreadPool
 
 import serial
+from PyQt5 import QtGui
 
 import configVariables
 
@@ -27,18 +28,44 @@ class SerialWrapper:
 
     def sendDataToSerialPort(self):
         # time.sleep(1)  # Sleep for 3 seconds
+
         if configVariables.checkSendReceive:
+
             try:
                 self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+                print(
+                    "*******************************First reading received data ***************************************")
                 try:
                     self.ser1.write(serial.to_bytes(self.my_str_as_bytes))
                     configVariables.hex_string = self.ser1.read(21)
+                    print(str(configVariables.hex_string[0]) + " " +
+                          str(configVariables.hex_string[1]) + " " +
+                          str(configVariables.hex_string[2]) + " " +
+                          str(configVariables.hex_string[3]) + " " +
+                          str(configVariables.hex_string[4]) + " " +
+                          str(configVariables.hex_string[5]) + " " +
+                          str(configVariables.hex_string[6]) + " " +
+                          str(configVariables.hex_string[7]) + " " +
+                          str(configVariables.hex_string[8]) + " " +
+                          str(configVariables.hex_string[9]) + " " +
+                          str(configVariables.hex_string[10]) + " " +
+                          str(configVariables.hex_string[11]) + " " +
+                          str(configVariables.hex_string[12]) + " " +
+                          str(configVariables.hex_string[13]) + " " +
+                          str(configVariables.hex_string[14]) + " " +
+                          str(configVariables.hex_string[15]) + " " +
+                          str(configVariables.hex_string[16]) + " " +
+                          str(configVariables.hex_string[17]) + " " +
+                          str(configVariables.hex_string[18]) + " " +
+                          str(configVariables.hex_string[19]) + " " +
+                          str(configVariables.hex_string[20]))
                 except Exception as e:
                     print("--- abnormal read and write from port serialDataTXRX---：", e)
                     print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
                 # self.receiveData()
                 time.sleep(0.5)  # Sleep for 3 seconds
                 self.ser1.close()
+                configVariables.receiveFlag = True
             except Exception as e:
                 print(e)
 
@@ -101,9 +128,9 @@ class SerialWrapper:
             print(str(probeF))
             print(str(CF))
             print(
-                "Binary String1: " + f'0b{configVariables.hex_string[18]:08b}')  # "{0:b}".format(configVariables.hex_string[4])
+                "Binary String1: " + f'{configVariables.hex_string[18]:08b}')  # "{0:b}".format(configVariables.hex_string[4])
             print(
-                "Binary String2: " + f'0b{configVariables.hex_string[19]:08b}')  # "{0:b}".format(configVariables.hex_string[4])
+                "Binary String2: " + f'{configVariables.hex_string[19]:08b}')  # "{0:b}".format(configVariables.hex_string[4])"Binary String2: " + f'0b{configVariables.hex_string[19]:08b}')
             # bin2 = format(self.s[19], '08b')
             SET = bin2[0]
             htrON = bin2[1]
@@ -202,6 +229,15 @@ class SerialWrapper:
             # "{0:b}".format(configVariables.hex_string[4])#   print("Binary String1: " + f'0b{self.s[18]:08b}')
 
             print(result)  # "{0:b}".format(configVariables.hex_string[4])
+
+            if configVariables.mute15:
+                icon9 = QtGui.QIcon()
+                icon9.addPixmap(QtGui.QPixmap("icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+                self.ui.ui.muteToolButton.setIcon(icon9)
+            else:
+                icon9 = QtGui.QIcon()
+                icon9.addPixmap(QtGui.QPixmap("icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+                self.ui.ui.muteToolButton.setIcon(icon9)
 
             if bit1:
                 self.ui.ui.probeIconLabel.setStyleSheet(

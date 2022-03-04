@@ -11,10 +11,13 @@ class DataModel:
         self.patient_id = str()
         self.find_by_patient_id = str()
         self.patient_skin_temp = str()
-        self.heaterOutput = str()
+        self.heater_output = str()
 
     def set_heater_output(self, _heater_output):
-        self.heaterOutput = _heater_output
+        self.heater_output = _heater_output
+
+    def get_heater_output(self):
+        return self.heater_output
 
     def set_form_patient_name(self, _form_patient_name):
         self.form_patient_name = _form_patient_name
