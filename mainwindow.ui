@@ -1764,7 +1764,7 @@ QLabel:pressed {
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="skinTempUnit">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -1787,7 +1787,7 @@ QLabel:pressed {
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="airTempUnit">
     <property name="geometry">
      <rect>
       <x>270</x>

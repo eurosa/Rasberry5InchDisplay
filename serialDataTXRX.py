@@ -149,7 +149,14 @@ class SerialWrapper:
             # ++++++++++++++++++++ Temp , Humidity, Pressure UI update +++++++++++++++++++
             tempValue = tempValue / 10
             airValue = airValue / 10
-
+            if bit0:
+                self.ui.ui.skinTempUnit.setText("°F")
+                self.ui.ui.airTempUnit.setText("°F")
+                self.ui.ui.unitChangeToolButton.setText("°C")
+            else:
+                self.ui.ui.skinTempUnit.setText("°C")
+                self.ui.ui.airTempUnit.setText("°C")
+                self.ui.ui.unitChangeToolButton.setText("°F")
             '''if bit0:
                 tempValue = 5 / 9 * (tempValue - 32)  # Celcius °C
                 airValue = 5 / 9 * (airValue - 32)  # Celcius °C

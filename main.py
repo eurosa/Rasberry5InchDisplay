@@ -16,6 +16,7 @@ from past.builtins import unicode
 from past.types import long
 
 import configVariables
+import servoManualSetPointDialog
 import timerCounter
 from MessageBox import AutoCloseMessageBox
 import sys
@@ -75,6 +76,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.ui.unitChangeToolButton.clicked.connect(self.unitConverter)
         self.ui.muteToolButton.clicked.connect(self.muteControl)
         self.ui.heaterLabelMode.clicked.connect(self.servManControl)
+
+        self.clickable(self.ui.heaterLabelShow).connect(self.servManSetDialog)
+        self.servoManualDialog = servoManualSetPointDialog.Ui_servoManualSetPointForm()
+        self.setServManDialog = QMainWindow()
+        self.servoManualDialog.setupUi(self.setServManDialog)
 
         self.patientWindow = QMainWindow()
         self.patientWindowForm = patientDetailsForm.Ui_patientFormWindow()
@@ -137,6 +143,29 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.timer.timeout.connect(self.recurring_timer)
         self.timer.start()
         self.counter = 0
+
+    def clickable(self, widget):
+        class Filter(QObject):
+
+            clicked = pyqtSignal()
+
+            def eventFilter(self, obj, event):
+
+                if obj == widget:
+                    if event.type() == QEvent.MouseButtonRelease:
+                        if obj.rect().contains(event.pos()):
+                            self.clicked.emit()
+                            # The developer can opt for .emit(obj) to get the object within the slot.
+                            return True
+
+                return False
+
+        filter = Filter(widget)
+        widget.installEventFilter(filter)
+        return filter.clicked
+
+    def servManSetDialog(self):
+        self.setServManDialog.showFullScreen()
 
     def progress_fn(self, n):
         print("%d%% done" % n)
