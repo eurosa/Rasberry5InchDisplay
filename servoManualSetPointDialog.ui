@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>servoManualSetPointForm</class>
+ <widget class="QMainWindow" name="servoManualSetPointForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>480</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>480</height>
+   </size>
+  </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>Set Point</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{background-color:blue ;}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="okBtn">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>306</y>
+      <width>100</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>100</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>100</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Ok</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tempUpToolBtn1">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>130</y>
+      <width>72</width>
+      <height>72</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>72</width>
+      <height>72</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>72</width>
+      <height>72</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QToolButton{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00A36C ;
+    color:#FFFFFF ;
+}
+QToolButton:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>icon/plus-sign-white.png</normaloff>icon/plus-sign-white.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>42</width>
+      <height>40</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tempDownToolBtn1">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>130</y>
+      <width>72</width>
+      <height>72</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>72</width>
+      <height>72</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>72</width>
+      <height>72</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QToolButton{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00A36C ;
+    color:#FFFFFF;
+}
+QToolButton:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>icon/minus_white.png</normaloff>icon/minus_white.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>42</width>
+      <height>42</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cancelBtn">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>306</y>
+      <width>100</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>100</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>100</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Cancel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tempLabel1">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>150</y>
+      <width>120</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>120</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>120</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>36</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>100</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="skinTextLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>40</y>
+      <width>231</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>Set Heater Output</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
