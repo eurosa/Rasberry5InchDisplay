@@ -133,8 +133,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.ageLineEdit = cQLineEdit(self.patientWindowForm.ageLineEdit, "", self.dataModel, "ageLineEdit")
         self.sexLineEdit = cQLineEdit(self.patientWindowForm.sexLineEdit, "", self.dataModel, "sexLineEdit")
 
-        self.serialWrapper = SerialWrapper('/dev/ttyUSB0', self)
-        print("starting... Repeater Timer to send data in terminal")
+        self.serialWrapper = SerialWrapper('/dev/ttyUSB0', self, self.dataModel)
+        print("Starting... Repeater Timer to send data in terminal")
         self.rt = RepeatedTimer(1, self.serialWrapper.sendDataToSerialPort)  # it auto-starts, no need of rt.start()
 
         self.chronosObject3 = timerCounter.TimerCounter(self.ui)
@@ -476,7 +476,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.database_manage.updateSkinTempValue(self.dataModel)
         self.database_manage.updateAirTempValue(self.dataModel)
         self.ui.setLabelSkinTemp.setNum(self.dataModel.get_skin_temp())
-        self.ui.setLabelAirTemp.setNum(self.dataModel.get_air_temp())
+        self.ui.setLabelAirTemp.setNum(self.dataModel.get_air_temp()/10)
         self.decimalToHex(int(self.dataModel.get_skin_temp()))
         self.setDialog.close()
 

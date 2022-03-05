@@ -1262,7 +1262,7 @@ QLabel:pressed {
 }</string>
          </property>
          <property name="text">
-          <string>Temp High</string>
+          <string>Skin Hi/Lo</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1345,7 +1345,7 @@ QLabel:pressed {
 }</string>
          </property>
          <property name="text">
-          <string>Temp Low</string>
+          <string>Air Hi/Lo</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

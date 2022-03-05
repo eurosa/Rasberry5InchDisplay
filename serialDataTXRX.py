@@ -12,11 +12,14 @@ import configVariables
 
 
 class SerialWrapper:
-    def __init__(self, device, ui):
+    def __init__(self, device, ui, dataModel):
         self.s = None
         self.port = device
         self.ui = ui
+        self.model = dataModel
         self.ser1 = ""
+        self.skinV = 0
+        self.airV = 0
         self.my_str_as_bytes = str.encode("$I0R;")
 
     # def sendDataToSerialPort(self, hex_code):
@@ -179,10 +182,15 @@ class SerialWrapper:
                 self.ui.ui.skinTempUnit.setText("°F")
                 self.ui.ui.airTempUnit.setText("°F")
                 self.ui.ui.unitChangeToolButton.setText("°C")
+                self.skinV = 5 / 9 * (tempValue - 32)
+                self.airV = 5 / 9 * (airValue - 32)  # Celcius °C
+
             else:
                 self.ui.ui.skinTempUnit.setText("°C")
                 self.ui.ui.airTempUnit.setText("°C")
                 self.ui.ui.unitChangeToolButton.setText("°F")
+                self.skinV = tempValue
+                self.airV = airValue
             '''if bit0:
                 tempValue = 5 / 9 * (tempValue - 32)  # Celcius °C
                 airValue = 5 / 9 * (airValue - 32)  # Celcius °C
@@ -193,9 +201,42 @@ class SerialWrapper:
                 tempValue = (9 / 5 * tempValue) + 32  # Farhenheit °F
                 airValue = (9 / 5 * airValue) + 32  # Farhenheit °F
             '''
-            print("Air Temp:" + str(airValue) + " Skin temp: " + str(tempValue))
-            self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue)))
-            self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue)))
+            print("Air Temp:" + str(airValue - float(self.model.get_air_temp()) / 10) + " Skin temp: " + str(
+                tempValue - float(self.model.get_skin_temp()) / 10))
+
+            if 1 > self.skinV - float(self.model.get_skin_temp()) / 10 > -1:
+                self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                           "1px;border-radius:10px; font: bold 14px; "
+                                                           "border-width: 2px; background-color:#00FF00; "
+                                                           "border-color:beige}")
+            else:
+                self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                           "1px;border-radius:10px; font: bold 14px; "
+                                                           "border-width: 2px; background-color:#FF0000; "
+                                                           "border-color:beige}")
+
+            if 1 > self.airV - float(self.model.get_air_temp()) / 10 > -1:
+                self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                          "1px;border-radius:10px; font: bold 14px; "
+                                                          "border-width: 2px; background-color:#00FF00; "
+                                                          "border-color:beige}")
+            else:
+                self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                          "1px;border-radius:10px; font: bold 14px; "
+                                                          "border-width: 2px; background-color:#FF0000; "
+                                                          "border-color:beige}")
+            if 10 < self.skinV < 40:
+                self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue)))
+
+            else:
+                self.ui.ui.tempLabel3.setText("Error")
+
+            if 10 < self.airV < 40:
+                self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue)))
+
+            else:
+                self.ui.ui.tempLabel4.setText("Error")
+
             #  self.ui.ui.timerShowLabel.setText(str(timer8))
             self.ui.ui.heaterLabelShow.setText(str(heaterValue))
             self.ui.ui.setLabelSkinTemp.setText(str(setTempValue))
@@ -268,7 +309,7 @@ class SerialWrapper:
                 self.ui.ui.timerButton.setStyleSheet("QToolButton{border-style: outset; border-width: "
                                                      "1px;border-radius:10px; font: bold 14px; "
                                                      "border-width: 2px; background-color:#00FF00; "
-                                                     "border-color:beige}")'''
+                                                     "border-color:beige}")
             if bit2:
                 self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                           "1px;border-radius:10px; font: bold 14px; "
@@ -289,7 +330,7 @@ class SerialWrapper:
                 self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                            "1px;border-radius:10px; font: bold 14px; "
                                                            "border-width: 2px; background-color:#00FF00; "
-                                                           "border-color:beige}")
+                                                           "border-color:beige}")'''
 
             if htrFAIL:
                 self.ui.ui.heaterIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
