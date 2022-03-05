@@ -12,8 +12,8 @@ import subprocess
 import threading
 import time
 import serial
-from past.builtins import unicode
-from past.types import long
+# from past.builtins import unicode
+# from past.types import long
 
 import configVariables
 import servoManualSetPointDialog
@@ -103,11 +103,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.skin_temp = float(self.dataModel.get_skin_temp())
         self.air_temp = float(self.dataModel.get_air_temp())
         self.heater_output = float(self.dataModel.get_heater_output())
-        self.setPointDialog.tempLabel1.setNum(self.skin_temp)
-        self.setPointDialog.tempLabel2.setNum(self.air_temp)
+        self.setPointDialog.tempLabel1.setNum(self.skin_temp/10)
+        self.setPointDialog.tempLabel2.setNum(self.air_temp/10)
 
-        self.ui.setLabelSkinTemp.setNum(self.skin_temp)
-        self.ui.setLabelAirTemp.setNum(self.air_temp)
+        self.ui.setLabelSkinTemp.setNum(self.skin_temp/10)
+        self.ui.setLabelAirTemp.setNum(self.air_temp/10)
 
         self.setPointDialog.tempUpToolBtn1.pressed.connect(self.incSkinTemp)
         self.setPointDialog.tempDownToolBtn1.pressed.connect(self.decSkinTemp)
@@ -477,7 +477,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.database_manage.updateAirTempValue(self.dataModel)
         self.ui.setLabelSkinTemp.setNum(self.dataModel.get_skin_temp())
         self.ui.setLabelAirTemp.setNum(self.dataModel.get_air_temp())
-        self.decimalToHex(int(self.dataModel.get_skin_temp() * 10))
+        self.decimalToHex(int(self.dataModel.get_skin_temp()))
         self.setDialog.close()
 
     def closeSetPointDialog(self):
@@ -504,24 +504,26 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.setServManDialog.close()
 
     def decSkinTemp(self):
-        if self.skin_temp > 32:
-            self.skin_temp = self.skin_temp - 0.1
-            self.setPointDialog.tempLabel1.setNum(self.skin_temp)
+        print("Skin Temp dec: " + str(self.skin_temp))
+        if self.skin_temp > 320:
+            self.skin_temp = self.skin_temp - 1
+            self.setPointDialog.tempLabel1.setNum(self.skin_temp/10)
 
     def incSkinTemp(self):
-        if 32 <= self.skin_temp < 38:
-            self.skin_temp = self.skin_temp + 0.1
-            self.setPointDialog.tempLabel1.setNum(self.skin_temp)
+        print("Skin Temp inc: " + str(self.skin_temp))
+        if 320 <= self.skin_temp < 380:
+            self.skin_temp = self.skin_temp + 1
+            self.setPointDialog.tempLabel1.setNum(self.skin_temp/10)
 
     def decAirTemp(self):
-        if self.air_temp > 30:
-            self.air_temp = self.air_temp - 0.1
-            self.setPointDialog.tempLabel2.setNum(self.air_temp)
+        if self.air_temp > 300:
+            self.air_temp = self.air_temp - 1
+            self.setPointDialog.tempLabel2.setNum(self.air_temp/10)
 
     def incAirTemp(self):
-        if 30 <= self.air_temp < 39:
-            self.air_temp = self.air_temp + 0.1
-            self.setPointDialog.tempLabel2.setNum(self.air_temp)
+        if 300 <= self.air_temp < 390:
+            self.air_temp = self.air_temp + 1
+            self.setPointDialog.tempLabel2.setNum(self.air_temp/10)
         self.dataModel.set_air_temp(self.air_temp)
 
     def patientName(self, text):
@@ -566,6 +568,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
     def setPointDialogBox(self):
         self.getGeneralData()
+        self.setPointDialog.tempLabel1.setNum(self.skin_temp/10)
+        self.setPointDialog.tempLabel2.setNum(self.air_temp/10)
         self.setDialog.showFullScreen()
 
     def getGeneralData(self):

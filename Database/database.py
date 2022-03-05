@@ -90,7 +90,7 @@ class DataBaseManagement:
     def updateSkinTempValue(self, model):
         _skin_temp = model.get_skin_temp()
         query = QSqlQuery()
-        query.exec_("UPDATE general_setting SET skin_set_temp ='" + str(_skin_temp) + "' WHERE id= 1")
+        query.exec_("UPDATE general_setting SET skin_set_temp ='" + str(_skin_temp) + "' WHERE id= 1")# str("{:.1f}".format(tempValue))
 
     def updateHeaterOutput(self, model):
         _heater_output = model.get_heater_output()
@@ -137,8 +137,8 @@ class DataBaseManagement:
                       "mute_flag, heater_output) "
                       "VALUES (:skin_set_temp, :air_set_temp,"
                       " :mute_flag, :heater_output)")
-        query.bindValue(":skin_set_temp", 36)
-        query.bindValue(":air_set_temp", 30)
+        query.bindValue(":skin_set_temp", 360)
+        query.bindValue(":air_set_temp", 300)
         query.bindValue(":mute_flag", False)
         query.bindValue(":heater_output", 100)
 
