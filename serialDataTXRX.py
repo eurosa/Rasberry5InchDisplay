@@ -132,14 +132,6 @@ class SerialWrapper:
             print(
                 "Binary String2: " + f'{configVariables.hex_string[19]:08b}')  # "{0:b}".format(configVariables.hex_string[4])"Binary String2: " + f'0b{configVariables.hex_string[19]:08b}')
             # bin2 = format(self.s[19], '08b')
-            SET = bin2[0]
-            htrON = bin2[1]
-            htrFAIL = bin2[2]
-            serVO = bin2[3]
-            manUAL = bin2[4]
-            CF2 = bin2[5]
-            mutE = bin2[6]
-            amtTIME = bin2[7]
 
             x7 = bin(0b10000000)
             x6 = bin(0b01000000)
@@ -157,13 +149,20 @@ class SerialWrapper:
             x13 = bin(0b00010000)  # 100000
 
             bit7 = bool(int(bin1, 2) & int(x7, 2))
-            bit5 = bool(int(bin1, 2) & int(x5, 2))  # highTMP = bin1[5]
-            bit4 = bool(int(bin1, 2) & int(x4, 2))  # lowTMP = bin1[4]
+            bit5 = bool(int(bin1, 2) & int(x5, 2))  # probeF = bin1[5]
+            bit4 = bool(int(bin1, 2) & int(x4, 2))  # systemF = bin1[4]
             bit3 = bool(int(bin1, 2) & int(x3, 2))  # tmerON = bin1[3]
-            bit2 = bool(int(bin1, 2) & int(x2, 2))  # systemF = bin1[2]
-            bit1 = bool(int(bin1, 2) & int(x1, 2))  # probeF = bin1[1]
+            bit2 = bool(int(bin1, 2) & int(x2, 2))  # lowTMP = bin1[2]
+            bit1 = bool(int(bin1, 2) & int(x1, 2))  # highTMP = bin1[1]
             bit0 = bool(int(bin1, 2) & int(x0, 2))  # CF = bin1[0]
-            bit8 = bool(int(bin2, 2) & int(x2, 2))  # htrFAIL = bin2[2]
+            amtTIME = bool(int(bin2, 2) & int(x0, 2))  # htrFAIL = bin2[2]
+            mutE = bool(int(bin2, 2) & int(x1, 2))  # htrFAIL = bin2[2]
+            CF2 = bool(int(bin2, 2) & int(x2, 2))  # htrFAIL = bin2[2]
+            manUAL = bool(int(bin2, 2) & int(x3, 2))  # htrFAIL = bin2[2]
+            serVO = bool(int(bin2, 2) & int(x4, 2))  # htrFAIL = bin2[2]
+            htrFAIL = bool(int(bin2, 2) & int(x5, 2))  # htrFAIL = bin2[2]
+            htrON = bool(int(bin2, 2) & int(x6, 2))  # htrFAIL = bin2[2]
+            SET = bool(int(bin2, 2) & int(x7, 2))  # htrFAIL = bin2[2]
 
             setSkinTemp = self.joinHex(configVariables.hex_string[12], configVariables.hex_string[13])
             timer8 = int(hex(configVariables.hex_string[8]), 16)
@@ -239,7 +238,7 @@ class SerialWrapper:
                 icon9.addPixmap(QtGui.QPixmap("icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
                 self.ui.ui.muteToolButton.setIcon(icon9)
 
-            if bit1:
+            if bit5:
                 self.ui.ui.probeIconLabel.setStyleSheet(
                     "QLabel{border-style: outset; border-width: 1px;border-radius:10px; font: bold 14px; "
                     "border-width: 2px; background-color:#FF0000; "
@@ -247,20 +246,20 @@ class SerialWrapper:
             else:
                 self.ui.ui.probeIconLabel.setStyleSheet(
                     "QLabel{border-style: outset; border-width: 1px; border-radius:10px; font: bold 14px; "
-                    "border-width: 2px; background-color:#00A36C; "
+                    "border-width: 2px; background-color:#00FF00; "
                     "border-color:beige}")
 
-            if bit2:
+            if bit4:
                 self.ui.ui.systemIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                          "1px;border-radius:10px; font: bold 14px; "
-                                                         "border-width: 2px; background-color:#FF0000; "
+                                                         "border-width: 2px; background-color:#00FF00; "
                                                          "border-color:beige}")
             else:
                 self.ui.ui.systemIconLabel.setStyleSheet(
                     "QLabel{border-style: outset; border-width: 1px;border-radius:10px; font: bold 14px; "
-                    "border-width: 2px; background-color:#00FF00; "
+                    "border-width: 2px; background-color:#FF0000; "
                     "border-color:beige}")
-            if bit3:
+            '''if bit3:
                 self.ui.ui.timerButton.setStyleSheet("QToolButton{border-style: outset; border-width: "
                                                      "1px;border-radius:10px; font: bold 14px; "
                                                      "border-width: 2px; background-color:#FF0000; "
@@ -269,8 +268,8 @@ class SerialWrapper:
                 self.ui.ui.timerButton.setStyleSheet("QToolButton{border-style: outset; border-width: "
                                                      "1px;border-radius:10px; font: bold 14px; "
                                                      "border-width: 2px; background-color:#00FF00; "
-                                                     "border-color:beige}")
-            if bit4:
+                                                     "border-color:beige}")'''
+            if bit2:
                 self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                           "1px;border-radius:10px; font: bold 14px; "
                                                           "border-width: 2px; background-color:#FF0000; "
@@ -281,7 +280,7 @@ class SerialWrapper:
                     "border-width: 2px; background-color:#00FF00; "
                     "border-color:beige}")
 
-            if bit5:
+            if bit1:
                 self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                            "1px;border-radius:10px; font: bold 14px; "
                                                            "border-width: 2px; background-color:#FF0000; "
@@ -292,7 +291,7 @@ class SerialWrapper:
                                                            "border-width: 2px; background-color:#00FF00; "
                                                            "border-color:beige}")
 
-            if bit8:
+            if htrFAIL:
                 self.ui.ui.heaterIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                          "1px;border-radius:10px; font: bold 14px; "
                                                          "border-width: 2px; background-color:#FF0000; "
@@ -304,12 +303,6 @@ class SerialWrapper:
                                                          "border-color:beige}")
 
             print(self.append_hex(configVariables.hex_string[4], configVariables.hex_string[5]))
-            if bit0:
-                pass
-                # unitFarhenheit()
-            else:
-                pass
-                # unitCelCius()
 
             self.ui.ui.heaterLabelMode.setText(str(configVariables.heatModeString))
 

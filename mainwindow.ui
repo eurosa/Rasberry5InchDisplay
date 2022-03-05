@@ -1774,6 +1774,12 @@ QLabel:pressed {
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}</string>
+    </property>
     <property name="text">
      <string>%</string>
     </property>
@@ -1800,6 +1806,12 @@ QLabel:pressed {
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}</string>
+    </property>
     <property name="text">
      <string>°C</string>
     </property>
@@ -1822,6 +1834,12 @@ QLabel:pressed {
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}</string>
     </property>
     <property name="text">
      <string>°C</string>

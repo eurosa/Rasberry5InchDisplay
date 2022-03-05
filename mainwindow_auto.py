@@ -848,6 +848,10 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_2.setFont(font)
+        self.label_2.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}")
         self.label_2.setScaledContents(True)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
@@ -858,6 +862,10 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.skinTempUnit.setFont(font)
+        self.skinTempUnit.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}")
         self.skinTempUnit.setScaledContents(True)
         self.skinTempUnit.setObjectName("skinTempUnit")
         self.airTempUnit = QtWidgets.QLabel(self.centralwidget)
@@ -867,6 +875,10 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.airTempUnit.setFont(font)
+        self.airTempUnit.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}")
         self.airTempUnit.setScaledContents(True)
         self.airTempUnit.setObjectName("airTempUnit")
         MainWindow.setCentralWidget(self.centralwidget)
