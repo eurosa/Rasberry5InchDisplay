@@ -103,11 +103,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.skin_temp = float(self.dataModel.get_skin_temp())
         self.air_temp = float(self.dataModel.get_air_temp())
         self.heater_output = float(self.dataModel.get_heater_output())
-        self.setPointDialog.tempLabel1.setNum(self.skin_temp/10)
-        self.setPointDialog.tempLabel2.setNum(self.air_temp/10)
+        self.setPointDialog.tempLabel1.setNum(self.skin_temp / 10)
+        self.setPointDialog.tempLabel2.setNum(self.air_temp / 10)
 
-        self.ui.setLabelSkinTemp.setNum(self.skin_temp/10)
-        self.ui.setLabelAirTemp.setNum(self.air_temp/10)
+        self.ui.setLabelSkinTemp.setNum(self.skin_temp / 10)
+        self.ui.setLabelAirTemp.setNum(self.air_temp / 10)
 
         self.setPointDialog.tempUpToolBtn1.pressed.connect(self.incSkinTemp)
         self.setPointDialog.tempDownToolBtn1.pressed.connect(self.decSkinTemp)
@@ -476,7 +476,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.database_manage.updateSkinTempValue(self.dataModel)
         self.database_manage.updateAirTempValue(self.dataModel)
         self.ui.setLabelSkinTemp.setNum(self.dataModel.get_skin_temp())
-        self.ui.setLabelAirTemp.setNum(self.dataModel.get_air_temp()/10)
+        self.ui.setLabelAirTemp.setNum(self.dataModel.get_air_temp() / 10)
         self.decimalToHex(int(self.dataModel.get_skin_temp()))
         self.setDialog.close()
 
@@ -507,23 +507,23 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         print("Skin Temp dec: " + str(self.skin_temp))
         if self.skin_temp > 320:
             self.skin_temp = self.skin_temp - 1
-            self.setPointDialog.tempLabel1.setNum(self.skin_temp/10)
+            self.setPointDialog.tempLabel1.setNum(self.skin_temp / 10)
 
     def incSkinTemp(self):
         print("Skin Temp inc: " + str(self.skin_temp))
         if 320 <= self.skin_temp < 380:
             self.skin_temp = self.skin_temp + 1
-            self.setPointDialog.tempLabel1.setNum(self.skin_temp/10)
+            self.setPointDialog.tempLabel1.setNum(self.skin_temp / 10)
 
     def decAirTemp(self):
         if self.air_temp > 300:
             self.air_temp = self.air_temp - 1
-            self.setPointDialog.tempLabel2.setNum(self.air_temp/10)
+            self.setPointDialog.tempLabel2.setNum(self.air_temp / 10)
 
     def incAirTemp(self):
         if 300 <= self.air_temp < 390:
             self.air_temp = self.air_temp + 1
-            self.setPointDialog.tempLabel2.setNum(self.air_temp/10)
+            self.setPointDialog.tempLabel2.setNum(self.air_temp / 10)
         self.dataModel.set_air_temp(self.air_temp)
 
     def patientName(self, text):
@@ -568,8 +568,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
     def setPointDialogBox(self):
         self.getGeneralData()
-        self.setPointDialog.tempLabel1.setNum(self.skin_temp/10)
-        self.setPointDialog.tempLabel2.setNum(self.air_temp/10)
+        self.setPointDialog.tempLabel1.setNum(self.skin_temp / 10)
+        self.setPointDialog.tempLabel2.setNum(self.air_temp / 10)
         self.setDialog.showFullScreen()
 
     def getGeneralData(self):
@@ -586,8 +586,40 @@ def main():
     import time
     app = QApplication(sys.argv)
     app.setStyle("QtCurve")  # dataModel.get_power_on_image_path()
+
+    splash_pix = QPixmap("icon/medical-logo-plus.png")
+    # -------------------------Splash screeen Image ----------------------------------------------------------
+    # self.splash_pix = QPixmap(self.dataModel.get_power_on_image_path())
+    # from.splash_pix
+    # -------------------------Splash Screen Image ----------------------------------------------------------
+    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+    # splash = QSplashScreen(splash_pix, Qt.WindowMinimizeButtonHint)
+    splash.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
+    splash.setEnabled(False)
+    # splash = QSplashScreen(splash_pix)
+    # adding progress bar
+    progressBar = QProgressBar(splash)
+    progressBar.setMaximum(10)
+    progressBar.setGeometry(0, splash_pix.height() - 20, splash_pix.width(), 20)
+
+    splash.setMask(splash_pix.mask())
+
+    splash.showFullScreen()
+    splash.showMessage("<h1><font color='green'>Welcome to SS Technomed Pvt. Ltd!</font></h1>",
+                       Qt.AlignTop | Qt.AlignCenter, Qt.black)
+
+    for i in range(1, 11):
+        progressBar.setValue(i)
+        t = time.time()
+        while time.time() < t + 0.1:
+            app.processEvents()
+
+    # Simulate something that takes time
+    time.sleep(1)
+
     form = MainWindow()
     form.showFullScreen()
+    splash.finish(form)
     # without this, the script exits immediately.
     sys.exit(app.exec_())
 
