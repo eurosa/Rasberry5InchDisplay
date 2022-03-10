@@ -103,11 +103,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.skin_temp = float(self.dataModel.get_skin_temp())
         self.air_temp = float(self.dataModel.get_air_temp())
         self.heater_output = float(self.dataModel.get_heater_output())
-        self.setPointDialog.tempLabel1.setNum(self.skin_temp / 10)
-        self.setPointDialog.tempLabel2.setNum(self.air_temp / 10)
-
-        self.ui.setLabelSkinTemp.setNum(self.skin_temp / 10)
-        self.ui.setLabelAirTemp.setNum(self.air_temp / 10)
+        self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
+        self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
+        self.ui.heaterLabelShow.setNum(float(self.dataModel.get_heater_output()))
+        self.ui.setLabelSkinTemp.setText("{:.1f}".format(self.skin_temp / 10))
+        self.ui.setLabelAirTemp.setText("{:.1f}".format(self.air_temp / 10))
 
         self.setPointDialog.tempUpToolBtn1.pressed.connect(self.incSkinTemp)
         self.setPointDialog.tempDownToolBtn1.pressed.connect(self.decSkinTemp)
@@ -145,7 +145,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.threadpool = QThreadPool()
         print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
         self.timer = QTimer()
-        self.timer.setInterval(500)
+        self.timer.setInterval(10)
         self.timer.timeout.connect(self.recurring_timer)
         self.timer.start()
         self.counter = 0
@@ -173,6 +173,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
     def servManSetDialog(self):
         self.getGeneralData()
+        self.servoManualDialog.heaterOutput.setNum(float(self.dataModel.get_heater_output()))
         self.setServManDialog.showFullScreen()
 
     def progress_fn(self, n):
@@ -201,7 +202,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.threadpool.start(worker)
 
     def recurring_timer(self):
-        print("******************************* reading received data ***************************************")
+        # print("******************************* reading received data ***************************************")
         if configVariables.receiveFlag:
             self.serialWrapper.receiveData()
         configVariables.receiveFlag = False
@@ -210,12 +211,22 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
     # ****************************************************** Multithreading ********************************
     def servManControl(self):
-        if configVariables.servManFlag:
-            self.servoManual(chr(0))  # "\u0000"   # self.hexToAscii("0"))
-            configVariables.servManFlag = False
+        heaterValue = int(float((self.dataModel.get_heater_output())))
+        if configVariables.hex_string[14]:
+            data = str.encode(
+                "$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(0) + chr(
+                    configVariables.hex_string[15]) + chr(configVariables.hex_string[16]) + chr(
+                    configVariables.hex_string[17]) + chr(configVariables.hex_string[9]) + ";")
+            self.servoManual(data)  # "\u0000"   # self.hexToAscii("0"))
+            self.ui.heaterLabelShow.setNum(heaterValue)
+
         else:
-            self.servoManual(chr(1))
-            configVariables.servManFlag = True
+            data = str.encode(
+                "$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(1) + chr(
+                    configVariables.hex_string[15]) + chr(configVariables.hex_string[16]) + chr(
+                    configVariables.hex_string[17]) + chr(heaterValue) + ";")
+            self.servoManual(data)  # "\u0000"   # self.hexToAscii("0"))
+            self.ui.heaterLabelShow.setNum(heaterValue)
 
     def unitConverter(self):
         configVariables.checkSendReceive = False
@@ -232,7 +243,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         # data = str.encode("$I0W" + "\u0001" + "\u0079" + "\u0001" + muteValue + "0" + "0" + ";")
         data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
             configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + unitChangeValue + chr(
-            configVariables.hex_string[17]) + ";")
+            configVariables.hex_string[17]) + chr(configVariables.hex_string[9]) + ";")
         # stringData = "$I0W" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
         # configVariables.hex_string[14]) + str(configVariables.hex_string[15]) + str(configVariables.hex_string[16])
         # + str(timerOnValue) + ";"
@@ -242,7 +253,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
             try:
                 self.ser1.write(serial.to_bytes(data))
-
+                # configVariables.hex_string = self.ser1.read(21)
             except Exception as e:
                 print("--- abnormal read and write from port serialDataTXRX---：", e)
                 print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
@@ -263,21 +274,36 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
         # T(°C) = (T(°F) - 32) × 5 / 9
 
-    def servoManual(self, servalue):
+    def servoManual(self, data):
         configVariables.checkSendReceive = False
-        data = str.encode(
-            "$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + servalue + chr(
-                configVariables.hex_string[15]) + chr(configVariables.hex_string[16]) + chr(
-                configVariables.hex_string[17]) + ";")
-        # stringData = "$I0W" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
-        # configVariables.hex_string[14]) + str(configVariables.hex_string[15]) + str(configVariables.hex_string[16])
-        # + str(timerOnValue) + ";"
-        print(data)
+
         # self.hexToAscii("1")
         try:
             self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
             try:
                 self.ser1.write(serial.to_bytes(data))
+                configVariables.hex_string = self.ser1.read(21)
+                print(str(configVariables.hex_string[0]) + " " +
+                      str(configVariables.hex_string[1]) + " " +
+                      str(configVariables.hex_string[2]) + " " +
+                      str(configVariables.hex_string[3]) + " " +
+                      str(configVariables.hex_string[4]) + " " +
+                      str(configVariables.hex_string[5]) + " " +
+                      str(configVariables.hex_string[6]) + " " +
+                      str(configVariables.hex_string[7]) + " " +
+                      str(configVariables.hex_string[8]) + " " +
+                      str(configVariables.hex_string[9]) + " " +
+                      str(configVariables.hex_string[10]) + " " +
+                      str(configVariables.hex_string[11]) + " " +
+                      str(configVariables.hex_string[12]) + " " +
+                      str(configVariables.hex_string[13]) + " " +
+                      str(configVariables.hex_string[14]) + " " +
+                      str(configVariables.hex_string[15]) + " " +
+                      str(configVariables.hex_string[16]) + " " +
+                      str(configVariables.hex_string[17]) + " " +
+                      str(configVariables.hex_string[18]) + " " +
+                      str(configVariables.hex_string[19]) + " " +
+                      str(configVariables.hex_string[20]))
             except Exception as e:
                 print("--- abnormal read and write from port serialDataTXRX---：", e)
                 print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
@@ -297,33 +323,24 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         print("The unicode converted String : " + str(res) + " " + str(configVariables.heatMode14))
 
         if configVariables.mute15:
-            # icon9 = QtGui.QIcon()
-            # icon9.addPixmap(QtGui.QPixmap("icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-            # self.ui.muteToolButton.setIcon(icon9)
-            # timerOnValue ="\u0000"
-            muteValue = chr(0)  # "\u0000"   # self.hexToAscii("0")
+            icon9 = QtGui.QIcon()
+            icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+            muteValue = chr(0)
         else:
-            # icon9 = QtGui.QIcon()
-            # icon9.addPixmap(QtGui.QPixmap("icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-            # self.ui.muteToolButton.setIcon(icon9)
-            # timerOnValue ="\u0001"
-            muteValue = chr(1)  # "\u0001"  # self.hexToAscii("1")
-        # data = str.encode("$I0W" +str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
-        # configVariables.heatMode14) + str(muteValue) + str( configVariables.hex_string[16]) + str(
-        # configVariables.hex_string[17]) + ";")
-        # data = str.encode("$I0W" + "\u0001" + "\u0079" + "\u0001" + muteValue + "0" + "0" + ";")
+            icon9 = QtGui.QIcon()
+            icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+            muteValue = chr(1)
+
         data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
             configVariables.hex_string[14]) + muteValue + chr(configVariables.hex_string[16]) + chr(
-            configVariables.hex_string[17]) + ";")
-        # stringData = "$I0W" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
-        # configVariables.hex_string[14]) + str(configVariables.hex_string[15]) + str(configVariables.hex_string[16])
-        # + str(timerOnValue) + ";"
-        print(data)
-        # self.hexToAscii("1")
+            configVariables.hex_string[17]) + chr(
+            configVariables.hex_string[9]) + ";")
+
         try:
             self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
             try:
                 self.ser1.write(serial.to_bytes(data))
+                configVariables.hex_string = self.ser1.read(21)
             except Exception as e:
                 print("--- abnormal read and write from port serialDataTXRX---：", e)
                 print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
@@ -334,11 +351,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             print(e)
         configVariables.checkSendReceive = True
 
-    def heaterSetPoint(self, firstPart, secondPart):
+    def heaterSetPoint(self, heatvalue):
         configVariables.checkSendReceive = False
-        data = str.encode("$I0W" + chr(firstPart) + chr(secondPart) + chr(
+        data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
             configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + chr(
-            configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + ";")
+            configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + chr(heatvalue) + ";")
         print(data)
         try:
             self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
@@ -357,7 +374,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         configVariables.checkSendReceive = False
         data = str.encode("$I0W" + chr(firstPart) + chr(secondPart) + chr(
             configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + chr(
-            configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + ";")
+            configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + chr(
+            configVariables.hex_string[9]) + ";")
         print(data)
         try:
             self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
@@ -373,11 +391,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         configVariables.checkSendReceive = True
 
     def heatToHex(self, value):
-        print("Temperature Value: " + str(value))
+        print("heater Value: " + str(value))
         hexValue = int(hex(value), 16)
         firstPart = hexValue >> 8
         secondPart = hexValue & 0xFF
-        self.heaterSetPoint(firstPart, secondPart)
+        self.heaterSetPoint(value)
         skinTemp1 = int(hex(firstPart), 16)
         skinTemp2 = int(hex(secondPart), 16)
         tempValue = (skinTemp1 << 8) | skinTemp2
@@ -475,9 +493,13 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.dataModel.set_air_temp(self.air_temp)
         self.database_manage.updateSkinTempValue(self.dataModel)
         self.database_manage.updateAirTempValue(self.dataModel)
-        self.ui.setLabelSkinTemp.setNum(self.dataModel.get_skin_temp())
-        self.ui.setLabelAirTemp.setNum(self.dataModel.get_air_temp() / 10)
-        self.decimalToHex(int(self.dataModel.get_skin_temp()))
+        self.ui.setLabelSkinTemp.setText("{:.1f}".format(self.dataModel.get_skin_temp() / 10))
+        self.ui.setLabelAirTemp.setText("{:.1f}".format(self.dataModel.get_air_temp() / 10))
+        try:
+            self.decimalToHex(int(self.dataModel.get_skin_temp()))
+        except Exception as e:
+            print(e)
+
         self.setDialog.close()
 
     def closeSetPointDialog(self):
@@ -497,7 +519,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.dataModel.set_heater_output(self.heater_output)
         self.database_manage.updateHeaterOutput(self.dataModel)
         # self.ui.setLabelSkinTemp.setNum(self.dataModel.get_skin_temp())
-        self.heatToHex(int(self.dataModel.get_heater_output() * 10))
+        self.heatToHex(int(self.dataModel.get_heater_output()))
         self.setServManDialog.close()
 
     def closeHeaterDialog(self):
@@ -507,23 +529,23 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         print("Skin Temp dec: " + str(self.skin_temp))
         if self.skin_temp > 320:
             self.skin_temp = self.skin_temp - 1
-            self.setPointDialog.tempLabel1.setNum(self.skin_temp / 10)
+            self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
 
     def incSkinTemp(self):
         print("Skin Temp inc: " + str(self.skin_temp))
         if 320 <= self.skin_temp < 380:
             self.skin_temp = self.skin_temp + 1
-            self.setPointDialog.tempLabel1.setNum(self.skin_temp / 10)
+            self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
 
     def decAirTemp(self):
         if self.air_temp > 300:
             self.air_temp = self.air_temp - 1
-            self.setPointDialog.tempLabel2.setNum(self.air_temp / 10)
+            self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
 
     def incAirTemp(self):
         if 300 <= self.air_temp < 390:
             self.air_temp = self.air_temp + 1
-            self.setPointDialog.tempLabel2.setNum(self.air_temp / 10)
+            self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
         self.dataModel.set_air_temp(self.air_temp)
 
     def patientName(self, text):
@@ -568,16 +590,16 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
     def setPointDialogBox(self):
         self.getGeneralData()
-        self.setPointDialog.tempLabel1.setNum(self.skin_temp / 10)
-        self.setPointDialog.tempLabel2.setNum(self.air_temp / 10)
+        self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
+        self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
         self.setDialog.showFullScreen()
 
     def getGeneralData(self):
         self.database_manage.queryGeneralSettingsData(self.dataModel)
         self.skin_temp = float(self.dataModel.get_skin_temp())
         self.air_temp = float(self.dataModel.get_air_temp())
-        self.setPointDialog.tempLabel1.setNum(self.skin_temp)
-        self.setPointDialog.tempLabel2.setNum(self.air_temp)
+        self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
+        self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
 
 
 # I feel better having one of these
@@ -587,7 +609,7 @@ def main():
     app = QApplication(sys.argv)
     app.setStyle("QtCurve")  # dataModel.get_power_on_image_path()
 
-    splash_pix = QPixmap("icon/medical-logo-plus.png")
+    splash_pix = QPixmap("/home/pi/icon/sstech-logo-plus.png")
     # -------------------------Splash screeen Image ----------------------------------------------------------
     # self.splash_pix = QPixmap(self.dataModel.get_power_on_image_path())
     # from.splash_pix
@@ -606,7 +628,7 @@ def main():
 
     splash.showFullScreen()
     splash.showMessage("<h1><font color='green'>Welcome to SS Technomed Pvt. Ltd!</font></h1>",
-                       Qt.AlignTop | Qt.AlignCenter, Qt.black)
+                       Qt.AlignBottom | Qt.AlignCenter, Qt.black)
 
     for i in range(1, 11):
         progressBar.setValue(i)

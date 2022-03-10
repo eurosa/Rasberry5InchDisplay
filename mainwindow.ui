@@ -71,10 +71,10 @@
    <widget class="QToolButton" name="timerButton">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>160</y>
-      <width>72</width>
-      <height>61</height>
+      <x>670</x>
+      <y>170</y>
+      <width>101</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -206,13 +206,21 @@ QToolButton:pressed {
       <height>61</height>
      </size>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QToolButton{
     border-style: outset;
     border-width: 1px;
     border-radius: 10px;
     border-color: beige;
-    font: bold 14px;
+     font: bold 18px;
  
     padding: 6px;
     background-color: #00FF00 ;
@@ -225,10 +233,6 @@ QToolButton:pressed {
     </property>
     <property name="text">
      <string>SET</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>icon/settings_white_color.png</normaloff>icon/settings_white_color.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -284,64 +288,13 @@ QToolButton:pressed {
 }</string>
     </property>
     <property name="text">
-     <string>°C/°F</string>
+     <string>°F</string>
     </property>
     <property name="iconSize">
      <size>
       <width>42</width>
       <height>42</height>
      </size>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="tempDownToolBtn2_9">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>270</y>
-      <width>72</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>72</width>
-      <height>61</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>72</width>
-      <height>61</height>
-     </size>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QToolButton{
-    border-style: outset;
-    border-width: 1px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    padding: 6px;
-    background-color: #00FF00 ;
-    color:#FFFFFF;
-}
-QToolButton:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-    </property>
-    <property name="text">
-     <string>Start 
-System</string>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>42</width>
-      <height>42</height>
-     </size>
-    </property>
-    <property name="toolButtonStyle">
-     <enum>Qt::ToolButtonTextOnly</enum>
     </property>
    </widget>
    <widget class="QLabel" name="label_10">
@@ -769,9 +722,9 @@ QLabel:pressed {
    <widget class="QLabel" name="setTitleLabel4_2">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>480</x>
       <y>20</y>
-      <width>101</width>
+      <width>160</width>
       <height>20</height>
      </rect>
     </property>
@@ -799,7 +752,7 @@ QLabel:pressed {
 }</string>
     </property>
     <property name="text">
-     <string>HEATER</string>
+     <string>HEATER POWER</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -1147,598 +1100,6 @@ QLabel:pressed {
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>12</x>
-      <y>410</y>
-      <width>680</width>
-      <height>54</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <item>
-        <widget class="QLabel" name="probeLabel">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-  
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string>Probe Fail</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="probeIconLabel">
-         <property name="minimumSize">
-          <size>
-           <width>30</width>
-           <height>15</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-    border-style: outset;
-    border-width: 1px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
- 
-    padding: 6px;
-    background-color: #00FF00 ;
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="1">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>13</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="2">
-      <layout class="QVBoxLayout" name="verticalLayout_8">
-       <item>
-        <widget class="QLabel" name="tempHighLabel">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-  
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string>Skin Hi/Lo</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="tempHighIconLabel">
-         <property name="minimumSize">
-          <size>
-           <width>30</width>
-           <height>15</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-    border-style: outset;
-    border-width: 1px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
- 
-    padding: 6px;
-    background-color: #00FF00 ;
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="3">
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>13</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="4">
-      <layout class="QVBoxLayout" name="verticalLayout_9">
-       <item>
-        <widget class="QLabel" name="tempLowLabel">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-  
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string>Air Hi/Lo</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="tempLowIconLabel">
-         <property name="minimumSize">
-          <size>
-           <width>30</width>
-           <height>15</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-    border-style: outset;
-    border-width: 1px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
- 
-    padding: 6px;
-    background-color: #00FF00 ;
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="5">
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>13</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="6">
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QLabel" name="heaterLabelFail">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-  
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string>Heater Fail</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="heaterIconLabel">
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>15</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-    border-style: outset;
-    border-width: 1px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
- 
-    padding: 6px;
-    background-color: #00FF00 ;
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="7">
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>13</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="8">
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QLabel" name="powerLabelFail">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-  
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string>Power Fail</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="powerIconLabel">
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>15</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-    border-style: outset;
-    border-width: 1px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
- 
-    padding: 6px;
-    background-color: #00FF00 ;
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="9">
-      <spacer name="horizontalSpacer_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>13</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="10">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="systemLabelFail">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-  
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string>System Fail</string>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="systemIconLabel">
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>15</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-    border-style: outset;
-    border-width: 1px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
- 
-    padding: 6px;
-    background-color: #00FF00 ;
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="11">
-      <spacer name="horizontalSpacer_6">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>13</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="12">
-      <layout class="QVBoxLayout" name="verticalLayout_7">
-       <item>
-        <widget class="QLabel" name="label_18">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-  
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string>Probe Fail</string>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_19">
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>15</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-    border-style: outset;
-    border-width: 1px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
- 
-    padding: 6px;
-    background-color: #00FF00 ;
-    color:#FFFFFF;
-}
-QLabel:pressed {
-    background-color: gray;
-    border-style: inset;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -1848,18 +1209,576 @@ QLabel:pressed {
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="probeLabel">
+    <property name="geometry">
+     <rect>
+      <x>14</x>
+      <y>412</y>
+      <width>73</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>Probe Fail</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="probeIconLabel">
+    <property name="geometry">
+     <rect>
+      <x>14</x>
+      <y>438</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00FF00 ;
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fanFailLabel">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>412</y>
+      <width>52</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>Fan Fail</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fanFailIcon">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>438</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00FF00 ;
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tempHighLabel">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>412</y>
+      <width>74</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>Skin Hi/Lo</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tempHighIconLabel">
+    <property name="geometry">
+     <rect>
+      <x>112</x>
+      <y>438</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00FF00 ;
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="heaterLabelFail">
+    <property name="geometry">
+     <rect>
+      <x>307</x>
+      <y>412</y>
+      <width>80</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>Heater Fail</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="heaterIconLabel">
+    <property name="geometry">
+     <rect>
+      <x>307</x>
+      <y>438</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00FF00 ;
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="powerLabelFail">
+    <property name="geometry">
+     <rect>
+      <x>405</x>
+      <y>412</y>
+      <width>75</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>Heater On</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="powerIconLabel">
+    <property name="geometry">
+     <rect>
+      <x>405</x>
+      <y>438</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00FF00 ;
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="systemLabelFail">
+    <property name="geometry">
+     <rect>
+      <x>503</x>
+      <y>412</y>
+      <width>84</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>System Fail</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="systemIconLabel">
+    <property name="geometry">
+     <rect>
+      <x>503</x>
+      <y>438</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00FF00 ;
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tempLowIconLabel">
+    <property name="geometry">
+     <rect>
+      <x>209</x>
+      <y>438</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00FF00 ;
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tempLowLabel">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>412</y>
+      <width>65</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+  
+    color:#FFFFFF;
+}
+QLabel:pressed {
+    background-color: gray;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>Air Hi/Lo</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="settingToolButton">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>270</y>
+      <width>72</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>72</width>
+      <height>61</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>72</width>
+      <height>61</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QToolButton{
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+ 
+    padding: 6px;
+    background-color: #00FF00 ;
+    color:#FFFFFF;
+}
+QToolButton:pressed {
+    background-color: gray;;
+    border-style: inset;
+}</string>
+    </property>
+    <property name="text">
+     <string>SET</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>icon/settings_white_color.png</normaloff>icon/settings_white_color.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>42</width>
+      <height>42</height>
+     </size>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <tabstops>
   <tabstop>patientIdLineEdit</tabstop>
@@ -1867,7 +1786,6 @@ QLabel:pressed {
   <tabstop>setPointBtn</tabstop>
   <tabstop>muteToolButton</tabstop>
   <tabstop>unitChangeToolButton</tabstop>
-  <tabstop>tempDownToolBtn2_9</tabstop>
   <tabstop>timerButton</tabstop>
   <tabstop>heaterLabelMode</tabstop>
   <tabstop>patientNameLineEdit</tabstop>
