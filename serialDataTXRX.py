@@ -286,11 +286,11 @@ class SerialWrapper:
 
             if configVariables.mute15:
                 icon9 = QtGui.QIcon()
-                icon9.addPixmap(QtGui.QPixmap("icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+                icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
                 self.ui.ui.muteToolButton.setIcon(icon9)
             else:
                 icon9 = QtGui.QIcon()
-                icon9.addPixmap(QtGui.QPixmap("icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+                icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
                 self.ui.ui.muteToolButton.setIcon(icon9)
 
             if bit5:
