@@ -817,11 +817,11 @@ class Ui_MainWindow(object):
 "}")
         self.tempLowLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.tempLowLabel.setObjectName("tempLowLabel")
-        self.setPointBtn_2 = QtWidgets.QToolButton(self.centralwidget)
-        self.setPointBtn_2.setGeometry(QtCore.QRect(720, 270, 72, 61))
-        self.setPointBtn_2.setMinimumSize(QtCore.QSize(72, 61))
-        self.setPointBtn_2.setMaximumSize(QtCore.QSize(72, 61))
-        self.setPointBtn_2.setStyleSheet("QToolButton{\n"
+        self.openSettingDialog = QtWidgets.QToolButton(self.centralwidget)
+        self.openSettingDialog.setGeometry(QtCore.QRect(720, 270, 72, 61))
+        self.openSettingDialog.setMinimumSize(QtCore.QSize(72, 61))
+        self.openSettingDialog.setMaximumSize(QtCore.QSize(72, 61))
+        self.openSettingDialog.setStyleSheet("QToolButton{\n"
 "    border-style: outset;\n"
 "    border-width: 1px;\n"
 "    border-radius: 10px;\n"
@@ -838,9 +838,9 @@ class Ui_MainWindow(object):
 "}")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("icon/settings_white_color.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.setPointBtn_2.setIcon(icon2)
-        self.setPointBtn_2.setIconSize(QtCore.QSize(42, 42))
-        self.setPointBtn_2.setObjectName("setPointBtn_2")
+        self.openSettingDialog.setIcon(icon2)
+        self.openSettingDialog.setIconSize(QtCore.QSize(42, 42))
+        self.openSettingDialog.setObjectName("openSettingDialog")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -891,7 +891,7 @@ class Ui_MainWindow(object):
         self.powerLabelFail.setText(_translate("MainWindow", "Heater On"))
         self.systemLabelFail.setText(_translate("MainWindow", "System Fail"))
         self.tempLowLabel.setText(_translate("MainWindow", "Air Hi/Lo"))
-        self.setPointBtn_2.setText(_translate("MainWindow", "SET"))
+        self.openSettingDialog.setText(_translate("MainWindow", "SET"))
 
 
 if __name__ == "__main__":

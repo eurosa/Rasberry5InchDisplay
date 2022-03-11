@@ -1725,7 +1725,7 @@ QLabel:pressed {
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QToolButton" name="setPointBtn_2">
+   <widget class="QToolButton" name="openSettingDialog">
     <property name="geometry">
      <rect>
       <x>720</x>

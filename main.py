@@ -33,6 +33,7 @@ import PyQt5
 import mainwindow_auto
 import setPointDialog
 import patientDetailsForm
+import settingWindow
 from repeatedTimer import RepeatedTimer
 import self as self
 from PyQt5.QtCore import QTime, QTimer, Qt, QPoint, QAbstractListModel, pyqtSignal, QSize, QUrl, pyqtSlot, QEvent, QDate
@@ -97,11 +98,24 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.setDialog = QMainWindow()
         self.setPointDialog.setupUi(self.setDialog)
 
+        self.settingWindow = QMainWindow()
+        self.settingWindowUi = settingWindow.Ui_patientFormWindow()
+        self.settingWindowUi.setupUi(self.settingWindow)
+        self.settingWindowUi.cancelCal.clicked.connect(self.closeSettingWindow)
+        self.ui.openSettingDialog.clicked.connect(self.openSettingWindow)
+        self.settingWindowUi.okCal.clicked.connect(self.saveSettingData)
+
         self.setPointDialog.okBtn.clicked.connect(self.updateSetPointData)
         self.setPointDialog.cancelBtn.clicked.connect(self.closeSetPointDialog)
         # self.setStyleSheet("background-color: yellow;")
         self.skin_temp = float(self.dataModel.get_skin_temp())
         self.air_temp = float(self.dataModel.get_air_temp())
+
+        self.skin_low_temp = float(self.dataModel.get_skin_low_temp())
+        self.skin_high_temp = float(self.dataModel.get_skin_high_temp())
+        self.air_low_temp = float(self.dataModel.get_air_low_temp())
+        self.air_high_temp = float(self.dataModel.get_air_high_temp())
+
         self.heater_output = float(self.dataModel.get_heater_output())
         self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
         self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
@@ -527,23 +541,23 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
     def decSkinTemp(self):
         print("Skin Temp dec: " + str(self.skin_temp))
-        if self.skin_temp > 320:
+        if self.skin_temp > self.skin_low_temp:
             self.skin_temp = self.skin_temp - 1
             self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
 
     def incSkinTemp(self):
         print("Skin Temp inc: " + str(self.skin_temp))
-        if 320 <= self.skin_temp < 380:
+        if self.skin_low_temp <= self.skin_temp < self.skin_high_temp:
             self.skin_temp = self.skin_temp + 1
             self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
 
     def decAirTemp(self):
-        if self.air_temp > 300:
+        if self.air_temp > self.air_low_temp:
             self.air_temp = self.air_temp - 1
             self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
 
     def incAirTemp(self):
-        if 300 <= self.air_temp < 390:
+        if self.air_low_temp <= self.air_temp < self.air_high_temp:
             self.air_temp = self.air_temp + 1
             self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
         self.dataModel.set_air_temp(self.air_temp)
@@ -570,6 +584,16 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         # else:
         # self.patientDialog.hide()
         # self.patientDialog.exec_()
+
+    def openSettingWindow(self):
+        self.settingWindow.showFullScreen()
+
+    def saveSettingData(self):
+        self.database_manage.updateSettingData(self.dataModel)
+        self.settingWindow.close()
+
+    def closeSettingWindow(self):
+        self.settingWindow.close()
 
     # self.patientForm.exec_()
     def closePatientForm(self):

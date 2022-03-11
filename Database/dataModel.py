@@ -12,6 +12,48 @@ class DataModel:
         self.find_by_patient_id = str()
         self.patient_skin_temp = str()
         self.heater_output = str()
+        self.skin_low_temp = float()
+        self.skin_high_temp = float()
+        self.air_low_temp = float()
+        self.air_high_temp = float()
+        self.skin_cal_point = float()
+        self.air_cal_point = float()
+
+    def set_skin_low_temp(self, _skin_low_temp):
+        self.skin_low_temp = _skin_low_temp
+
+    def get_skin_low_temp(self):
+        return self.skin_low_temp
+
+    def set_skin_high_temp(self, _skin_high_temp):
+        self.skin_high_temp = _skin_high_temp
+
+    def get_skin_high_temp(self):
+        return self.skin_high_temp
+
+    def set_air_low_temp(self, _air_low_temp):
+        self.air_low_temp = _air_low_temp
+
+    def get_air_low_temp(self):
+        return self.air_low_temp
+
+    def set_air_high_temp(self, _air_high_temp):
+        self.air_high_temp = _air_high_temp
+
+    def get_air_high_temp(self):
+        return self.air_high_temp
+
+    def set_skin_cal_point(self, _skin_cal_point):
+        self.skin_cal_point = _skin_cal_point
+
+    def get_skin_cal_point(self):
+        return self.skin_cal_point
+
+    def set_air_cal_point(self, _air_cal_point):
+        self.air_cal_point = _air_cal_point
+
+    def get_air_cal_point(self):
+        return self.air_cal_point
 
     def set_heater_output(self, _heater_output):
         self.heater_output = _heater_output

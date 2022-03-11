@@ -72,6 +72,12 @@ class DataBaseManagement:
             model.set_air_temp(query.value('air_set_temp'))
             model.set_mute_flag(query.value('mute_flag'))
             model.set_heater_output(query.value('heater_output'))
+            model.set_skin_low_temp(query.value('skin_low_temp'))
+            model.set_skin_high_temp(query.value('skin_high_temp'))
+            model.set_air_low_temp(query.value('air_low_temp'))
+            model.set_air_high_temp(query.value('air_high_temp'))
+            model.set_skin_cal_point(query.value('skin_cal_point'))
+            model.set_air_cal_point(query.value('air_cal_point'))
 
     def getPatientById(self, text, model):
         query = QSqlQuery()
@@ -90,7 +96,8 @@ class DataBaseManagement:
     def updateSkinTempValue(self, model):
         _skin_temp = model.get_skin_temp()
         query = QSqlQuery()
-        query.exec_("UPDATE general_setting SET skin_set_temp ='" + str(_skin_temp) + "' WHERE id= 1")# str("{:.1f}".format(tempValue))
+        query.exec_("UPDATE general_setting SET skin_set_temp ='" + str(
+            _skin_temp) + "' WHERE id= 1")  # str("{:.1f}".format(tempValue))
 
     def updateHeaterOutput(self, model):
         _heater_output = model.get_heater_output()
@@ -106,6 +113,12 @@ class DataBaseManagement:
         _mute_flag = model.get_mute_flag()
         query = QSqlQuery()
         query.exec_("UPDATE general_setting SET mute_flag ='" + _mute_flag + "' WHERE id= 1")
+
+    def updateSettingData(self, model):
+        query = QSqlQuery()
+        query.exec_(
+            "UPDATE general_setting SET skin_low_temp ='" + model.get_skin_low_temp() + "',skin_high_temp ='" + model.get_skin_high_temp() + "', air_low_temp ='" + model.get_air_low_temp() + "',"
+            "air_high_temp ='" + model.get_air_high_temp() + "', skin_cal_point ='" + model.get_skin_cal_point() + "',air_cal_point ='" + model.get_air_cal_point() + "' WHERE id= 1")
 
     def db_connect(self, filename, server):
         db = QSqlDatabase.addDatabase(server)
@@ -123,7 +136,8 @@ class DataBaseManagement:
         query = QSqlQuery()
         query.exec_("create table general_setting(id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     "skin_set_temp varchar(100), air_set_temp varchar(100), mute_flag varchar(20), heater_output "
-                    "varchar(20))")
+                    "varchar(20), skin_low_temp varchar(100), skin_high_temp varchar(100), air_low_temp varchar(100), "
+                    "air_high_temp varchar(100), skin_cal_point varchar(100), air_cal_point varchar(100))")
 
         query.exec_("create table patient_master(id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     "patient_name varchar(200), patient_age varchar(100), "
@@ -134,13 +148,21 @@ class DataBaseManagement:
                     "air_temp varchar(80),UNIQUE (patient_skin_temp, air_temp) ON CONFLICT IGNORE)")
 
         query.prepare("INSERT INTO general_setting (skin_set_temp, air_set_temp, "
-                      "mute_flag, heater_output) "
+                      "mute_flag, heater_output, skin_low_temp, skin_high_temp, air_low_temp, air_high_temp, "
+                      "skin_cal_point, air_cal_point) "
                       "VALUES (:skin_set_temp, :air_set_temp,"
-                      " :mute_flag, :heater_output)")
+                      ":mute_flag, :heater_output, :skin_low_temp, :skin_high_temp, :air_low_temp, :air_high_temp, "
+                      ":skin_cal_point, :air_cal_point)")
         query.bindValue(":skin_set_temp", 360)
         query.bindValue(":air_set_temp", 300)
         query.bindValue(":mute_flag", False)
         query.bindValue(":heater_output", 100)
+        query.bindValue(":skin_low_temp", 320)
+        query.bindValue(":skin_high_temp", 380)
+        query.bindValue(":air_low_temp", 300)
+        query.bindValue(":air_high_temp", 390)
+        query.bindValue(":skin_cal_point", 0)
+        query.bindValue(":air_cal_point", 0)
 
         if not query.exec():
             qDebug() << "Error inserting data into table:\n" << query.lastError()
