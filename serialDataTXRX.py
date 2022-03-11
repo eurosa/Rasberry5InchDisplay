@@ -21,6 +21,7 @@ class SerialWrapper:
         self.skinV = 0
         self.airV = 0
         self.my_str_as_bytes = str.encode("$I0R;")
+        self.time_count = 0
 
     # def sendDataToSerialPort(self, hex_code):
     def setRepeater(self, repeater):
@@ -31,17 +32,16 @@ class SerialWrapper:
 
     def sendDataToSerialPort(self):
         # time.sleep(1)  # Sleep for 3 seconds
-
+        print(configVariables.receiveFlag)
         if configVariables.checkSendReceive:
 
             try:
                 self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
-                print(
-                    "*******************************First reading received data ***************************************")
+                # print("**************************First reading received data ***********************************")
                 try:
                     self.ser1.write(serial.to_bytes(self.my_str_as_bytes))
                     configVariables.hex_string = self.ser1.read(21)
-                    print(str(configVariables.hex_string[0]) + " " +
+                    """print(str(configVariables.hex_string[0]) + " " +
                           str(configVariables.hex_string[1]) + " " +
                           str(configVariables.hex_string[2]) + " " +
                           str(configVariables.hex_string[3]) + " " +
@@ -62,41 +62,26 @@ class SerialWrapper:
                           str(configVariables.hex_string[18]) + " " +
                           str(configVariables.hex_string[19]) + " " +
                           str(configVariables.hex_string[20]))
+                    """
                 except Exception as e:
+                    self.time_count = self.time_count + 1
                     print("--- abnormal read and write from port serialDataTXRX---：", e)
-                    print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+                    # print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
                 # self.receiveData()
                 time.sleep(0.5)  # Sleep for 3 seconds
+                self.time_count = 0
                 self.ser1.close()
                 configVariables.receiveFlag = True
             except Exception as e:
-                print(e)
+                self.time_count = self.time_count + 1
+                self.ui.ui.systemLabelFail.setText("System Fail")
+                self.ui.ui.systemIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                         "1px;border-radius:10px; font: bold 14px; "
+                                                         "border-width: 2px; background-color:#FF0000; "
+                                                         "border-color:beige}")
+                print("--- usb port serialDataTXRX---：", e)
 
     def receiveData(self):
-
-        if configVariables.hex_string:
-            print(str(configVariables.hex_string[0]) + " " +
-                  str(configVariables.hex_string[1]) + " " +
-                  str(configVariables.hex_string[2]) + " " +
-                  str(configVariables.hex_string[3]) + " " +
-                  str(configVariables.hex_string[4]) + " " +
-                  str(configVariables.hex_string[5]) + " " +
-                  str(configVariables.hex_string[6]) + " " +
-                  str(configVariables.hex_string[7]) + " " +
-                  str(configVariables.hex_string[8]) + " " +
-                  str(configVariables.hex_string[9]) + " " +
-                  str(configVariables.hex_string[10]) + " " +
-                  str(configVariables.hex_string[11]) + " " +
-                  str(configVariables.hex_string[12]) + " " +
-                  str(configVariables.hex_string[13]) + " " +
-                  str(configVariables.hex_string[14]) + " " +
-                  str(configVariables.hex_string[15]) + " " +
-                  str(configVariables.hex_string[16]) + " " +
-                  str(configVariables.hex_string[17]) + " " +
-                  str(configVariables.hex_string[18]) + " " +
-                  str(configVariables.hex_string[19]) + " " +
-                  str(configVariables.hex_string[20]))
-
         if configVariables.hex_string:
             skinTemp1 = int(hex(configVariables.hex_string[4]), 16)
             skinTemp2 = int(hex(configVariables.hex_string[5]), 16)
@@ -116,24 +101,26 @@ class SerialWrapper:
             bin1 = f'{configVariables.hex_string[18]:08b}'  # format(self.s[18], '08b')  # "{0:b}".format(self.s[19])
             # bin(self.s[18])
 
-            highTMP = bin1[6]
-            lowTMP = bin1[5]
-            configVariables.tmerON = bin1[4]
-            systemF = bin1[2]
-            probeF = bin1[1]
             CF = bin1[0]
+            highTMP = bin1[1]
+            lowTMP = bin1[2]
+            configVariables.tmerON = bin1[3]
+            systemF = bin1[4]
+            probeF = bin1[5]
 
             bin2 = f'0b{configVariables.hex_string[19]:08b}'
-            print(str(highTMP))
-            print(str(lowTMP))
-            print(str(systemF))
-            print("Mute value: " + str(configVariables.mute15))
-            print(str(probeF))
-            print(str(CF))
+
             print(
                 "Binary String1: " + f'{configVariables.hex_string[18]:08b}')  # "{0:b}".format(configVariables.hex_string[4])
             print(
                 "Binary String2: " + f'{configVariables.hex_string[19]:08b}')  # "{0:b}".format(configVariables.hex_string[4])"Binary String2: " + f'0b{configVariables.hex_string[19]:08b}')
+            self.time_count = 0
+            self.ui.ui.systemLabelFail.setText("System Ok")
+            self.ui.ui.systemIconLabel.setStyleSheet(
+                "QLabel{border-style: outset; border-width: 1px;border-radius:10px; font: bold 14px; "
+                "border-width: 2px; background-color:#00FF00; "
+                "border-color:beige}")
+
             # bin2 = format(self.s[19], '08b')
 
             x7 = bin(0b10000000)
@@ -158,16 +145,20 @@ class SerialWrapper:
             bit2 = bool(int(bin1, 2) & int(x2, 2))  # lowTMP = bin1[2]
             bit1 = bool(int(bin1, 2) & int(x1, 2))  # highTMP = bin1[1]
             bit0 = bool(int(bin1, 2) & int(x0, 2))  # CF = bin1[0]
-            amtTIME = bool(int(bin2, 2) & int(x0, 2))  # htrFAIL = bin2[2]
-            mutE = bool(int(bin2, 2) & int(x1, 2))  # htrFAIL = bin2[2]
-            CF2 = bool(int(bin2, 2) & int(x2, 2))  # htrFAIL = bin2[2]
-            manUAL = bool(int(bin2, 2) & int(x3, 2))  # htrFAIL = bin2[2]
-            serVO = bool(int(bin2, 2) & int(x4, 2))  # htrFAIL = bin2[2]
-            htrFAIL = bool(int(bin2, 2) & int(x5, 2))  # htrFAIL = bin2[2]
-            htrON = bool(int(bin2, 2) & int(x6, 2))  # htrFAIL = bin2[2]
-            SET = bool(int(bin2, 2) & int(x7, 2))  # htrFAIL = bin2[2]
+            amtTIME = bool(int(bin2, 2) & int(x7, 2))  # htrFAIL = bin2[2]
+            mutE = bool(int(bin2, 2) & int(x6, 2))  # htrFAIL = bin2[2]
+            CF2 = bool(int(bin2, 2) & int(x5, 2))  # htrFAIL = bin2[2]
+            manUAL = bool(int(bin2, 2) & int(x4, 2))  # htrFAIL = bin2[2]
+            serVO = bool(int(bin2, 2) & int(x3, 2))  # htrFAIL = bin2[2]
+            htrFAIL = bool(int(bin2, 2) & int(x2, 2))  # htrFAIL = bin2[2]
+            htrON = bool(int(bin2, 2) & int(x1, 2))  # htrFAIL = bin2[2]
+            fanFAIL = bool(int(bin2, 2) & int(x0, 2))  # htrFAIL = bin2[2]
 
-            setSkinTemp = self.joinHex(configVariables.hex_string[12], configVariables.hex_string[13])
+            # setSkinTemp = self.joinHex(configVariables.hex_string[12], configVariables.hex_string[13])
+            setTemp1 = int(hex(configVariables.hex_string[12]), 16)
+            setTemp2 = int(hex(configVariables.hex_string[13]), 16)
+            setSkinTemp = (setTemp1 << 8) | setTemp2
+
             timer8 = int(hex(configVariables.hex_string[8]), 16)
             heaterValue = int(hex(configVariables.hex_string[9]), 16)
             setTempValue = int(hex(setSkinTemp), 16) / 10
@@ -192,68 +183,77 @@ class SerialWrapper:
                 self.skinV = tempValue
                 self.airV = airValue
 
-            print(" Air Temp:" + str(airValue - float(self.model.get_air_temp()) / 10) + " Skin temp: " + str(tempValue - float(self.model.get_skin_temp()) / 10))
+            # print(" Air Temp:" + str(airValue - float(self.model.get_air_temp()) / 10) + " Skin temp: " + str(
+            #   tempValue - float(self.model.get_skin_temp()) / 10))
 
-            '''if self.skinV - float(self.model.get_skin_temp()) / 10 < -1:
+            if self.skinV < float(self.model.get_skin_temp()) / 10 - 1.0:
+                self.ui.ui.tempHighLabel.setText("Skin Low")
                 self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                            "1px;border-radius:10px; font: bold 14px; "
                                                            "border-width: 2px; background-color:#FF0000; "
                                                            "border-color:beige}")
-
-            else:
-                self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
-                                                           "1px;border-radius:10px; font: bold 14px; "
-                                                           "border-width: 2px; background-color:#00FF00; "
-                                                           "border-color:beige}")
-            if self.airV - float(self.model.get_air_temp()) / 10 < -1:
-                self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
-                                                          "1px;border-radius:10px; font: bold 14px; "
-                                                          "border-width: 2px; background-color:#FF0000; "
-                                                          "border-color:beige}")
-            
-            else:
-                self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
-                                                          "1px;border-radius:10px; font: bold 14px; "
-                                                          "border-width: 2px; background-color:#00FF00; "
-                                                          "border-color:beige}")
-                '''
-            if 1 > self.skinV - float(self.model.get_skin_temp()) / 10 > -1:
-                self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
-                                                           "1px;border-radius:10px; font: bold 14px; "
-                                                           "border-width: 2px; background-color:#00FF00; "
-                                                           "border-color:beige}")
-            else:
+            elif float(self.model.get_skin_temp()) / 10 + 1.0 < self.skinV:
+                self.ui.ui.tempHighLabel.setText("Skin High")
                 self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                            "1px;border-radius:10px; font: bold 14px; "
                                                            "border-width: 2px; background-color:#FF0000; "
                                                            "border-color:beige}")
-
-            if 1 > self.airV - float(self.model.get_air_temp()) / 10 > -1:
-                self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
-                                                          "1px;border-radius:10px; font: bold 14px; "
-                                                          "border-width: 2px; background-color:#00FF00; "
-                                                          "border-color:beige}")
             else:
+                self.ui.ui.tempHighLabel.setText("Skin Ok")
+                self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                           "1px;border-radius:10px; font: bold 14px; "
+                                                           "border-width: 2px; background-color:#00FF00; "
+                                                           "border-color:beige}")
+
+            if self.airV < float(self.model.get_air_temp()) / 10 - 1.0:
+                self.ui.ui.tempLowLabel.setText("Air Low")
                 self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                           "1px;border-radius:10px; font: bold 14px; "
                                                           "border-width: 2px; background-color:#FF0000; "
                                                           "border-color:beige}")
+            elif float(self.model.get_air_temp()) / 10 + 1.0 < self.airV:
+                self.ui.ui.tempLowLabel.setText("Air High")
+                self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                          "1px;border-radius:10px; font: bold 14px; "
+                                                          "border-width: 2px; background-color:#FF0000; "
+                                                          "border-color:beige}")
+            else:
+                self.ui.ui.tempLowLabel.setText("Air Ok")
+                self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                          "1px;border-radius:10px; font: bold 14px; "
+                                                          "border-width: 2px; background-color:#00FF00; "
+                                                          "border-color:beige}")
 
-            if 10 < self.skinV < 40:
+            if 10 < self.skinV < 50:
                 self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue)))
 
             else:
+                self.ui.ui.probeIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                        "1px;border-radius:10px; font: bold 14px; "
+                                                        "border-width: 2px; background-color:#FF0000; "
+                                                        "border-color:beige}")
                 self.ui.ui.tempLabel3.setText("Error")
 
-            if 10 < self.airV < 40:
+            if 10 < self.airV < 50:
                 self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue)))
 
             else:
+                self.ui.ui.probeIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                        "1px;border-radius:10px; font: bold 14px; "
+                                                        "border-width: 2px; background-color:#FF0000; "
+                                                        "border-color:beige}")
                 self.ui.ui.tempLabel4.setText("Error")
+
+            if 10 < self.skinV < 50:
+                if 10 < self.airV < 50:
+                    self.ui.ui.probeIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                            "1px;border-radius:10px; font: bold 14px; "
+                                                            "border-width: 2px; background-color:#00FF00; "
+                                                            "border-color:beige}")
 
             #  self.ui.ui.timerShowLabel.setText(str(timer8))
             self.ui.ui.heaterLabelShow.setText(str(heaterValue))
-            self.ui.ui.setLabelSkinTemp.setText(str(setTempValue))
+            self.ui.ui.setLabelSkinTemp.setText("{:.1f}".format(setTempValue))
             # self.ui.ui.humidityShow.setText(str(hum_data_read))
             # self.ui.ui.differentialPressureShow.setText(str(air_pressure_data_read))
 
@@ -282,7 +282,7 @@ class SerialWrapper:
                 f'0b{configVariables.hex_string[5]:08b}', 2)
             # "{0:b}".format(configVariables.hex_string[4])#   print("Binary String1: " + f'0b{self.s[18]:08b}')
 
-            print(result)  # "{0:b}".format(configVariables.hex_string[4])
+            # print(result)  # "{0:b}".format(configVariables.hex_string[4])
 
             if configVariables.mute15:
                 icon9 = QtGui.QIcon()
@@ -304,47 +304,18 @@ class SerialWrapper:
                     "border-width: 2px; background-color:#00FF00; "
                     "border-color:beige}")
 
+            """
             if bit4:
                 self.ui.ui.systemIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                          "1px;border-radius:10px; font: bold 14px; "
-                                                         "border-width: 2px; background-color:#00FF00; "
+                                                         "border-width: 2px; background-color:#FF0000; "
                                                          "border-color:beige}")
             else:
                 self.ui.ui.systemIconLabel.setStyleSheet(
                     "QLabel{border-style: outset; border-width: 1px;border-radius:10px; font: bold 14px; "
-                    "border-width: 2px; background-color:#FF0000; "
-                    "border-color:beige}")
-            '''if bit3:
-                self.ui.ui.timerButton.setStyleSheet("QToolButton{border-style: outset; border-width: "
-                                                     "1px;border-radius:10px; font: bold 14px; "
-                                                     "border-width: 2px; background-color:#FF0000; "
-                                                     "border-color:beige}")
-            else:
-                self.ui.ui.timerButton.setStyleSheet("QToolButton{border-style: outset; border-width: "
-                                                     "1px;border-radius:10px; font: bold 14px; "
-                                                     "border-width: 2px; background-color:#00FF00; "
-                                                     "border-color:beige}")
-            if bit2:
-                self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
-                                                          "1px;border-radius:10px; font: bold 14px; "
-                                                          "border-width: 2px; background-color:#FF0000; "
-                                                          "border-color:beige}")
-            else:
-                self.ui.ui.tempLowIconLabel.setStyleSheet(
-                    "QLabel{border-style: outset; border-width: 1px;border-radius:10px; font: bold 14px; "
                     "border-width: 2px; background-color:#00FF00; "
                     "border-color:beige}")
-
-            if bit1:
-                self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
-                                                           "1px;border-radius:10px; font: bold 14px; "
-                                                           "border-width: 2px; background-color:#FF0000; "
-                                                           "border-color:beige}")
-            else:
-                self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
-                                                           "1px;border-radius:10px; font: bold 14px; "
-                                                           "border-width: 2px; background-color:#00FF00; "
-                                                           "border-color:beige}")'''
+            """
 
             if htrFAIL:
                 self.ui.ui.heaterIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
@@ -356,10 +327,43 @@ class SerialWrapper:
                                                          "1px;border-radius:10px; font: bold 14px; "
                                                          "border-width: 2px; background-color:#00FF00; "
                                                          "border-color:beige}")
+            if htrON:
+                self.ui.ui.powerLabelFail.setText("Heater On")
+                self.ui.ui.powerIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                        "1px;border-radius:10px; font: bold 14px; "
+                                                        "border-width: 2px; background-color:#00FF00; "
+                                                        "border-color:beige}")
+            else:
+                self.ui.ui.powerLabelFail.setText("Heater Off")
+                self.ui.ui.powerIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                        "1px;border-radius:10px; font: bold 14px; "
+                                                        "border-width: 2px; background-color:#FF0000; "
+                                                        "border-color:beige}")
+            if fanFAIL:
+                self.ui.ui.fanFailLabel.setText("Fan Fail")
+                self.ui.ui.fanFailIcon.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                     "1px;border-radius:10px; font: bold 14px; "
+                                                     "border-width: 2px; background-color:#FF0000; "
+                                                     "border-color:beige}")
+            else:
+                self.ui.ui.fanFailLabel.setText("Fan Ok")
+                self.ui.ui.fanFailIcon.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                     "1px;border-radius:10px; font: bold 14px; "
+                                                     "border-width: 2px; background-color:#00FF00; "
+                                                     "border-color:beige}")
 
-            print(self.append_hex(configVariables.hex_string[4], configVariables.hex_string[5]))
+            # print(self.append_hex(configVariables.hex_string[4], configVariables.hex_string[5]))
 
             self.ui.ui.heaterLabelMode.setText(str(configVariables.heatModeString))
+        else:
+            print("No Data received")
+            """self.time_count = self.time_count + 1
+            if self.time_count > 5:
+                self.ui.ui.systemLabelFail.setText("System Fail")
+                self.ui.ui.systemIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
+                                                         "1px;border-radius:10px; font: bold 14px; "
+                                                         "border-width: 2px; background-color:#FF0000; "
+                                                         "border-color:beige}")"""
 
             # time.sleep(0.5)
 
@@ -384,7 +388,7 @@ class SerialWrapper:
         while len(x) < 8:
             x += '0'
         bnr = x[::-1]
-        print(bnr)
+        # print(bnr)
 
     def joinHex(self, low, high):
         sizeof_high = 0
@@ -397,8 +401,8 @@ class SerialWrapper:
         low_data = int(hex(low), 16)
         high_data = int(hex(high), 16)
         hex_data = hex((low_data << sizeof_high_hex) | high_data)
-        print(str(hex_data))
-        print(int(hex_data, 16))
+        # print(str(hex_data))
+        # print(int(hex_data, 16))
         return int(hex_data, 16)
 
     def bytes1(self, num):

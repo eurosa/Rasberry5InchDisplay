@@ -42,7 +42,7 @@ class Ui_MainWindow(object):
         self.heaterLabelMode.setIconSize(QtCore.QSize(42, 42))
         self.heaterLabelMode.setObjectName("heaterLabelMode")
         self.timerButton = QtWidgets.QToolButton(self.centralwidget)
-        self.timerButton.setGeometry(QtCore.QRect(680, 160, 72, 61))
+        self.timerButton.setGeometry(QtCore.QRect(670, 170, 101, 41))
         self.timerButton.setStyleSheet("QToolButton{\n"
 "    border-style: outset;\n"
 "    border-width: 1px;\n"
@@ -106,12 +106,18 @@ class Ui_MainWindow(object):
         self.setPointBtn.setGeometry(QtCore.QRect(440, 270, 72, 61))
         self.setPointBtn.setMinimumSize(QtCore.QSize(72, 61))
         self.setPointBtn.setMaximumSize(QtCore.QSize(72, 61))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.setPointBtn.setFont(font)
         self.setPointBtn.setStyleSheet("QToolButton{\n"
 "    border-style: outset;\n"
 "    border-width: 1px;\n"
 "    border-radius: 10px;\n"
 "    border-color: beige;\n"
-"    font: bold 14px;\n"
+"     font: bold 18px;\n"
 " \n"
 "    padding: 6px;\n"
 "    background-color: #00FF00 ;\n"
@@ -121,9 +127,6 @@ class Ui_MainWindow(object):
 "    background-color: gray;;\n"
 "    border-style: inset;\n"
 "}")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("icon/settings_white_color.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.setPointBtn.setIcon(icon2)
         self.setPointBtn.setIconSize(QtCore.QSize(42, 42))
         self.setPointBtn.setObjectName("setPointBtn")
         self.unitChangeToolButton = QtWidgets.QToolButton(self.centralwidget)
@@ -153,27 +156,6 @@ class Ui_MainWindow(object):
 "}")
         self.unitChangeToolButton.setIconSize(QtCore.QSize(42, 42))
         self.unitChangeToolButton.setObjectName("unitChangeToolButton")
-        self.tempDownToolBtn2_9 = QtWidgets.QToolButton(self.centralwidget)
-        self.tempDownToolBtn2_9.setGeometry(QtCore.QRect(720, 270, 72, 61))
-        self.tempDownToolBtn2_9.setMinimumSize(QtCore.QSize(72, 61))
-        self.tempDownToolBtn2_9.setMaximumSize(QtCore.QSize(72, 61))
-        self.tempDownToolBtn2_9.setStyleSheet("QToolButton{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-"    padding: 6px;\n"
-"    background-color: #00FF00 ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QToolButton:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.tempDownToolBtn2_9.setIconSize(QtCore.QSize(42, 42))
-        self.tempDownToolBtn2_9.setToolButtonStyle(QtCore.Qt.ToolButtonTextOnly)
-        self.tempDownToolBtn2_9.setObjectName("tempDownToolBtn2_9")
         self.label_10 = QtWidgets.QLabel(self.centralwidget)
         self.label_10.setGeometry(QtCore.QRect(540, 40, 60, 60))
         self.label_10.setMinimumSize(QtCore.QSize(60, 60))
@@ -359,7 +341,7 @@ class Ui_MainWindow(object):
         self.setTitleLabel2_2.setAlignment(QtCore.Qt.AlignCenter)
         self.setTitleLabel2_2.setObjectName("setTitleLabel2_2")
         self.setTitleLabel4_2 = QtWidgets.QLabel(self.centralwidget)
-        self.setTitleLabel4_2.setGeometry(QtCore.QRect(500, 20, 101, 20))
+        self.setTitleLabel4_2.setGeometry(QtCore.QRect(480, 20, 160, 20))
         self.setTitleLabel4_2.setMaximumSize(QtCore.QSize(160, 20))
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -519,322 +501,6 @@ class Ui_MainWindow(object):
 "}")
         self.label_11.setAlignment(QtCore.Qt.AlignCenter)
         self.label_11.setObjectName("label_11")
-        self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(12, 410, 680, 54))
-        self.layoutWidget.setObjectName("layoutWidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.layoutWidget)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout.setObjectName("gridLayout")
-        self.verticalLayout_6 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.probeLabel = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.probeLabel.setFont(font)
-        self.probeLabel.setStyleSheet("QLabel{\n"
-"  \n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.probeLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.probeLabel.setObjectName("probeLabel")
-        self.verticalLayout_6.addWidget(self.probeLabel)
-        self.probeIconLabel = QtWidgets.QLabel(self.layoutWidget)
-        self.probeIconLabel.setMinimumSize(QtCore.QSize(30, 15))
-        self.probeIconLabel.setMaximumSize(QtCore.QSize(16777215, 25))
-        self.probeIconLabel.setStyleSheet("QLabel{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00FF00 ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.probeIconLabel.setText("")
-        self.probeIconLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.probeIconLabel.setObjectName("probeIconLabel")
-        self.verticalLayout_6.addWidget(self.probeIconLabel)
-        self.gridLayout.addLayout(self.verticalLayout_6, 0, 0, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(13, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 0, 1, 1, 1)
-        self.verticalLayout_8 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_8.setObjectName("verticalLayout_8")
-        self.tempHighLabel = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.tempHighLabel.setFont(font)
-        self.tempHighLabel.setStyleSheet("QLabel{\n"
-"  \n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.tempHighLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.tempHighLabel.setObjectName("tempHighLabel")
-        self.verticalLayout_8.addWidget(self.tempHighLabel)
-        self.tempHighIconLabel = QtWidgets.QLabel(self.layoutWidget)
-        self.tempHighIconLabel.setMinimumSize(QtCore.QSize(30, 15))
-        self.tempHighIconLabel.setMaximumSize(QtCore.QSize(16777215, 25))
-        self.tempHighIconLabel.setStyleSheet("QLabel{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00FF00 ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.tempHighIconLabel.setText("")
-        self.tempHighIconLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.tempHighIconLabel.setObjectName("tempHighIconLabel")
-        self.verticalLayout_8.addWidget(self.tempHighIconLabel)
-        self.gridLayout.addLayout(self.verticalLayout_8, 0, 2, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(13, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem1, 0, 3, 1, 1)
-        self.verticalLayout_9 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_9.setObjectName("verticalLayout_9")
-        self.tempLowLabel = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.tempLowLabel.setFont(font)
-        self.tempLowLabel.setStyleSheet("QLabel{\n"
-"  \n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.tempLowLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.tempLowLabel.setObjectName("tempLowLabel")
-        self.verticalLayout_9.addWidget(self.tempLowLabel)
-        self.tempLowIconLabel = QtWidgets.QLabel(self.layoutWidget)
-        self.tempLowIconLabel.setMinimumSize(QtCore.QSize(30, 15))
-        self.tempLowIconLabel.setMaximumSize(QtCore.QSize(16777215, 25))
-        self.tempLowIconLabel.setStyleSheet("QLabel{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00FF00 ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.tempLowIconLabel.setText("")
-        self.tempLowIconLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.tempLowIconLabel.setObjectName("tempLowIconLabel")
-        self.verticalLayout_9.addWidget(self.tempLowIconLabel)
-        self.gridLayout.addLayout(self.verticalLayout_9, 0, 4, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(13, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem2, 0, 5, 1, 1)
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.heaterLabelFail = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.heaterLabelFail.setFont(font)
-        self.heaterLabelFail.setStyleSheet("QLabel{\n"
-"  \n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.heaterLabelFail.setAlignment(QtCore.Qt.AlignCenter)
-        self.heaterLabelFail.setObjectName("heaterLabelFail")
-        self.verticalLayout_3.addWidget(self.heaterLabelFail)
-        self.heaterIconLabel = QtWidgets.QLabel(self.layoutWidget)
-        self.heaterIconLabel.setMinimumSize(QtCore.QSize(40, 15))
-        self.heaterIconLabel.setMaximumSize(QtCore.QSize(16777215, 25))
-        self.heaterIconLabel.setStyleSheet("QLabel{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00FF00 ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.heaterIconLabel.setText("")
-        self.heaterIconLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.heaterIconLabel.setObjectName("heaterIconLabel")
-        self.verticalLayout_3.addWidget(self.heaterIconLabel)
-        self.gridLayout.addLayout(self.verticalLayout_3, 0, 6, 1, 1)
-        spacerItem3 = QtWidgets.QSpacerItem(13, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem3, 0, 7, 1, 1)
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.powerLabelFail = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.powerLabelFail.setFont(font)
-        self.powerLabelFail.setStyleSheet("QLabel{\n"
-"  \n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.powerLabelFail.setAlignment(QtCore.Qt.AlignCenter)
-        self.powerLabelFail.setObjectName("powerLabelFail")
-        self.verticalLayout_2.addWidget(self.powerLabelFail)
-        self.powerIconLabel = QtWidgets.QLabel(self.layoutWidget)
-        self.powerIconLabel.setMinimumSize(QtCore.QSize(40, 15))
-        self.powerIconLabel.setMaximumSize(QtCore.QSize(16777215, 25))
-        self.powerIconLabel.setStyleSheet("QLabel{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00FF00 ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.powerIconLabel.setText("")
-        self.powerIconLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.powerIconLabel.setObjectName("powerIconLabel")
-        self.verticalLayout_2.addWidget(self.powerIconLabel)
-        self.gridLayout.addLayout(self.verticalLayout_2, 0, 8, 1, 1)
-        spacerItem4 = QtWidgets.QSpacerItem(13, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem4, 0, 9, 1, 1)
-        self.verticalLayout = QtWidgets.QVBoxLayout()
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.systemLabelFail = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.systemLabelFail.setFont(font)
-        self.systemLabelFail.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.systemLabelFail.setStyleSheet("QLabel{\n"
-"  \n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.systemLabelFail.setScaledContents(False)
-        self.systemLabelFail.setAlignment(QtCore.Qt.AlignCenter)
-        self.systemLabelFail.setObjectName("systemLabelFail")
-        self.verticalLayout.addWidget(self.systemLabelFail)
-        self.systemIconLabel = QtWidgets.QLabel(self.layoutWidget)
-        self.systemIconLabel.setMinimumSize(QtCore.QSize(40, 15))
-        self.systemIconLabel.setMaximumSize(QtCore.QSize(16777215, 25))
-        self.systemIconLabel.setStyleSheet("QLabel{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00FF00 ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.systemIconLabel.setText("")
-        self.systemIconLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.systemIconLabel.setObjectName("systemIconLabel")
-        self.verticalLayout.addWidget(self.systemIconLabel)
-        self.gridLayout.addLayout(self.verticalLayout, 0, 10, 1, 1)
-        spacerItem5 = QtWidgets.QSpacerItem(13, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem5, 0, 11, 1, 1)
-        self.verticalLayout_7 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.label_18 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_18.setFont(font)
-        self.label_18.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_18.setStyleSheet("QLabel{\n"
-"  \n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.label_18.setScaledContents(False)
-        self.label_18.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_18.setObjectName("label_18")
-        self.verticalLayout_7.addWidget(self.label_18)
-        self.label_19 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_19.setMinimumSize(QtCore.QSize(40, 15))
-        self.label_19.setMaximumSize(QtCore.QSize(16777215, 25))
-        self.label_19.setStyleSheet("QLabel{\n"
-"    border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius: 10px;\n"
-"    border-color: beige;\n"
-"    font: bold 14px;\n"
-" \n"
-"    padding: 6px;\n"
-"    background-color: #00FF00 ;\n"
-"    color:#FFFFFF;\n"
-"}\n"
-"QLabel:pressed {\n"
-"    background-color: gray;\n"
-"    border-style: inset;\n"
-"}")
-        self.label_19.setText("")
-        self.label_19.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_19.setObjectName("label_19")
-        self.verticalLayout_7.addWidget(self.label_19)
-        self.gridLayout.addLayout(self.verticalLayout_7, 0, 12, 1, 1)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(706, 400, 81, 71))
         self.label.setText("")
@@ -881,14 +547,304 @@ class Ui_MainWindow(object):
 "}")
         self.airTempUnit.setScaledContents(True)
         self.airTempUnit.setObjectName("airTempUnit")
+        self.probeLabel = QtWidgets.QLabel(self.centralwidget)
+        self.probeLabel.setGeometry(QtCore.QRect(14, 412, 73, 20))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.probeLabel.setFont(font)
+        self.probeLabel.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.probeLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.probeLabel.setObjectName("probeLabel")
+        self.probeIconLabel = QtWidgets.QLabel(self.centralwidget)
+        self.probeIconLabel.setGeometry(QtCore.QRect(14, 438, 80, 25))
+        self.probeIconLabel.setMinimumSize(QtCore.QSize(80, 25))
+        self.probeIconLabel.setStyleSheet("QLabel{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00FF00 ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.probeIconLabel.setText("")
+        self.probeIconLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.probeIconLabel.setObjectName("probeIconLabel")
+        self.fanFailLabel = QtWidgets.QLabel(self.centralwidget)
+        self.fanFailLabel.setGeometry(QtCore.QRect(610, 412, 52, 20))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.fanFailLabel.setFont(font)
+        self.fanFailLabel.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.fanFailLabel.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.fanFailLabel.setScaledContents(False)
+        self.fanFailLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.fanFailLabel.setObjectName("fanFailLabel")
+        self.fanFailIcon = QtWidgets.QLabel(self.centralwidget)
+        self.fanFailIcon.setGeometry(QtCore.QRect(600, 438, 80, 25))
+        self.fanFailIcon.setMinimumSize(QtCore.QSize(80, 25))
+        self.fanFailIcon.setStyleSheet("QLabel{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00FF00 ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.fanFailIcon.setText("")
+        self.fanFailIcon.setAlignment(QtCore.Qt.AlignCenter)
+        self.fanFailIcon.setObjectName("fanFailIcon")
+        self.tempHighLabel = QtWidgets.QLabel(self.centralwidget)
+        self.tempHighLabel.setGeometry(QtCore.QRect(110, 412, 74, 20))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.tempHighLabel.setFont(font)
+        self.tempHighLabel.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.tempHighLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.tempHighLabel.setObjectName("tempHighLabel")
+        self.tempHighIconLabel = QtWidgets.QLabel(self.centralwidget)
+        self.tempHighIconLabel.setGeometry(QtCore.QRect(112, 438, 80, 25))
+        self.tempHighIconLabel.setMinimumSize(QtCore.QSize(80, 25))
+        self.tempHighIconLabel.setStyleSheet("QLabel{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00FF00 ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.tempHighIconLabel.setText("")
+        self.tempHighIconLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.tempHighIconLabel.setObjectName("tempHighIconLabel")
+        self.heaterLabelFail = QtWidgets.QLabel(self.centralwidget)
+        self.heaterLabelFail.setGeometry(QtCore.QRect(307, 412, 80, 20))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.heaterLabelFail.setFont(font)
+        self.heaterLabelFail.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.heaterLabelFail.setAlignment(QtCore.Qt.AlignCenter)
+        self.heaterLabelFail.setObjectName("heaterLabelFail")
+        self.heaterIconLabel = QtWidgets.QLabel(self.centralwidget)
+        self.heaterIconLabel.setGeometry(QtCore.QRect(307, 438, 80, 25))
+        self.heaterIconLabel.setMinimumSize(QtCore.QSize(80, 25))
+        self.heaterIconLabel.setStyleSheet("QLabel{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00FF00 ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.heaterIconLabel.setText("")
+        self.heaterIconLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.heaterIconLabel.setObjectName("heaterIconLabel")
+        self.powerLabelFail = QtWidgets.QLabel(self.centralwidget)
+        self.powerLabelFail.setGeometry(QtCore.QRect(405, 412, 75, 20))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.powerLabelFail.setFont(font)
+        self.powerLabelFail.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.powerLabelFail.setAlignment(QtCore.Qt.AlignCenter)
+        self.powerLabelFail.setObjectName("powerLabelFail")
+        self.powerIconLabel = QtWidgets.QLabel(self.centralwidget)
+        self.powerIconLabel.setGeometry(QtCore.QRect(405, 438, 80, 25))
+        self.powerIconLabel.setMinimumSize(QtCore.QSize(80, 25))
+        self.powerIconLabel.setStyleSheet("QLabel{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00FF00 ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.powerIconLabel.setText("")
+        self.powerIconLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.powerIconLabel.setObjectName("powerIconLabel")
+        self.systemLabelFail = QtWidgets.QLabel(self.centralwidget)
+        self.systemLabelFail.setGeometry(QtCore.QRect(503, 412, 84, 20))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.systemLabelFail.setFont(font)
+        self.systemLabelFail.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.systemLabelFail.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.systemLabelFail.setScaledContents(False)
+        self.systemLabelFail.setAlignment(QtCore.Qt.AlignCenter)
+        self.systemLabelFail.setObjectName("systemLabelFail")
+        self.systemIconLabel = QtWidgets.QLabel(self.centralwidget)
+        self.systemIconLabel.setGeometry(QtCore.QRect(503, 438, 80, 25))
+        self.systemIconLabel.setMinimumSize(QtCore.QSize(80, 25))
+        self.systemIconLabel.setStyleSheet("QLabel{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00FF00 ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.systemIconLabel.setText("")
+        self.systemIconLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.systemIconLabel.setObjectName("systemIconLabel")
+        self.tempLowIconLabel = QtWidgets.QLabel(self.centralwidget)
+        self.tempLowIconLabel.setGeometry(QtCore.QRect(209, 438, 80, 25))
+        self.tempLowIconLabel.setMinimumSize(QtCore.QSize(80, 25))
+        self.tempLowIconLabel.setStyleSheet("QLabel{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00FF00 ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.tempLowIconLabel.setText("")
+        self.tempLowIconLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.tempLowIconLabel.setObjectName("tempLowIconLabel")
+        self.tempLowLabel = QtWidgets.QLabel(self.centralwidget)
+        self.tempLowLabel.setGeometry(QtCore.QRect(210, 412, 65, 20))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.tempLowLabel.setFont(font)
+        self.tempLowLabel.setStyleSheet("QLabel{\n"
+"  \n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QLabel:pressed {\n"
+"    background-color: gray;\n"
+"    border-style: inset;\n"
+"}")
+        self.tempLowLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.tempLowLabel.setObjectName("tempLowLabel")
+        self.setPointBtn_2 = QtWidgets.QToolButton(self.centralwidget)
+        self.setPointBtn_2.setGeometry(QtCore.QRect(720, 270, 72, 61))
+        self.setPointBtn_2.setMinimumSize(QtCore.QSize(72, 61))
+        self.setPointBtn_2.setMaximumSize(QtCore.QSize(72, 61))
+        self.setPointBtn_2.setStyleSheet("QToolButton{\n"
+"    border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 10px;\n"
+"    border-color: beige;\n"
+"    font: bold 14px;\n"
+" \n"
+"    padding: 6px;\n"
+"    background-color: #00FF00 ;\n"
+"    color:#FFFFFF;\n"
+"}\n"
+"QToolButton:pressed {\n"
+"    background-color: gray;;\n"
+"    border-style: inset;\n"
+"}")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("icon/settings_white_color.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setPointBtn_2.setIcon(icon2)
+        self.setPointBtn_2.setIconSize(QtCore.QSize(42, 42))
+        self.setPointBtn_2.setObjectName("setPointBtn_2")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 24))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -896,8 +852,7 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.patientDetailsToolButton, self.setPointBtn)
         MainWindow.setTabOrder(self.setPointBtn, self.muteToolButton)
         MainWindow.setTabOrder(self.muteToolButton, self.unitChangeToolButton)
-        MainWindow.setTabOrder(self.unitChangeToolButton, self.tempDownToolBtn2_9)
-        MainWindow.setTabOrder(self.tempDownToolBtn2_9, self.timerButton)
+        MainWindow.setTabOrder(self.unitChangeToolButton, self.timerButton)
         MainWindow.setTabOrder(self.timerButton, self.heaterLabelMode)
         MainWindow.setTabOrder(self.heaterLabelMode, self.patientNameLineEdit)
 
@@ -907,9 +862,7 @@ class Ui_MainWindow(object):
         self.timerButton.setText(_translate("MainWindow", "Start"))
         self.muteToolButton.setText(_translate("MainWindow", "MUTE"))
         self.setPointBtn.setText(_translate("MainWindow", "SET"))
-        self.unitChangeToolButton.setText(_translate("MainWindow", "°C/°F"))
-        self.tempDownToolBtn2_9.setText(_translate("MainWindow", "Start \n"
-"System"))
+        self.unitChangeToolButton.setText(_translate("MainWindow", "°F"))
         self.tempLabel4.setText(_translate("MainWindow", "36.6"))
         self.setLabelAirTemp.setText(_translate("MainWindow", "36.6"))
         self.setTitleLabel4.setText(_translate("MainWindow", "AIR"))
@@ -919,7 +872,7 @@ class Ui_MainWindow(object):
         self.tempLabel3.setText(_translate("MainWindow", "36.6"))
         self.setLabelSkinTemp.setText(_translate("MainWindow", "36.6"))
         self.setTitleLabel2_2.setText(_translate("MainWindow", "MODE"))
-        self.setTitleLabel4_2.setText(_translate("MainWindow", "HEATER"))
+        self.setTitleLabel4_2.setText(_translate("MainWindow", "HEATER POWER"))
         self.heaterLabelShow.setText(_translate("MainWindow", "100"))
         self.patientDetailsToolButton.setText(_translate("MainWindow", "Patient \n"
 "Details"))
@@ -928,16 +881,17 @@ class Ui_MainWindow(object):
         self.label_7.setText(_translate("MainWindow", "Alarms"))
         self.timerShowLabel.setText(_translate("MainWindow", "00"))
         self.label_11.setText(_translate("MainWindow", "TIMER"))
-        self.probeLabel.setText(_translate("MainWindow", "Probe Fail"))
-        self.tempHighLabel.setText(_translate("MainWindow", "Skin Hi/Lo"))
-        self.tempLowLabel.setText(_translate("MainWindow", "Air Hi/Lo"))
-        self.heaterLabelFail.setText(_translate("MainWindow", "Heater Fail"))
-        self.powerLabelFail.setText(_translate("MainWindow", "Power Fail"))
-        self.systemLabelFail.setText(_translate("MainWindow", "System Fail"))
-        self.label_18.setText(_translate("MainWindow", "Probe Fail"))
         self.label_2.setText(_translate("MainWindow", "%"))
         self.skinTempUnit.setText(_translate("MainWindow", "°C"))
         self.airTempUnit.setText(_translate("MainWindow", "°C"))
+        self.probeLabel.setText(_translate("MainWindow", "Probe Fail"))
+        self.fanFailLabel.setText(_translate("MainWindow", "Fan Fail"))
+        self.tempHighLabel.setText(_translate("MainWindow", "Skin Hi/Lo"))
+        self.heaterLabelFail.setText(_translate("MainWindow", "Heater Fail"))
+        self.powerLabelFail.setText(_translate("MainWindow", "Heater On"))
+        self.systemLabelFail.setText(_translate("MainWindow", "System Fail"))
+        self.tempLowLabel.setText(_translate("MainWindow", "Air Hi/Lo"))
+        self.setPointBtn_2.setText(_translate("MainWindow", "SET"))
 
 
 if __name__ == "__main__":
