@@ -234,6 +234,14 @@ class KeyboardWidget(QDialog):
             elif self.text_box_name == 'patientIdLineEdit':
                 self.dataModel.set_patient_id(txt)
                 print("KEY_HOME_4: " + self.dataModel.get_patient_id())
+            elif self.text_box_name == 'skinLowEditLine':
+                self.dataModel.set_skin_low_temp(txt)
+            elif self.text_box_name == 'skinHighEditLine':
+                self.dataModel.set_skin_high_temp(txt)
+            elif self.text_box_name == 'airLowEditLine':
+                self.dataModel.set_air_low_temp(txt)
+            elif self.text_box_name == 'airHighEditLine':
+                self.dataModel.set_air_high_temp(txt)
             # self.text_box.setText("")
             self.hide()
             return

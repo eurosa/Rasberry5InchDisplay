@@ -117,8 +117,8 @@ class DataBaseManagement:
     def updateSettingData(self, model):
         query = QSqlQuery()
         query.exec_(
-            "UPDATE general_setting SET skin_low_temp ='" + model.get_skin_low_temp() + "',skin_high_temp ='" + model.get_skin_high_temp() + "', air_low_temp ='" + model.get_air_low_temp() + "',"
-            "air_high_temp ='" + model.get_air_high_temp() + "', skin_cal_point ='" + model.get_skin_cal_point() + "',air_cal_point ='" + model.get_air_cal_point() + "' WHERE id= 1")
+            "UPDATE general_setting SET skin_low_temp ='" + str(model.get_skin_low_temp()) + "',skin_high_temp ='" + str(model.get_skin_high_temp()) + "', air_low_temp ='" + str(model.get_air_low_temp()) + "',"
+            "air_high_temp ='" + str(model.get_air_high_temp()) + "', skin_cal_point ='" + str(model.get_skin_cal_point()) + "',air_cal_point ='" + str(model.get_air_cal_point()) + "' WHERE id= 1")
 
     def db_connect(self, filename, server):
         db = QSqlDatabase.addDatabase(server)

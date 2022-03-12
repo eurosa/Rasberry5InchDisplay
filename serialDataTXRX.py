@@ -36,33 +36,12 @@ class SerialWrapper:
         if configVariables.checkSendReceive:
 
             try:
-                self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+                self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600,
+                                          write_timeout=1)
                 # print("**************************First reading received data ***********************************")
                 try:
                     self.ser1.write(serial.to_bytes(self.my_str_as_bytes))
                     configVariables.hex_string = self.ser1.read(21)
-                    """print(str(configVariables.hex_string[0]) + " " +
-                          str(configVariables.hex_string[1]) + " " +
-                          str(configVariables.hex_string[2]) + " " +
-                          str(configVariables.hex_string[3]) + " " +
-                          str(configVariables.hex_string[4]) + " " +
-                          str(configVariables.hex_string[5]) + " " +
-                          str(configVariables.hex_string[6]) + " " +
-                          str(configVariables.hex_string[7]) + " " +
-                          str(configVariables.hex_string[8]) + " " +
-                          str(configVariables.hex_string[9]) + " " +
-                          str(configVariables.hex_string[10]) + " " +
-                          str(configVariables.hex_string[11]) + " " +
-                          str(configVariables.hex_string[12]) + " " +
-                          str(configVariables.hex_string[13]) + " " +
-                          str(configVariables.hex_string[14]) + " " +
-                          str(configVariables.hex_string[15]) + " " +
-                          str(configVariables.hex_string[16]) + " " +
-                          str(configVariables.hex_string[17]) + " " +
-                          str(configVariables.hex_string[18]) + " " +
-                          str(configVariables.hex_string[19]) + " " +
-                          str(configVariables.hex_string[20]))
-                    """
                 except Exception as e:
                     self.time_count = self.time_count + 1
                     print("--- abnormal read and write from port serialDataTXRX---：", e)
@@ -286,11 +265,11 @@ class SerialWrapper:
 
             if configVariables.mute15:
                 icon9 = QtGui.QIcon()
-                icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+                icon9.addPixmap(QtGui.QPixmap("icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
                 self.ui.ui.muteToolButton.setIcon(icon9)
             else:
                 icon9 = QtGui.QIcon()
-                icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+                icon9.addPixmap(QtGui.QPixmap("icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
                 self.ui.ui.muteToolButton.setIcon(icon9)
 
             if bit5:

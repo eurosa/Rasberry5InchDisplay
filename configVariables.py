@@ -17,3 +17,4 @@ unitFlag = True
 servManFlag = True
 unitValue = 0
 receiveFlag = False
+serialPort = ""

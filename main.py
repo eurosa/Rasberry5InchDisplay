@@ -74,9 +74,9 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.ui.patientDetailsToolButton.clicked.connect(self.patientDetailsDialogOpen)
         self.ui.patientIdLineEdit.textChanged.connect(self.start_typing_timer)
         self.ui.patientIdLineEdit.textChanged.connect(self.delete_previous)
-        self.ui.unitChangeToolButton.clicked.connect(self.unitConverter)
-        self.ui.muteToolButton.clicked.connect(self.muteControl)
-        self.ui.heaterLabelMode.clicked.connect(self.servManControl)
+        self.ui.unitChangeToolButton.clicked.connect(self.unitConverterThread)
+        self.ui.muteToolButton.clicked.connect(self.muteControlThread)
+        self.ui.heaterLabelMode.clicked.connect(self.servManControlThread)
 
         self.clickable(self.ui.heaterLabelShow).connect(self.servManSetDialog)
         self.servoManualDialog = servoManualSetPointDialog.Ui_servoManualSetPointForm()
@@ -104,6 +104,10 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.settingWindowUi.cancelCal.clicked.connect(self.closeSettingWindow)
         self.ui.openSettingDialog.clicked.connect(self.openSettingWindow)
         self.settingWindowUi.okCal.clicked.connect(self.saveSettingData)
+        self.settingWindowUi.airCalUpToolBtn2.clicked.connect(self.incAirCalValue)
+        self.settingWindowUi.airCalDownToolBtn2.clicked.connect(self.decAirCalValue)
+        self.settingWindowUi.skinCalDownToolBtn1.clicked.connect(self.decSkinCalValue)
+        self.settingWindowUi.skinCalUpToolBtn1.clicked.connect(self.incSkinCalValue)
 
         self.setPointDialog.okBtn.clicked.connect(self.updateSetPointData)
         self.setPointDialog.cancelBtn.clicked.connect(self.closeSetPointDialog)
@@ -111,10 +115,31 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.skin_temp = float(self.dataModel.get_skin_temp())
         self.air_temp = float(self.dataModel.get_air_temp())
 
-        self.skin_low_temp = float(self.dataModel.get_skin_low_temp())
-        self.skin_high_temp = float(self.dataModel.get_skin_high_temp())
-        self.air_low_temp = float(self.dataModel.get_air_low_temp())
-        self.air_high_temp = float(self.dataModel.get_air_high_temp())
+        self.skin_cal_value = float(self.dataModel.get_skin_cal_point())
+        self.air_cal_value = float(self.dataModel.get_air_cal_point())
+
+        self.settingWindowUi.skinLowEditLine.textChanged.connect(self.skinLow)
+        self.settingWindowUi.skinHighEditLine.textChanged.connect(self.skinHigh)
+        self.settingWindowUi.airLowEditLine.textChanged.connect(self.airLow)
+        self.settingWindowUi.airHighEditLine.textChanged.connect(self.airHigh)
+        #  cQLineEdit(self.ui.patientNameLineEdit, "", self.dataModel, "patientNameLineEdit")
+        self.skinLowEditLine = cQLineEdit(self.settingWindowUi.skinLowEditLine, "", self.dataModel, "skinLowEditLine")
+        self.skinHighEditLine = cQLineEdit(self.settingWindowUi.skinHighEditLine, "", self.dataModel,
+                                           "skinHighEditLine")
+        self.airLowEditLine = cQLineEdit(self.settingWindowUi.airLowEditLine, "", self.dataModel, "airLowEditLine")
+        self.airHighEditLine = cQLineEdit(self.settingWindowUi.airHighEditLine, "", self.dataModel, "airHighEditLine")
+
+        self.skinLowEditLine.ex.text_box.setText(str(float(self.dataModel.get_skin_low_temp())))  # keyboard textbox
+        self.skinLowEditLine.ex.currentTextBox.setText(
+            str(float(self.dataModel.get_skin_low_temp())))  # keyboard textbox
+        self.skinHighEditLine.ex.text_box.setText(str(float(self.dataModel.get_skin_high_temp())))  # keyboard textbox
+        self.skinHighEditLine.ex.currentTextBox.setText(
+            str(float(self.dataModel.get_skin_high_temp())))  # keyboard textbox
+        self.airLowEditLine.ex.text_box.setText(str(float(self.dataModel.get_air_low_temp())))  # keyboard textbox
+        self.airLowEditLine.ex.currentTextBox.setText(str(float(self.dataModel.get_air_low_temp())))  # keyboard textbox
+        self.airHighEditLine.ex.text_box.setText(str(float(self.dataModel.get_air_high_temp())))  # keyboard textbox
+        self.airHighEditLine.ex.currentTextBox.setText(
+            str(float(self.dataModel.get_air_high_temp())))  # keyboard textbox
 
         self.heater_output = float(self.dataModel.get_heater_output())
         self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
@@ -224,6 +249,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         # self.ui.setLabelAirTemp.setText("%d" % self.counter)
 
     # ****************************************************** Multithreading ********************************
+    def servManControlThread(self):
+        self.swt8 = threading.Thread(target=self.servManControl)
+        self.swt8.daemon = True
+        self.swt8.start()
+
     def servManControl(self):
         heaterValue = int(float((self.dataModel.get_heater_output())))
         if configVariables.hex_string[14]:
@@ -241,6 +271,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
                     configVariables.hex_string[17]) + chr(heaterValue) + ";")
             self.servoManual(data)  # "\u0000"   # self.hexToAscii("0"))
             self.ui.heaterLabelShow.setNum(heaterValue)
+
+    def unitConverterThread(self):
+        self.swt8 = threading.Thread(target=self.unitConverter)
+        self.swt8.daemon = True
+        self.swt8.start()
 
     def unitConverter(self):
         configVariables.checkSendReceive = False
@@ -264,7 +299,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         print(data)
         # self.hexToAscii("1")
         try:
-            self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+            self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
+                                          write_timeout=1, timeout=0)
             try:
                 self.ser1.write(serial.to_bytes(data))
                 # configVariables.hex_string = self.ser1.read(21)
@@ -293,7 +329,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
         # self.hexToAscii("1")
         try:
-            self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+            self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
+                                          write_timeout=1, timeout=0)
             try:
                 self.ser1.write(serial.to_bytes(data))
                 configVariables.hex_string = self.ser1.read(21)
@@ -328,42 +365,66 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             print(e)
         configVariables.checkSendReceive = True
 
+    def muteControlThread(self):
+        self.swt8 = threading.Thread(target=self.muteControl)
+        self.swt8.daemon = True
+        self.swt8.start()
+
     def muteControl(self):
         configVariables.checkSendReceive = False
-        sert = str(configVariables.heatMode14)
-        res = ''.join(r'\u{:04X}'.format(ord(chr)) for chr in sert)
-        print(chr(configVariables.hex_string[13]))
         # printing result
-        print("The unicode converted String : " + str(res) + " " + str(configVariables.heatMode14))
 
         if configVariables.mute15:
             icon9 = QtGui.QIcon()
             icon9.addPixmap(QtGui.QPixmap("icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
             muteValue = chr(0)
+            try:
+                self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
+                                          write_timeout=1, timeout=0)
+                try:
+                    print("temp0:" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]))
+                    data = str.encode(
+                        "$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
+                            configVariables.hex_string[14]) + muteValue + chr(configVariables.hex_string[16]) + chr(
+                            configVariables.hex_string[17]) + chr(
+                            configVariables.hex_string[9]) + ";")
+                    self.ser1.write(serial.to_bytes(data))
+                    configVariables.hex_string = self.ser1.read(21)
+                except Exception as e:
+                    print("--- abnormal read and write from port serialDataTXRX---：", e)
+                    print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+
+                # time.sleep(0.5)  # Sleep for 3 seconds
+                self.ser1.close()
+            except Exception as e:
+                print(e)
+            configVariables.checkSendReceive = True
         else:
             icon9 = QtGui.QIcon()
             icon9.addPixmap(QtGui.QPixmap("icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
             muteValue = chr(1)
-
-        data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
-            configVariables.hex_string[14]) + muteValue + chr(configVariables.hex_string[16]) + chr(
-            configVariables.hex_string[17]) + chr(
-            configVariables.hex_string[9]) + ";")
-
-        try:
-            self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
             try:
-                self.ser1.write(serial.to_bytes(data))
-                configVariables.hex_string = self.ser1.read(21)
-            except Exception as e:
-                print("--- abnormal read and write from port serialDataTXRX---：", e)
-                print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+                self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
+                                          write_timeout=1, timeout=0)
+                try:
+                    print("temp1:" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]))
+                    data = str.encode(
+                        "$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
+                            configVariables.hex_string[14]) + muteValue + chr(configVariables.hex_string[16]) + chr(
+                            configVariables.hex_string[17]) + chr(
+                            configVariables.hex_string[9]) + ";")
+                    self.ser1.write(serial.to_bytes(data))
+                    configVariables.hex_string = self.ser1.read(21)
+                except Exception as e:
+                    print("--- abnormal read and write from port serialDataTXRX---：", e)
+                    print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
 
-            # time.sleep(0.5)  # Sleep for 3 seconds
-            self.ser1.close()
-        except Exception as e:
-            print(e)
-        configVariables.checkSendReceive = True
+                # time.sleep(0.5)  # Sleep for 3 seconds
+                self.ser1.close()
+            except Exception as e:
+                print(e)
+            configVariables.checkSendReceive = True
+            print(data)
 
     def heaterSetPoint(self, heatvalue):
         configVariables.checkSendReceive = False
@@ -372,7 +433,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + chr(heatvalue) + ";")
         print(data)
         try:
-            self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+            self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
+                                          write_timeout=1, timeout=0)
             try:
                 self.ser1.write(serial.to_bytes(data))
             except Exception as e:
@@ -392,7 +454,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             configVariables.hex_string[9]) + ";")
         print(data)
         try:
-            self.ser1 = serial.Serial('/dev/ttyUSB0', 9600)
+            self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
+                                          write_timeout=1, timeout=0)
             try:
                 self.ser1.write(serial.to_bytes(data))
             except Exception as e:
@@ -541,23 +604,23 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
     def decSkinTemp(self):
         print("Skin Temp dec: " + str(self.skin_temp))
-        if self.skin_temp > self.skin_low_temp:
+        if self.skin_temp > float(self.dataModel.get_skin_low_temp()):
             self.skin_temp = self.skin_temp - 1
             self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
 
     def incSkinTemp(self):
         print("Skin Temp inc: " + str(self.skin_temp))
-        if self.skin_low_temp <= self.skin_temp < self.skin_high_temp:
+        if float(self.dataModel.get_skin_low_temp()) <= self.skin_temp < float(self.dataModel.get_skin_high_temp()):
             self.skin_temp = self.skin_temp + 1
             self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
 
     def decAirTemp(self):
-        if self.air_temp > self.air_low_temp:
+        if self.air_temp > float(self.dataModel.get_air_low_temp()):
             self.air_temp = self.air_temp - 1
             self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
 
     def incAirTemp(self):
-        if self.air_low_temp <= self.air_temp < self.air_high_temp:
+        if float(self.dataModel.get_air_low_temp()) <= self.air_temp < float(self.dataModel.get_air_high_temp()):
             self.air_temp = self.air_temp + 1
             self.setPointDialog.tempLabel2.setText("{:.1f}".format(self.air_temp / 10))
         self.dataModel.set_air_temp(self.air_temp)
@@ -586,10 +649,54 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         # self.patientDialog.exec_()
 
     def openSettingWindow(self):
+        self.database_manage.queryGeneralSettingsData(self.dataModel)
+        self.skin_cal_value = float(self.dataModel.get_skin_cal_point())
+        self.air_cal_value = float(self.dataModel.get_air_cal_point())
+        self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value))
+        self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value))
+        self.skinLowEditLine.ex.text_box.setText(self.dataModel.get_skin_low_temp())  # keyboard textbox
+        self.skinLowEditLine.ex.currentTextBox.setText(self.dataModel.get_skin_low_temp())  # keyboard textbox
+        self.skinHighEditLine.ex.text_box.setText(self.dataModel.get_skin_high_temp())  # keyboard textbox
+        self.skinHighEditLine.ex.currentTextBox.setText(self.dataModel.get_skin_high_temp())  # keyboard textbox
+        self.airLowEditLine.ex.text_box.setText(self.dataModel.get_air_low_temp())  # keyboard textbox
+        self.airLowEditLine.ex.currentTextBox.setText(self.dataModel.get_air_low_temp())  # keyboard textbox
+        self.airHighEditLine.ex.text_box.setText(self.dataModel.get_air_high_temp())  # keyboard textbox
+        self.airHighEditLine.ex.currentTextBox.setText(self.dataModel.get_air_high_temp())  # keyboard textbox
         self.settingWindow.showFullScreen()
 
+    def decSkinCalValue(self):
+        self.skin_cal_value = self.skin_cal_value - 0.1
+        self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value))
+
+    def incSkinCalValue(self):
+        self.skin_cal_value = self.skin_cal_value + 0.1
+        self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value))
+
+    def decAirCalValue(self):
+        self.air_cal_value = self.air_cal_value - 0.1
+        self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value))
+
+    def incAirCalValue(self):
+        self.air_cal_value = self.air_cal_value + 0.1
+        self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value))
+
+    def skinLow(self, value):
+        self.dataModel.set_skin_low_temp(value)
+
+    def skinHigh(self, value):
+        self.dataModel.set_skin_high_temp(value)
+
+    def airLow(self, value):
+        self.dataModel.set_air_low_temp(value)
+
+    def airHigh(self, value):
+        self.dataModel.set_air_high_temp(value)
+
     def saveSettingData(self):
+        self.dataModel.set_skin_cal_point(self.skin_cal_value)
+        self.dataModel.set_air_cal_point(self.air_cal_value)
         self.database_manage.updateSettingData(self.dataModel)
+        self.database_manage.queryGeneralSettingsData(self.dataModel)
         self.settingWindow.close()
 
     def closeSettingWindow(self):
