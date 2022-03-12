@@ -27,6 +27,7 @@ from PyQt5.QtSql import QSqlQueryModel
 from StringBuilder import StringBuilder
 from WorkerThread import Worker
 from serialDataTXRX import SerialWrapper
+from virtualQLineEditKeyboard import DigitQLineEdit
 from virtual_keyboard import *
 # This gets the Qt stuff
 import PyQt5
@@ -123,11 +124,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.settingWindowUi.airLowEditLine.textChanged.connect(self.airLow)
         self.settingWindowUi.airHighEditLine.textChanged.connect(self.airHigh)
         #  cQLineEdit(self.ui.patientNameLineEdit, "", self.dataModel, "patientNameLineEdit")
-        self.skinLowEditLine = cQLineEdit(self.settingWindowUi.skinLowEditLine, "", self.dataModel, "skinLowEditLine")
-        self.skinHighEditLine = cQLineEdit(self.settingWindowUi.skinHighEditLine, "", self.dataModel,
+        self.skinLowEditLine = DigitQLineEdit(self.settingWindowUi.skinLowEditLine, "", self.dataModel, "skinLowEditLine")
+        self.skinHighEditLine = DigitQLineEdit(self.settingWindowUi.skinHighEditLine, "", self.dataModel,
                                            "skinHighEditLine")
-        self.airLowEditLine = cQLineEdit(self.settingWindowUi.airLowEditLine, "", self.dataModel, "airLowEditLine")
-        self.airHighEditLine = cQLineEdit(self.settingWindowUi.airHighEditLine, "", self.dataModel, "airHighEditLine")
+        self.airLowEditLine = DigitQLineEdit(self.settingWindowUi.airLowEditLine, "", self.dataModel, "airLowEditLine")
+        self.airHighEditLine = DigitQLineEdit(self.settingWindowUi.airHighEditLine, "", self.dataModel, "airHighEditLine")
 
         self.skinLowEditLine.ex.text_box.setText(str(float(self.dataModel.get_skin_low_temp())))  # keyboard textbox
         self.skinLowEditLine.ex.currentTextBox.setText(
@@ -654,14 +655,14 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.air_cal_value = float(self.dataModel.get_air_cal_point())
         self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value))
         self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value))
-        self.skinLowEditLine.ex.text_box.setText(self.dataModel.get_skin_low_temp())  # keyboard textbox
-        self.skinLowEditLine.ex.currentTextBox.setText(self.dataModel.get_skin_low_temp())  # keyboard textbox
-        self.skinHighEditLine.ex.text_box.setText(self.dataModel.get_skin_high_temp())  # keyboard textbox
-        self.skinHighEditLine.ex.currentTextBox.setText(self.dataModel.get_skin_high_temp())  # keyboard textbox
-        self.airLowEditLine.ex.text_box.setText(self.dataModel.get_air_low_temp())  # keyboard textbox
-        self.airLowEditLine.ex.currentTextBox.setText(self.dataModel.get_air_low_temp())  # keyboard textbox
-        self.airHighEditLine.ex.text_box.setText(self.dataModel.get_air_high_temp())  # keyboard textbox
-        self.airHighEditLine.ex.currentTextBox.setText(self.dataModel.get_air_high_temp())  # keyboard textbox
+        self.skinLowEditLine.ex.text_box.setText(str(float(self.dataModel.get_skin_low_temp())/10))  # keyboard textbox
+        self.skinLowEditLine.ex.currentTextBox.setText(str(float(self.dataModel.get_skin_low_temp())/10))  # keyboard textbox
+        self.skinHighEditLine.ex.text_box.setText(str(float(self.dataModel.get_skin_high_temp())/10))  # keyboard textbox
+        self.skinHighEditLine.ex.currentTextBox.setText(str(float(self.dataModel.get_skin_high_temp())/10))  # keyboard textbox
+        self.airLowEditLine.ex.text_box.setText(str(float(self.dataModel.get_air_low_temp())/10))  # keyboard textbox
+        self.airLowEditLine.ex.currentTextBox.setText(str(float(self.dataModel.get_air_low_temp())/10))  # keyboard textbox
+        self.airHighEditLine.ex.text_box.setText(str(float(self.dataModel.get_air_high_temp())/10))  # keyboard textbox
+        self.airHighEditLine.ex.currentTextBox.setText(str(float(self.dataModel.get_air_high_temp())/10))  # keyboard textbox
         self.settingWindow.showFullScreen()
 
     def decSkinCalValue(self):
