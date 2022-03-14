@@ -146,8 +146,8 @@ class SerialWrapper:
             # air_pressure_data_read = int(hex(air_pressure_data_read_hex), 16)
 
             # ++++++++++++++++++++ Temp , Humidity, Pressure UI update +++++++++++++++++++
-            tempValue = tempValue / 10
-            airValue = airValue / 10
+            tempValue = (tempValue + float(self.model.get_skin_cal_point())) / 10
+            airValue = (airValue + float(self.model.get_air_cal_point())) / 10
             if bit0:
                 self.ui.ui.skinTempUnit.setText("°F")
                 self.ui.ui.airTempUnit.setText("°F")

@@ -653,8 +653,8 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.database_manage.queryGeneralSettingsData(self.dataModel)
         self.skin_cal_value = float(self.dataModel.get_skin_cal_point())
         self.air_cal_value = float(self.dataModel.get_air_cal_point())
-        self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value))
-        self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value))
+        self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value/10))
+        self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value/10))
         self.skinLowEditLine.ex.text_box.setText(str(float(self.dataModel.get_skin_low_temp())/10))  # keyboard textbox
         self.skinLowEditLine.ex.currentTextBox.setText(str(float(self.dataModel.get_skin_low_temp())/10))  # keyboard textbox
         self.skinHighEditLine.ex.text_box.setText(str(float(self.dataModel.get_skin_high_temp())/10))  # keyboard textbox
@@ -666,20 +666,20 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.settingWindow.showFullScreen()
 
     def decSkinCalValue(self):
-        self.skin_cal_value = self.skin_cal_value - 0.1
-        self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value))
+        self.skin_cal_value = self.skin_cal_value - 1
+        self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value/10))
 
     def incSkinCalValue(self):
-        self.skin_cal_value = self.skin_cal_value + 0.1
-        self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value))
+        self.skin_cal_value = self.skin_cal_value + 1
+        self.settingWindowUi.skinCalLabel1.setText("{:.1f}".format(self.skin_cal_value/10))
 
     def decAirCalValue(self):
-        self.air_cal_value = self.air_cal_value - 0.1
-        self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value))
+        self.air_cal_value = self.air_cal_value - 1
+        self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value/10))
 
     def incAirCalValue(self):
-        self.air_cal_value = self.air_cal_value + 0.1
-        self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value))
+        self.air_cal_value = self.air_cal_value + 1
+        self.settingWindowUi.airCalLabel2.setText("{:.1f}".format(self.air_cal_value/10))
 
     def skinLow(self, value):
         self.dataModel.set_skin_low_temp(value)
