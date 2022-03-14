@@ -26,6 +26,11 @@ class DataBaseManagement:
 
         query = QSqlQuery()
         query1 = QSqlQuery()
+        query2 =  QSqlQuery()
+
+        query2.prepare("DELETE FROM patient_master WHERE  id NOT IN ( SELECT id FROM patient_master ORDER BY id desc limit 5000)")
+        if not query2.exec():
+            qDebug() << "Error deleting data from table:\n" << query2.lastError()
 
         query1.prepare("INSERT OR REPLACE INTO patient_master (patient_name, patient_age, "
                        "patient_sex, patient_id) "
