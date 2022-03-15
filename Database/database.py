@@ -27,7 +27,7 @@ class DataBaseManagement:
         query = QSqlQuery()
         query1 = QSqlQuery()
         query2 =  QSqlQuery()
-
+        query3 = QSqlQuery()
         query2.prepare("DELETE FROM patient_master WHERE  id NOT IN ( SELECT id FROM patient_master ORDER BY id desc limit 5000)")
         if not query2.exec():
             qDebug() << "Error deleting data from table:\n" << query2.lastError()
@@ -56,6 +56,7 @@ class DataBaseManagement:
         query.bindValue(":air_temp", patient_sex)
         query.bindValue(":patient_id", patient_id)'''
 
+
         query.prepare(
             "INSERT INTO patient_details(patient_skin_temp, air_temp, patient_id)  SELECT * FROM ( SELECT '" + patient_name
             + "','" + patient_age
@@ -68,6 +69,12 @@ class DataBaseManagement:
 
         if not query.exec():
             qDebug() << "Error inserting data into table:\n" << query.lastError()
+
+        query3.prepare(
+            "DELETE FROM patient_details WHERE  patient_id NOT IN ( SELECT pm.patient_id  FROM patient_master pm "
+            "WHERE patient_details.patient_id = pm.patient_id)")
+        if not query3.exec():
+            qDebug() << "Error deleting data into table:\n" << query3.lastError()
 
     def queryGeneralSettingsData(self, model):
         query = QSqlQuery()
