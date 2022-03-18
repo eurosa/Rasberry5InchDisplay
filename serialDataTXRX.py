@@ -22,6 +22,8 @@ class SerialWrapper:
         self.airV = 0
         self.my_str_as_bytes = str.encode("$I0R;")
         self.time_count = 0
+        self.heaterValue = 0
+        self.setTempValue = 0
 
     # def sendDataToSerialPort(self, hex_code):
     def setRepeater(self, repeater):
@@ -139,15 +141,15 @@ class SerialWrapper:
             setSkinTemp = (setTemp1 << 8) | setTemp2
 
             timer8 = int(hex(configVariables.hex_string[8]), 16)
-            heaterValue = int(hex(configVariables.hex_string[9]), 16)
-            setTempValue = int(hex(setSkinTemp), 16) / 10
+            self.heaterValue = int(hex(configVariables.hex_string[9]), 16)
+            self.setTempValue = int(hex(setSkinTemp), 16) / 10
             # shifts decimal place left
             # hum_data_read = int(hex(hum_data_read_hex), 16) / 10
             # air_pressure_data_read = int(hex(air_pressure_data_read_hex), 16)
 
             # ++++++++++++++++++++ Temp , Humidity, Pressure UI update +++++++++++++++++++
-            tempValue = (tempValue + float(self.model.get_skin_cal_point())) / 10
-            airValue = (airValue + float(self.model.get_air_cal_point())) / 10
+            tempValue = tempValue / 10
+            airValue = airValue / 10
             if bit0:
                 self.ui.ui.skinTempUnit.setText("°F")
                 self.ui.ui.airTempUnit.setText("°F")
@@ -204,7 +206,7 @@ class SerialWrapper:
                                                           "border-color:beige}")
 
             if 10 < self.skinV < 50:
-                self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue)))
+                self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue + (float(self.model.get_skin_cal_point())/10))))
 
             else:
                 self.ui.ui.probeIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
@@ -214,7 +216,7 @@ class SerialWrapper:
                 self.ui.ui.tempLabel3.setText("Error")
 
             if 10 < self.airV < 50:
-                self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue)))
+                self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue + (float(self.model.get_air_cal_point())/10))))
 
             else:
                 self.ui.ui.probeIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
@@ -231,8 +233,7 @@ class SerialWrapper:
                                                             "border-color:beige}")
 
             #  self.ui.ui.timerShowLabel.setText(str(timer8))
-            self.ui.ui.heaterLabelShow.setText(str(heaterValue))
-            self.ui.ui.setLabelSkinTemp.setText("{:.1f}".format(setTempValue))
+
             # self.ui.ui.humidityShow.setText(str(hum_data_read))
             # self.ui.ui.differentialPressureShow.setText(str(air_pressure_data_read))
 
@@ -265,11 +266,12 @@ class SerialWrapper:
 
             if configVariables.mute15:
                 icon9 = QtGui.QIcon()
-                icon9.addPixmap(QtGui.QPixmap("icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+                icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-off-white.png"), QtGui.QIcon.Normal,
+                                QtGui.QIcon.On)
                 self.ui.ui.muteToolButton.setIcon(icon9)
             else:
                 icon9 = QtGui.QIcon()
-                icon9.addPixmap(QtGui.QPixmap("icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+                icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
                 self.ui.ui.muteToolButton.setIcon(icon9)
 
             if bit5:
@@ -314,6 +316,7 @@ class SerialWrapper:
                                                         "border-color:beige}")
             else:
                 self.ui.ui.powerLabelFail.setText("Heater Off")
+                self.heaterValue = 0
                 self.ui.ui.powerIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                         "1px;border-radius:10px; font: bold 14px; "
                                                         "border-width: 2px; background-color:#FF0000; "
@@ -343,8 +346,10 @@ class SerialWrapper:
                                                          "1px;border-radius:10px; font: bold 14px; "
                                                          "border-width: 2px; background-color:#FF0000; "
                                                          "border-color:beige}")"""
+        self.ui.ui.heaterLabelShow.setText(str(self.heaterValue))
+        self.ui.ui.setLabelSkinTemp.setText("{:.1f}".format(self.setTempValue))
 
-            # time.sleep(0.5)
+        # time.sleep(0.5)
 
     def decimalToBinary(self, n):
         return bin(n).replace("0b", "")

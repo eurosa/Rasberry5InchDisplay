@@ -38,8 +38,6 @@ import settingWindow
 from repeatedTimer import RepeatedTimer
 import self as self
 from PyQt5.QtCore import QTime, QTimer, Qt, QPoint, QAbstractListModel, pyqtSignal, QSize, QUrl, pyqtSlot, QEvent, QDate
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaPlaylist, QMediaContent
-from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtWidgets import *
 import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -297,7 +295,6 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         # stringData = "$I0W" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]) + str(
         # configVariables.hex_string[14]) + str(configVariables.hex_string[15]) + str(configVariables.hex_string[16])
         # + str(timerOnValue) + ";"
-        print(data)
         # self.hexToAscii("1")
         try:
             self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
@@ -377,7 +374,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
 
         if configVariables.mute15:
             icon9 = QtGui.QIcon()
-            icon9.addPixmap(QtGui.QPixmap("icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+            icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-on-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
             muteValue = chr(0)
             try:
                 self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
@@ -402,7 +399,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             configVariables.checkSendReceive = True
         else:
             icon9 = QtGui.QIcon()
-            icon9.addPixmap(QtGui.QPixmap("icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+            icon9.addPixmap(QtGui.QPixmap("/home/pi/icon/speaker-off-white.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
             muteValue = chr(1)
             try:
                 self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
@@ -425,14 +422,13 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             except Exception as e:
                 print(e)
             configVariables.checkSendReceive = True
-            print(data)
 
     def heaterSetPoint(self, heatvalue):
         configVariables.checkSendReceive = False
         data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
             configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + chr(
             configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + chr(heatvalue) + ";")
-        print(data)
+
         try:
             self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
                                           write_timeout=1, timeout=0)
@@ -453,7 +449,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + chr(
             configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + chr(
             configVariables.hex_string[9]) + ";")
-        print(data)
+
         try:
             self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
                                           write_timeout=1, timeout=0)
