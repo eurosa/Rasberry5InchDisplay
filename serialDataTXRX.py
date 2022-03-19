@@ -24,6 +24,8 @@ class SerialWrapper:
         self.time_count = 0
         self.heaterValue = 0
         self.setTempValue = 0
+        self.air_cal_point = 0
+        self.skin_cal_point = 0
 
     # def sendDataToSerialPort(self, hex_code):
     def setRepeater(self, repeater):
@@ -154,8 +156,10 @@ class SerialWrapper:
                 self.ui.ui.skinTempUnit.setText("°F")
                 self.ui.ui.airTempUnit.setText("°F")
                 self.ui.ui.unitChangeToolButton.setText("°C")
-                self.skinV = 5 / 9 * (tempValue - 32)
-                self.airV = 5 / 9 * (airValue - 32)  # Celcius °C
+                self.skinV = (5 / 9) * (tempValue - 32)
+                self.airV = (5 / 9) * (airValue - 32)  # Celcius °C
+                self.air_cal_point = ((9/5)*(float(self.model.get_air_cal_point()) / 10)) + 32
+                self.skin_cal_point = ((9/5)*(float(self.model.get_skin_cal_point()) / 10)) + 32
 
             else:
                 self.ui.ui.skinTempUnit.setText("°C")
@@ -163,6 +167,8 @@ class SerialWrapper:
                 self.ui.ui.unitChangeToolButton.setText("°F")
                 self.skinV = tempValue
                 self.airV = airValue
+                self.air_cal_point = (float(self.model.get_air_cal_point()) / 10)
+                self.skin_cal_point = (float(self.model.get_skin_cal_point()) / 10)
 
             # print(" Air Temp:" + str(airValue - float(self.model.get_air_temp()) / 10) + " Skin temp: " + str(
             #   tempValue - float(self.model.get_skin_temp()) / 10))
@@ -206,7 +212,7 @@ class SerialWrapper:
                                                           "border-color:beige}")
 
             if 10 < self.skinV < 50:
-                self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue + (float(self.model.get_skin_cal_point())/10))))
+                self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue+self.skin_cal_point)))
 
             else:
                 self.ui.ui.probeIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
@@ -216,7 +222,7 @@ class SerialWrapper:
                 self.ui.ui.tempLabel3.setText("Error")
 
             if 10 < self.airV < 50:
-                self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue + (float(self.model.get_air_cal_point())/10))))
+                self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue+self.air_cal_point)))
 
             else:
                 self.ui.ui.probeIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
