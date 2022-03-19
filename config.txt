@@ -2,7 +2,7 @@ sudo nano /etc/lightdm/lightdm.conf
 
 # for no sleep screen
 [Seat:*]
-xserver-command=X -s 0 -dpms
+xserver-command=X -s 0 dpms
 
 # For gui resolution
 sudo nano /boot/config.txt
@@ -31,7 +31,7 @@ force_turbo=1
 
 
 
- 1. Editing the /boot/config.txt with the following changes:
+1. Editing the /boot/config.txt with the following changes:
 
 # Disable the rainbow splash screen
 disable_splash=1
@@ -127,6 +127,7 @@ WorkingDirectory=/root/1ylapse/
 
 [Install]
 WantedBy=basic.target
+
 5. Analyze the kernel for unnecessary work being done at boot.
 To do this you need to compile your kernel with "CONFIG_PRINTK_TIME" and "CONFIG_KALLSYMS". This should be enabled on the default raspberry pi kernel. This allows you to add "initcall_debug" to the kernel command line. The kernel will now output start and end time information for every init call. You can use "bootgraph.pl" which is included with the linux kernel to analyze the output of dmesg.
 
