@@ -158,8 +158,8 @@ class SerialWrapper:
                 self.ui.ui.unitChangeToolButton.setText("°C")
                 self.skinV = (5 / 9) * (tempValue - 32)
                 self.airV = (5 / 9) * (airValue - 32)  # Celcius °C
-                self.air_cal_point = ((9/5)*(float(self.model.get_air_cal_point()) / 10)) + 32
-                self.skin_cal_point = ((9/5)*(float(self.model.get_skin_cal_point()) / 10)) + 32
+                self.air_cal_point = ((9/5)*(float(self.model.get_air_cal_point()) / 10))
+                self.skin_cal_point = ((9/5)*(float(self.model.get_skin_cal_point()) / 10))
 
             else:
                 self.ui.ui.skinTempUnit.setText("°C")
