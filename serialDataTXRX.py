@@ -26,6 +26,7 @@ class SerialWrapper:
         self.setTempValue = 0
         self.air_cal_point = 0
         self.skin_cal_point = 0
+        self.set_temp_skin = 0
 
     # def sendDataToSerialPort(self, hex_code):
     def setRepeater(self, repeater):
@@ -145,6 +146,7 @@ class SerialWrapper:
             timer8 = int(hex(configVariables.hex_string[8]), 16)
             self.heaterValue = int(hex(configVariables.hex_string[9]), 16)
             self.setTempValue = int(hex(setSkinTemp), 16) / 10
+            self.set_temp_skin = int(hex(setSkinTemp), 16)
             # shifts decimal place left
             # hum_data_read = int(hex(hum_data_read_hex), 16) / 10
             # air_pressure_data_read = int(hex(air_pressure_data_read_hex), 16)
@@ -158,8 +160,8 @@ class SerialWrapper:
                 self.ui.ui.unitChangeToolButton.setText("°C")
                 self.skinV = (5 / 9) * (tempValue - 32)
                 self.airV = (5 / 9) * (airValue - 32)  # Celcius °C
-                self.air_cal_point = ((9/5)*(float(self.model.get_air_cal_point()) / 10))
-                self.skin_cal_point = ((9/5)*(float(self.model.get_skin_cal_point()) / 10))
+                self.air_cal_point = ((9 / 5) * (float(self.model.get_air_cal_point()) / 10))
+                self.skin_cal_point = ((9 / 5) * (float(self.model.get_skin_cal_point()) / 10))
 
             else:
                 self.ui.ui.skinTempUnit.setText("°C")
@@ -212,7 +214,7 @@ class SerialWrapper:
                                                           "border-color:beige}")
 
             if 10 < self.skinV < 50:
-                self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue+self.skin_cal_point)))
+                self.ui.ui.tempLabel3.setText(str("{:.1f}".format(tempValue + self.skin_cal_point)))
 
             else:
                 self.ui.ui.probeIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
@@ -222,7 +224,7 @@ class SerialWrapper:
                 self.ui.ui.tempLabel3.setText("Error")
 
             if 10 < self.airV < 50:
-                self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue+self.air_cal_point)))
+                self.ui.ui.tempLabel4.setText(str("{:.1f}".format(airValue + self.air_cal_point)))
 
             else:
                 self.ui.ui.probeIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
@@ -252,6 +254,12 @@ class SerialWrapper:
             configVariables.unitValue = int(hex(configVariables.hex_string[16]), 16)
 
             timerON = int(hex(configVariables.hex_string[17]), 16)
+            set_temp_database = int(float(self.model.get_skin_temp()))
+            if self.set_temp_skin != set_temp_database:
+                try:
+                    self.decimalToHex(int(float(self.model.get_skin_temp())))
+                except Exception as e:
+                    print(e)
 
             if configVariables.heatMode14 == 0:
                 configVariables.heatModeString = "SERVO"
@@ -356,6 +364,40 @@ class SerialWrapper:
         self.ui.ui.setLabelSkinTemp.setText("{:.1f}".format(self.setTempValue))
 
         # time.sleep(0.5)
+
+    def decimalToHex(self, value):
+        print("Temperature Value: " + str(value))
+        hexValue = int(hex(value), 16)
+        firstPart = hexValue >> 8
+        secondPart = hexValue & 0xFF
+        self.setPoint(firstPart, secondPart)
+        skinTemp1 = int(hex(firstPart), 16)
+        skinTemp2 = int(hex(secondPart), 16)
+        tempValue = (skinTemp1 << 8) | skinTemp2
+        print(
+            "Temperature value original: " + str(tempValue) + " First Part: " + str(firstPart) + " Second Part: " + str(
+                secondPart))
+
+    def setPoint(self, firstPart, secondPart):
+        configVariables.checkSendReceive = False
+        data = str.encode("$I0W" + chr(firstPart) + chr(secondPart) + chr(
+            configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + chr(
+            configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + chr(
+            configVariables.hex_string[9]) + ";")
+
+        try:
+            self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
+                                      write_timeout=1, timeout=0)
+            try:
+                self.ser1.write(serial.to_bytes(data))
+            except Exception as e:
+                print("--- abnormal read and write from port serialDataTXRX---：", e)
+                print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+            # time.sleep(0.5)  # Sleep for 3 seconds
+            self.ser1.close()
+        except Exception as e:
+            print(e)
+        configVariables.checkSendReceive = True
 
     def decimalToBinary(self, n):
         return bin(n).replace("0b", "")

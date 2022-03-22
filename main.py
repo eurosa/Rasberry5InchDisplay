@@ -572,7 +572,7 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.ui.setLabelSkinTemp.setText("{:.1f}".format(self.dataModel.get_skin_temp() / 10))
         self.ui.setLabelAirTemp.setText("{:.1f}".format(self.dataModel.get_air_temp() / 10))
         try:
-            self.decimalToHex(int(self.dataModel.get_skin_temp()))
+            self.decimalToHex(int(float(self.dataModel.get_skin_temp())))
         except Exception as e:
             print(e)
 
