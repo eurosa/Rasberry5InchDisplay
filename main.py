@@ -172,7 +172,6 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.sexLineEdit = cQLineEdit(self.patientWindowForm.sexLineEdit, "", self.dataModel, "sexLineEdit")
 
         self.serialWrapper = SerialWrapper('/dev/ttyUSB0', self, self.dataModel)
-        print("Starting... Repeater Timer to send data in terminal")
         self.rt = RepeatedTimer(1, self.serialWrapper.sendDataToSerialPort)  # it auto-starts, no need of rt.start()
 
         self.chronosObject3 = timerCounter.TimerCounter(self.ui)
@@ -332,27 +331,6 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
             try:
                 self.ser1.write(serial.to_bytes(data))
                 configVariables.hex_string = self.ser1.read(21)
-                print(str(configVariables.hex_string[0]) + " " +
-                      str(configVariables.hex_string[1]) + " " +
-                      str(configVariables.hex_string[2]) + " " +
-                      str(configVariables.hex_string[3]) + " " +
-                      str(configVariables.hex_string[4]) + " " +
-                      str(configVariables.hex_string[5]) + " " +
-                      str(configVariables.hex_string[6]) + " " +
-                      str(configVariables.hex_string[7]) + " " +
-                      str(configVariables.hex_string[8]) + " " +
-                      str(configVariables.hex_string[9]) + " " +
-                      str(configVariables.hex_string[10]) + " " +
-                      str(configVariables.hex_string[11]) + " " +
-                      str(configVariables.hex_string[12]) + " " +
-                      str(configVariables.hex_string[13]) + " " +
-                      str(configVariables.hex_string[14]) + " " +
-                      str(configVariables.hex_string[15]) + " " +
-                      str(configVariables.hex_string[16]) + " " +
-                      str(configVariables.hex_string[17]) + " " +
-                      str(configVariables.hex_string[18]) + " " +
-                      str(configVariables.hex_string[19]) + " " +
-                      str(configVariables.hex_string[20]))
             except Exception as e:
                 print("--- abnormal read and write from port serialDataTXRX---：", e)
                 print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
@@ -380,7 +358,6 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
                 self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
                                           write_timeout=1, timeout=0)
                 try:
-                    print("temp0:" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]))
                     data = str.encode(
                         "$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
                             configVariables.hex_string[14]) + muteValue + chr(configVariables.hex_string[16]) + chr(
@@ -405,7 +382,6 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
                 self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
                                           write_timeout=1, timeout=0)
                 try:
-                    print("temp1:" + str(configVariables.hex_string[12]) + str(configVariables.hex_string[13]))
                     data = str.encode(
                         "$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
                             configVariables.hex_string[14]) + muteValue + chr(configVariables.hex_string[16]) + chr(
@@ -602,13 +578,11 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.setServManDialog.close()
 
     def decSkinTemp(self):
-        print("Skin Temp dec: " + str(self.skin_temp))
         if self.skin_temp > float(self.dataModel.get_skin_low_temp()):
             self.skin_temp = self.skin_temp - 1
             self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))
 
     def incSkinTemp(self):
-        print("Skin Temp inc: " + str(self.skin_temp))
         if float(self.dataModel.get_skin_low_temp()) <= self.skin_temp < float(self.dataModel.get_skin_high_temp()):
             self.skin_temp = self.skin_temp + 1
             self.setPointDialog.tempLabel1.setText("{:.1f}".format(self.skin_temp / 10))

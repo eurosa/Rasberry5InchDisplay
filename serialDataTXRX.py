@@ -366,7 +366,6 @@ class SerialWrapper:
         # time.sleep(0.5)
 
     def decimalToHex(self, value):
-        print("Temperature Value: " + str(value))
         hexValue = int(hex(value), 16)
         firstPart = hexValue >> 8
         secondPart = hexValue & 0xFF
@@ -374,9 +373,6 @@ class SerialWrapper:
         skinTemp1 = int(hex(firstPart), 16)
         skinTemp2 = int(hex(secondPart), 16)
         tempValue = (skinTemp1 << 8) | skinTemp2
-        print(
-            "Temperature value original: " + str(tempValue) + " First Part: " + str(firstPart) + " Second Part: " + str(
-                secondPart))
 
     def setPoint(self, firstPart, secondPart):
         configVariables.checkSendReceive = False
