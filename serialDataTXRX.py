@@ -27,6 +27,8 @@ class SerialWrapper:
         self.air_cal_point = 0
         self.skin_cal_point = 0
         self.set_temp_skin = 0
+        self.skin_cal_check = 0
+        self.air_cal_check = 0
 
     # def sendDataToSerialPort(self, hex_code):
     def setRepeater(self, repeater):
@@ -162,6 +164,8 @@ class SerialWrapper:
                 self.airV = (5 / 9) * (airValue - 32)  # Celcius °C
                 self.air_cal_point = ((9 / 5) * (float(self.model.get_air_cal_point()) / 10))
                 self.skin_cal_point = ((9 / 5) * (float(self.model.get_skin_cal_point()) / 10))
+                self.skin_cal_check = float(self.model.get_skin_cal_point()) / 10
+                self.air_cal_check = float(self.model.get_air_cal_point()) / 10
 
             else:
                 self.ui.ui.skinTempUnit.setText("°C")
@@ -171,17 +175,19 @@ class SerialWrapper:
                 self.airV = airValue
                 self.air_cal_point = (float(self.model.get_air_cal_point()) / 10)
                 self.skin_cal_point = (float(self.model.get_skin_cal_point()) / 10)
+                self.skin_cal_check = float(self.model.get_skin_cal_point()) / 10
+                self.air_cal_check = float(self.model.get_air_cal_point()) / 10
 
             # print(" Air Temp:" + str(airValue - float(self.model.get_air_temp()) / 10) + " Skin temp: " + str(
             #   tempValue - float(self.model.get_skin_temp()) / 10))
 
-            if self.skinV < float(self.model.get_skin_temp()) / 10 - 1.0:
+            if self.skinV+self.skin_cal_check < float(self.model.get_skin_temp()) / 10 - 1.0:
                 self.ui.ui.tempHighLabel.setText("Skin Low")
                 self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                            "1px;border-radius:10px; font: bold 14px; "
                                                            "border-width: 2px; background-color:#FF0000; "
                                                            "border-color:beige}")
-            elif float(self.model.get_skin_temp()) / 10 + 1.0 < self.skinV:
+            elif float(self.model.get_skin_temp()) / 10 + 1.0 < self.skinV+self.skin_cal_check:
                 self.ui.ui.tempHighLabel.setText("Skin High")
                 self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                            "1px;border-radius:10px; font: bold 14px; "
@@ -194,13 +200,13 @@ class SerialWrapper:
                                                            "border-width: 2px; background-color:#00FF00; "
                                                            "border-color:beige}")
 
-            if self.airV < float(self.model.get_air_temp()) / 10 - 1.0:
+            if self.airV+self.air_cal_check < float(self.model.get_air_temp()) / 10 - 1.0:
                 self.ui.ui.tempLowLabel.setText("Air Low")
                 self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                           "1px;border-radius:10px; font: bold 14px; "
                                                           "border-width: 2px; background-color:#FF0000; "
                                                           "border-color:beige}")
-            elif float(self.model.get_air_temp()) / 10 + 1.0 < self.airV:
+            elif float(self.model.get_air_temp()) / 10 + 1.0 < self.airV+self.air_cal_check:
                 self.ui.ui.tempLowLabel.setText("Air High")
                 self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                           "1px;border-radius:10px; font: bold 14px; "
