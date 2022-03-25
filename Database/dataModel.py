@@ -6,6 +6,8 @@ class DataModel:
         self.mute_flag = 1
         self.patient_name = str()
         self.form_patient_name = str()
+        self.form_patient_age = str()
+        self.form_patient_sex = str()
         self.patient_sex = str()
         self.patient_age = str()
         self.patient_id = str()
@@ -66,6 +68,18 @@ class DataModel:
 
     def get_form_patient_name(self):
         return self.form_patient_name
+
+    def set_form_patient_age(self, _form_patient_age):
+        self.form_patient_age = _form_patient_age
+
+    def get_form_patient_age(self):
+        return self.form_patient_age
+
+    def set_form_patient_sex(self, _form_patient_sex):
+        self.form_patient_sex = _form_patient_sex
+
+    def get_form_patient_sex(self):
+        return self.form_patient_sex
 
     def set_date_time(self, _date_time):
         self.date_time = _date_time

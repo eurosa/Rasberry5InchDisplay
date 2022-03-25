@@ -487,24 +487,25 @@ class MainWindow(QMainWindow, mainwindow_auto.Ui_MainWindow):
         self.dataModel.set_find_by_patient_id(txt)
         self.database_manage.getPatientById(txt, self.dataModel)
 
-        if len(self.dataModel.get_form_patient_name()) == 0:
+        if len(self.dataModel.get_form_patient_name()) == 0 and len(self.dataModel.get_form_patient_sex()) == 0 and len(self.dataModel.get_form_patient_age()) == 0:
             pass
             """self.nameLineEdit.ex.text_box.clear()
             self.nameLineEdit.ex.currentTextBox.clear()
             self.ageLineEdit.ex.text_box.clear()
             self.ageLineEdit.ex.currentTextBox.clear()
             self.sexLineEdit.ex.text_box.clear()
-            self.sexLineEdit.ex.currentTextBox.clear()
-            """
+            self.sexLineEdit.ex.currentTextBox.clear()"""
         else:
             self.nameLineEdit.ex.text_box.setText(self.dataModel.get_form_patient_name())
             self.nameLineEdit.ex.currentTextBox.setText(self.dataModel.get_form_patient_name())
-            self.ageLineEdit.ex.text_box.setText(self.dataModel.get_patient_age())
-            self.ageLineEdit.ex.currentTextBox.setText(self.dataModel.get_patient_age())
-            self.sexLineEdit.ex.text_box.setText(self.dataModel.get_patient_sex())
-            self.sexLineEdit.ex.currentTextBox.setText(self.dataModel.get_patient_sex())
+            self.ageLineEdit.ex.text_box.setText(self.dataModel.get_form_patient_age())
+            self.ageLineEdit.ex.currentTextBox.setText(self.dataModel.get_form_patient_age())
+            self.sexLineEdit.ex.text_box.setText(self.dataModel.get_form_patient_sex())
+            self.sexLineEdit.ex.currentTextBox.setText(self.dataModel.get_form_patient_sex())
             print("8979" + self.dataModel.get_form_patient_name())
             self.patientWindowForm.nameLineEdit.setText(self.dataModel.get_form_patient_name())
+            self.patientWindowForm.ageLineEdit.setText(self.dataModel.get_form_patient_age())
+            self.patientWindowForm.sexLineEdit.setText(self.dataModel.get_form_patient_sex())
         # cQLineEdit(self.patientWindowForm.nameLineEdit, "89798", self.dataModel, "nameLineEdit")
         self.startNew_form = 1
 

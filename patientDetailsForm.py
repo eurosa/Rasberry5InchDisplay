@@ -166,13 +166,6 @@ class Ui_patientFormWindow(object):
         self.sexLineEdit.setMinimumSize(QtCore.QSize(300, 40))
         self.sexLineEdit.setObjectName("sexLineEdit")
         patientFormWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(patientFormWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 24))
-        self.menubar.setObjectName("menubar")
-        patientFormWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(patientFormWindow)
-        self.statusbar.setObjectName("statusbar")
-        patientFormWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(patientFormWindow)
         QtCore.QMetaObject.connectSlotsByName(patientFormWindow)

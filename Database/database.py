@@ -26,9 +26,10 @@ class DataBaseManagement:
 
         query = QSqlQuery()
         query1 = QSqlQuery()
-        query2 =  QSqlQuery()
+        query2 = QSqlQuery()
         query3 = QSqlQuery()
-        query2.prepare("DELETE FROM patient_master WHERE  id NOT IN ( SELECT id FROM patient_master ORDER BY id desc limit 5000)")
+        query2.prepare(
+            "DELETE FROM patient_master WHERE  id NOT IN ( SELECT id FROM patient_master ORDER BY id desc limit 5000)")
         if not query2.exec():
             qDebug() << "Error deleting data from table:\n" << query2.lastError()
 
@@ -38,8 +39,8 @@ class DataBaseManagement:
                        " :patient_id)")
 
         query1.bindValue(":patient_name", patient_name)
-        query1.bindValue(":patient_age", patient_sex)
-        query1.bindValue(":patient_sex", patient_age)
+        query1.bindValue(":patient_age", patient_age)
+        query1.bindValue(":patient_sex", patient_sex)
         query1.bindValue(":patient_id", patient_id)
 
         if not query1.exec():
@@ -55,7 +56,6 @@ class DataBaseManagement:
         query.bindValue(":patient_skin_temp", patient_name)
         query.bindValue(":air_temp", patient_sex)
         query.bindValue(":patient_id", patient_id)'''
-
 
         query.prepare(
             "INSERT INTO patient_details(patient_skin_temp, air_temp, patient_id)  SELECT * FROM ( SELECT '" + patient_name
@@ -102,8 +102,8 @@ class DataBaseManagement:
             self.patientAge = query.value('patient_age')
             self.patientSex = query.value('patient_sex')
         model.set_form_patient_name(self.patientName)
-        model.set_patient_age(self.patientAge)
-        model.set_patient_sex(self.patientSex)
+        model.set_form_patient_age(self.patientAge)
+        model.set_form_patient_sex(self.patientSex)
 
     def updateSkinTempValue(self, model):
         _skin_temp = model.get_skin_temp()
@@ -129,8 +129,12 @@ class DataBaseManagement:
     def updateSettingData(self, model):
         query = QSqlQuery()
         query.exec_(
-            "UPDATE general_setting SET skin_low_temp ='" + str(model.get_skin_low_temp()) + "',skin_high_temp ='" + str(model.get_skin_high_temp()) + "', air_low_temp ='" + str(model.get_air_low_temp()) + "',"
-            "air_high_temp ='" + str(model.get_air_high_temp()) + "', skin_cal_point ='" + str(model.get_skin_cal_point()) + "',air_cal_point ='" + str(model.get_air_cal_point()) + "' WHERE id= 1")
+            "UPDATE general_setting SET skin_low_temp ='" + str(
+                model.get_skin_low_temp()) + "',skin_high_temp ='" + str(
+                model.get_skin_high_temp()) + "', air_low_temp ='" + str(model.get_air_low_temp()) + "',"
+                                                                                                     "air_high_temp ='" + str(
+                model.get_air_high_temp()) + "', skin_cal_point ='" + str(
+                model.get_skin_cal_point()) + "',air_cal_point ='" + str(model.get_air_cal_point()) + "' WHERE id= 1")
 
     def db_connect(self, filename, server):
         db = QSqlDatabase.addDatabase(server)
