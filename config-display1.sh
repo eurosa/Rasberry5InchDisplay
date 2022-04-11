@@ -15,8 +15,5 @@ network={
     key_mgmt=WPA-PSK
 }' >> /etc/wpa_supplicant/wpa_supplicant.conf
 
-cd LCD-show/
-chmod +x LCD5-show
-./LCD5-show
 
 sudo reboot
