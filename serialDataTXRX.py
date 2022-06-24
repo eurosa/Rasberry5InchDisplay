@@ -29,6 +29,7 @@ class SerialWrapper:
         self.set_temp_skin = 0
         self.skin_cal_check = 0
         self.air_cal_check = 0
+        self.oldTime = time.time()
 
     # def sendDataToSerialPort(self, hex_code):
     def setRepeater(self, repeater):
@@ -181,13 +182,13 @@ class SerialWrapper:
             # print(" Air Temp:" + str(airValue - float(self.model.get_air_temp()) / 10) + " Skin temp: " + str(
             #   tempValue - float(self.model.get_skin_temp()) / 10))
 
-            if self.skinV+self.skin_cal_check < float(self.model.get_skin_temp()) / 10 - 1.0:
+            if self.skinV + self.skin_cal_check < float(self.model.get_skin_temp()) / 10 - 1.0:
                 self.ui.ui.tempHighLabel.setText("Skin Low")
                 self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                            "1px;border-radius:10px; font: bold 14px; "
                                                            "border-width: 2px; background-color:#FF0000; "
                                                            "border-color:beige}")
-            elif float(self.model.get_skin_temp()) / 10 + 1.0 < self.skinV+self.skin_cal_check:
+            elif float(self.model.get_skin_temp()) / 10 + 1.0 < self.skinV + self.skin_cal_check:
                 self.ui.ui.tempHighLabel.setText("Skin High")
                 self.ui.ui.tempHighIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                            "1px;border-radius:10px; font: bold 14px; "
@@ -200,13 +201,13 @@ class SerialWrapper:
                                                            "border-width: 2px; background-color:#00FF00; "
                                                            "border-color:beige}")
 
-            if self.airV+self.air_cal_check < float(self.model.get_air_temp()) / 10 - 1.0:
+            if self.airV + self.air_cal_check < float(self.model.get_air_temp()) / 10 - 1.0:
                 self.ui.ui.tempLowLabel.setText("Air Low")
                 self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                           "1px;border-radius:10px; font: bold 14px; "
                                                           "border-width: 2px; background-color:#FF0000; "
                                                           "border-color:beige}")
-            elif float(self.model.get_air_temp()) / 10 + 1.0 < self.airV+self.air_cal_check:
+            elif float(self.model.get_air_temp()) / 10 + 1.0 < self.airV + self.air_cal_check:
                 self.ui.ui.tempLowLabel.setText("Air High")
                 self.ui.ui.tempLowIconLabel.setStyleSheet("QLabel{border-style: outset; border-width: "
                                                           "1px;border-radius:10px; font: bold 14px; "
@@ -261,6 +262,13 @@ class SerialWrapper:
 
             timerON = int(hex(configVariables.hex_string[17]), 16)
             set_temp_database = int(float(self.model.get_skin_temp()))
+            db_heater_value = int(float(self.model.get_heater_output()))
+            print("Heater_database: " + str(db_heater_value) + " CI=ircuit " + str(self.heaterValue) + " " + str(
+                configVariables.hex_string[9]))
+            print("$I0W" + str(configVariables.hex_string[12]) + " " + str(configVariables.hex_string[13]) + " " + str(
+                configVariables.hex_string[14]) + " " + str(configVariables.hex_string[15]) + " " + str(
+                configVariables.hex_string[16]) + " " + str(configVariables.hex_string[17]) + " " + str(
+                configVariables.hex_string[9]) + ";")
             if self.set_temp_skin != set_temp_database:
                 try:
                     self.decimalToHex(int(float(self.model.get_skin_temp())))
@@ -271,15 +279,21 @@ class SerialWrapper:
                 configVariables.heatModeString = "SERVO"
             elif configVariables.heatMode14 == 1:
                 configVariables.heatModeString = "MANUAL"
+                if (configVariables.hex_string[9] != int(float(self.model.get_heater_output()))) and \
+                        configVariables.hex_string[9] != 0:
+                    try:
+                        self.heater_set(db_heater_value)
+                    except Exception as e:
+                        print(e)
             elif configVariables.heatMode14 == 2:
                 configVariables.heatModeString = "ACCIDENTAL"
             elif configVariables.heatMode14 == 3:
                 configVariables.heatModeString = "PREHEAT"
-            binLowSkinTemp = bin(int(format(configVariables.hex_string[4])))  # int result = (first << 4) | second;
-            binHighSkinTemp = bin(int(format(configVariables.hex_string[5])))  # int result = (first << 4) | second;
+            # binLowSkinTemp = bin(int(format(configVariables.hex_string[4])))  # int result = (first << 4) | second;
+            # binHighSkinTemp = bin(int(format(configVariables.hex_string[5])))  # int result = (first << 4) | second;
 
-            result = int(f'0b{configVariables.hex_string[4]:08b}', 2) << 4 | int(
-                f'0b{configVariables.hex_string[5]:08b}', 2)
+            # result = int(f'0b{configVariables.hex_string[4]:08b}', 2) << 4 | int(
+            #   f'0b{configVariables.hex_string[5]:08b}', 2)
             # "{0:b}".format(configVariables.hex_string[4])#   print("Binary String1: " + f'0b{self.s[18]:08b}')
 
             # print(result)  # "{0:b}".format(configVariables.hex_string[4])
@@ -369,7 +383,20 @@ class SerialWrapper:
         self.ui.ui.heaterLabelShow.setText(str(self.heaterValue))
         self.ui.ui.setLabelSkinTemp.setText("{:.1f}".format(self.setTempValue))
 
-        # time.sleep(0.5)
+        # check
+        if configVariables.heatMode14 == 1:
+            if self.heaterValue > 60:
+                if configVariables.heatMode14 == 1:
+                    print(
+                        str(self.heaterValue) + "++++++++++++++++++++++++++++++++++++++++++++")
+                    if time.time() - self.oldTime > 600:
+                        self.heaterOnOffServoMode()
+                        print(
+                            "------------------------------------------------------------it's been a "
+                            "minute-----------------------------------------------------------------------------------")
+        else:
+            self.oldTime = time.time()
+            # time.sleep(0.5)
 
     def decimalToHex(self, value):
         hexValue = int(hex(value), 16)
@@ -392,6 +419,48 @@ class SerialWrapper:
                                       write_timeout=1, timeout=0)
             try:
                 self.ser1.write(serial.to_bytes(data))
+            except Exception as e:
+                print("--- abnormal read and write from port serialDataTXRX---：", e)
+                print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+            # time.sleep(0.5)  # Sleep for 3 seconds
+            self.ser1.close()
+        except Exception as e:
+            print(e)
+        configVariables.checkSendReceive = True
+
+    def heaterOnOffServoMode(self):
+        configVariables.checkSendReceive = False
+        data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
+            configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + chr(
+            configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + chr(0) + ";")
+
+        try:
+            self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
+                                      write_timeout=1, timeout=0)
+            try:
+                self.ser1.write(serial.to_bytes(data))
+                configVariables.hex_string = self.ser1.read(21)
+            except Exception as e:
+                print("--- abnormal read and write from port serialDataTXRX---：", e)
+                print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
+            # time.sleep(0.5)  # Sleep for 3 seconds
+            self.ser1.close()
+        except Exception as e:
+            print(e)
+        configVariables.checkSendReceive = True
+
+    def heater_set(self, value):
+        configVariables.checkSendReceive = False
+        data = str.encode("$I0W" + chr(configVariables.hex_string[12]) + chr(configVariables.hex_string[13]) + chr(
+            configVariables.hex_string[14]) + chr(configVariables.hex_string[15]) + chr(
+            configVariables.hex_string[16]) + chr(configVariables.hex_string[17]) + chr(value) + ";")
+
+        try:
+            self.ser1 = serial.Serial('/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1,
+                                      write_timeout=1, timeout=0)
+            try:
+                self.ser1.write(serial.to_bytes(data))
+                configVariables.hex_string = self.ser1.read(21)
             except Exception as e:
                 print("--- abnormal read and write from port serialDataTXRX---：", e)
                 print("++++++++++++++++++++++++++Exception is here occured++++++++++++++++++++++++++++++++++")
